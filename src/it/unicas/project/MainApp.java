@@ -159,9 +159,11 @@ public class MainApp extends Application {
             //set sensing element into the controller
             SensingElementOverviewController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            //controller.setSensingElement(sensingElementData); //???????
+            controller.setSensingElement(sensingElementData); //???????
+            controller.setMainApp(this);
 
-            dialogStage.showAndWait();
+
+            dialogStage.show();
 
             return controller.isCancelClicked();
         } catch (IOException e) {
@@ -204,7 +206,7 @@ public class MainApp extends Application {
     }
 
 
-    public boolean showSensingElementEditDialog(SensingElement sensingElement) {
+    public void showSensingElementEditDialog(SensingElement sensingElement) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -227,10 +229,10 @@ public class MainApp extends Application {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
-            return controller.isOkClicked();
+            //return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            //return false;
         }
     }
 

@@ -65,7 +65,7 @@ public class SensingElementOverviewController {
 
 
     private Stage dialogStage;
-    private SensingElement sensingElement;
+    private ObservableList<SensingElement> sensingElementData;
     private boolean okClicked = false;
     private boolean verifylen = true;
 
@@ -77,7 +77,7 @@ public class SensingElementOverviewController {
         ObservableList<SensingElement> sensingElements = sensingElementDAO.fetchAll();
         sensingElementTableView.setItems(sensingElements);
         // Initialize the sensing element table with the columns.
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("idSensingElement"));
+        //nameColumn.setCellValueFactory(new PropertyValueFactory<>("idSensingElement"));
 
         // Clear sensing element details.
         showSensingElementDetails(null);
@@ -136,7 +136,7 @@ public class SensingElementOverviewController {
             modeVILabel.setText("");
             measureTechniqueLabel.setText("");
             measureTypeLabel.setText("");
-            filterLabel.setText("");
+            filterLabel.setText(""+0);
             phaseShiftLabel.setText("");
             phaseShiftLabel.setText("");
             iqLabel.setText("");
@@ -174,12 +174,11 @@ public class SensingElementOverviewController {
     @FXML
     private void handleCreateSensingElement() {
         SensingElement tempSensingElement = new SensingElement();
-        boolean okClicked = mainApp.showSensingElementEditDialog(tempSensingElement);
+        mainApp.showSensingElementEditDialog(tempSensingElement);
 
-        if (okClicked) {
-            SensingElementDAO.getInstance().create(tempSensingElement);
-            mainApp.getSensingElementData().add(tempSensingElement);
-        }
+        SensingElementDAO.getInstance().create(tempSensingElement);
+        mainApp.getSensingElementData().add(tempSensingElement);
+
     }
 
     @FXML
@@ -201,14 +200,14 @@ public class SensingElementOverviewController {
         }
     }
 
-    @FXML
+    /*@FXML
     private void handleEditSensingElement() {
         SensingElement selectedColleghi = sensingElementTableView.getSelectionModel().getSelectedItem();
         if (selectedColleghi != null) {
-            boolean okClicked = mainApp.showSensingElementEditDialog(selectedColleghi);
-            if (okClicked) {
-                SensingElementDAO.getInstance().update(selectedColleghi);
-            }
+            mainApp.showSensingElementEditDialog(selectedColleghi);
+
+            SensingElementDAO.getInstance().update(selectedColleghi);
+
 
         } else {
             // Nothing selected.
@@ -220,7 +219,7 @@ public class SensingElementOverviewController {
 
             alert.showAndWait();
         }
-    }
+    }*/
 
     public boolean isCancelClicked() {
         return cancelClicked;
@@ -233,9 +232,12 @@ public class SensingElementOverviewController {
             dialogStage.close();
     }
 
-    public void setSensingElement(SensingElement sensingElement) {
-        this.sensingElement = sensingElement;
-        nameColumn.setText(sensingElement.getId());
+    public void setSensingElement(ObservableList<SensingElement> sensingElementData) {
+        this.sensingElementData = sensingElementData;
+        //nameColumn.setText();
+
+        sensingElementTableView.setItems(sensingElementData);
+
 
     }
 
