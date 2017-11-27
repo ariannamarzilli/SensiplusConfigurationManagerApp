@@ -1,17 +1,12 @@
 package it.unicas.project.view;
 
 import it.unicas.project.MainApp;
-import it.unicas.project.model.Elements;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
+
 
 public class FirstSceneController {
 
-    @FXML
-    private TableView<Elements> elementsTableView;
-
     private boolean sensingElementClicked = false;
-
 
     private MainApp mainApp;
 

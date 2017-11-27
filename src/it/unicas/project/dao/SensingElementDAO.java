@@ -2,6 +2,7 @@ package it.unicas.project.dao;
 
 import it.unicas.project.model.SensingElement;
 import it.unicas.project.util.ConnectionFactory;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -152,9 +153,9 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
      * @return All the sensingElements.
      */
     @Override
-    public Iterable<SensingElement> fetchAll() {
+    public ObservableList<SensingElement> fetchAll() {
 
-        ArrayList<SensingElement> sensingElements = null;
+        ObservableList<SensingElement> sensingElements = null;
 
         try {
             Connection connection = ConnectionFactory.getConnection();
@@ -163,7 +164,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                sensingElements.add(new SensingElement(resultSet.getString("id"),
+                sensingElements.add(new SensingElement(resultSet.getString("idSensingElement"),
                         resultSet.getInt("rSense"),
                         resultSet.getInt("inGain"),
                         resultSet.getInt("outGain"),
@@ -171,7 +172,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
                         resultSet.getInt("frequency"),
                         resultSet.getString("harmonic"),
                         resultSet.getInt("dcBias"),
-                        resultSet.getString("modelVI"),
+                        resultSet.getString("modeVI"),
                         resultSet.getString("measureTechnique"),
                         resultSet.getString("measureType"),
                         resultSet.getInt("filter"),
@@ -181,7 +182,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
                         resultSet.getInt("conversionRate"),
                         resultSet.getString("inPortADC"),
                         resultSet.getInt("nData"),
-                        resultSet.getString("measureUnit")));
+                        resultSet.getString("measure_unit")));
             }
             resultSet.close();
             statement.close();

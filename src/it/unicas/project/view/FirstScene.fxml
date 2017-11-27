@@ -20,7 +20,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleSensingElement" text="SensingElement" />
+            <Button mnemonicParsing="false" onAction="#handleSensingElement" style="-fx-background-color: #252525;" text="SensingElement" textFill="#9a9a9a" />
          </children>
       </GridPane>
    </children>

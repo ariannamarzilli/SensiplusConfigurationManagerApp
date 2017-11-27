@@ -76,7 +76,6 @@ public class MainApp extends Application {
 
            primaryStage.show();
 
-
             // Give the controller access to the main app.
             RootLayoutController controller = loader.getController();
             controller.setMainApp(this);
@@ -148,6 +147,7 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation((MainApp.class.getResource("view/SensingElement.fxml")));
             AnchorPane page = (AnchorPane) loader.load();
+
 
             //dialog stage
             Stage dialogStage = new Stage();

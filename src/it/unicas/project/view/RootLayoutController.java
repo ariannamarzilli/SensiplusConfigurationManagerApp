@@ -11,6 +11,4 @@ public class RootLayoutController {
         this.mainApp = mainApp;
     }
 
-
-
 }
