@@ -5,7 +5,7 @@ package it.unicas.project.dao;
  *
  * @param <Entity> The entity.
  */
-public interface DAO<Entity> {}
+public interface DAO<Entity, ID> {}
 
 
 

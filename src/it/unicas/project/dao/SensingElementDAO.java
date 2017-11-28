@@ -6,13 +6,14 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implements the CrudDAO interface.
  *
  * Utilizes the design pattern Singleton.
  */
-public class SensingElementDAO implements CrudDAO<SensingElement> {
+public class SensingElementDAO implements CrudDAO<SensingElement, String> {
 
     private static SensingElementDAO uniqueInstanceOfSensingElementDAO = null;
 
@@ -37,27 +38,33 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
     public void create(SensingElement sensingElement) {
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String sql = "INSERT INTO SensingElement (" +
-                    "idSensingElement, " +
+            String sql = "INSERT INTO SPSensingElement (" +
+                    "idSPSensingElement, " +
                     "rSense, " +
                     "inGain, " +
                     "outGain, " +
                     "contacts, " +
                     "frequency, " +
-                    "Harmonic, " +
+                    "harmonic, " +
                     "DCBias, " +
-                    "ModeVI, " +
-                    "MeasureTechnique, " +
-                    "Filter, " +
-                    "PhaseShiftMode, " +
-                    "PhaseShift, " +
+                    "modeVI, " +
+                    "measureTechnique, " +
+                    "measureType, " +
+                    "filter, " +
+                    "phaseShiftMode, " +
+                    "phaseShift, " +
                     "IQ, " +
-                    "ConversionRate, " +
-                    "InPortADC, " +
-                    "NData, " +
-                    "MEASURE_UNIT" +
+                    "conversionRate, " +
+                    "inPortADC, " +
+                    "nData, " +
+                    "name, " +
+                    "rangeMin, " +
+                    "raneMax, " +
+                    "defaultAlarmThreshold, " +
+                    "multiplier, " +
+                    "measureUnit" +
                     ")" +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, sensingElement.getId());
@@ -70,16 +77,21 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
             statement.setInt(8, sensingElement.getDcBias());
             statement.setString(9, sensingElement.getModeVI());
             statement.setString(10, sensingElement.getMeasureTechnique());
-            statement.setInt(11, sensingElement.getFilter());
-            statement.setString(12, sensingElement.getPhaseShiftMode());
-            statement.setInt(13, sensingElement.getPhaseShift());
-            statement.setString(14, sensingElement.getIq());
-            statement.setInt(15, sensingElement.getConversionRate());
-            statement.setString(16, sensingElement.getInPortADC());
-            statement.setInt(17, sensingElement.getnData());
-            statement.setString(18, sensingElement.getMeasureUnit());
+            statement.setString(11, sensingElement.getMeasureType());
+            statement.setInt(12, sensingElement.getFilter());
+            statement.setString(13, sensingElement.getPhaseShiftMode());
+            statement.setInt(14, sensingElement.getPhaseShift());
+            statement.setString(15, sensingElement.getIq());
+            statement.setInt(16, sensingElement.getConversionRate());
+            statement.setString(17, sensingElement.getInPortADC());
+            statement.setInt(18, sensingElement.getnData());
+            statement.setString(19, sensingElement.getName());
+            statement.setDouble(20, sensingElement.getRangeMin());
+            statement.setDouble(21, sensingElement.getRangeMax());
+            statement.setDouble(22, sensingElement.getDefaultAlarmThreshold());
+            statement.setInt(23, sensingElement.getMultiplier());
+            statement.setString(24, sensingElement.getMeasureUnit());
             statement.executeUpdate();
-
             statement.close();
             connection.close();
         } catch (SQLException e) {
@@ -96,7 +108,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
 
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String sql = "DELETE FROM SensingElement WHERE idSensingElement ='" + sensingElement.getId() + "';";
+            String sql = "DELETE FROM SPSensingElement WHERE idSPSensingElement ='" + sensingElement.getId() + "';";
             Statement statement = connection.prepareStatement(sql);
             statement.executeUpdate(sql);
 
@@ -114,30 +126,35 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
      * @param sensingElement The sensingElement to be updated.
      */
     @Override
-    public void update(SensingElement sensingElement) {
-
+    public void update(SensingElement sensingElement, String id) {
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String sql = "UPDATE SensingElement SET " +
-                    "idSensingElement = " + sensingElement.getId() +
-                    ", rSense = " + sensingElement.getrSense() +
-                    ", inGain = " + sensingElement.getInGain() +
-                    ", outGain = " + sensingElement.getOutGain() +
-                    ", contacts = " + sensingElement.getContacts() +
-                    ", frequency = " + sensingElement.getFrequency() +
-                    ", Harmonic = " + sensingElement.getHarmonic() +
-                    ", DCBias = " + sensingElement.getDcBias() +
-                    ", ModeVI = " + sensingElement.getModeVI() +
-                    ", MeasureTechnique = " + sensingElement.getMeasureTechnique() +
-                    ", Filter = " + sensingElement.getFilter() +
-                    ", PhaseShiftMode = " + sensingElement.getPhaseShiftMode() +
-                    ", PhaseShift = " + sensingElement.getPhaseShift() +
-                    ", IQ = " + sensingElement.getIq() +
-                    ", ConversionRate = " + sensingElement.getConversionRate() +
-                    ", InPortADC = " + sensingElement.getInPortADC() +
-                    ", NData = " + sensingElement.getnData() +
-                    ", MEASURE_UNIT = " + sensingElement.getMeasureUnit() +
-                    " WHERE idSensingElement = " + sensingElement.getId() + ";";
+            String sql = "UPDATE SPSensingElement SET " +
+                    "idSPSensingElement = '" + sensingElement.getId() + "' " +
+                    ", rSense = '" + sensingElement.getrSense() + "' " +
+                    ", inGain = '" + sensingElement.getInGain() + "' " +
+                    ", outGain = '" + sensingElement.getOutGain() + "' " +
+                    ", contacts = '" + sensingElement.getContacts() + "' " +
+                    ", frequency = '" + sensingElement.getFrequency() + "' " +
+                    ", harmonic = '" + sensingElement.getHarmonic() + "' " +
+                    ", DCBias = '" + sensingElement.getDcBias() + "' " +
+                    ", modeVI = '" + sensingElement.getModeVI() + "' " +
+                    ", measureTechnique = '" + sensingElement.getMeasureTechnique() + "' " +
+                    ", measureType = '" + sensingElement.getMeasureType() + "' " +
+                    ", filter = '" + sensingElement.getFilter() + "' " +
+                    ", phaseShiftMode = '" + sensingElement.getPhaseShiftMode() + "' " +
+                    ", PhaseShift = '" + sensingElement.getPhaseShift() + "' " +
+                    ", IQ = '" + sensingElement.getIq() + "' " +
+                    ", conversionRate = '" + sensingElement.getConversionRate() + "' " +
+                    ", inPortADC = '" + sensingElement.getInPortADC() + "' " +
+                    ", nData = '" + sensingElement.getnData() + "' " +
+                    ", name = '" + sensingElement.getName() + "' " +
+                    ", rangeMin = '" + sensingElement.getRangeMin() + "' " +
+                    ", raneMax = '" + sensingElement.getRangeMax() + "' " +
+                    ", defaultAlarmThreshold = '" + sensingElement.getDefaultAlarmThreshold() + "' " +
+                    ", multiplier = '" + sensingElement.getMultiplier() + "' " +
+                    ", measureUnit = '" + sensingElement.getMeasureUnit() + "' " +
+                    " WHERE idSPSensingElement = '" + id + "';";
 
             Statement statement = connection.prepareStatement(sql);
             statement.executeUpdate(sql);
@@ -153,40 +170,46 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
      * @return All the sensingElements.
      */
     @Override
-    public ObservableList<SensingElement> fetchAll() {
+    public Iterable<SensingElement> fetchAll() {
 
-        ObservableList<SensingElement> sensingElements = null;
+        List<SensingElement> sensingElements = new ArrayList<>();
 
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String sql = "SELECT * FROM SensingElement";
+            String sql = "SELECT * FROM SPSensingElement";
             Statement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                sensingElements.add(new SensingElement(resultSet.getString("idSensingElement"),
+                sensingElements.add(new SensingElement(resultSet.getString("idSPSensingElement"),
                         resultSet.getInt("rSense"),
                         resultSet.getInt("inGain"),
                         resultSet.getInt("outGain"),
                         resultSet.getString("contacts"),
                         resultSet.getInt("frequency"),
                         resultSet.getString("harmonic"),
-                        resultSet.getInt("dcBias"),
+                        resultSet.getInt("DCBias"),
                         resultSet.getString("modeVI"),
                         resultSet.getString("measureTechnique"),
                         resultSet.getString("measureType"),
                         resultSet.getInt("filter"),
                         resultSet.getString("phaseShiftMode"),
                         resultSet.getInt("phaseShift"),
-                        resultSet.getString("iq"),
+                        resultSet.getString("IQ"),
                         resultSet.getInt("conversionRate"),
                         resultSet.getString("inPortADC"),
                         resultSet.getInt("nData"),
-                        resultSet.getString("measure_unit")));
+                        resultSet.getString("name"),
+                        resultSet.getDouble("rangeMin"),
+                        resultSet.getDouble("raneMax"),
+                        resultSet.getDouble("defaultAlarmThreshold"),
+                        resultSet.getInt("multiplier"),
+                        resultSet.getString("measureUnit")));
             }
             resultSet.close();
             statement.close();
             connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

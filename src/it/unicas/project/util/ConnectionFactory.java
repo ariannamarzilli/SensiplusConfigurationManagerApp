@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public final class ConnectionFactory {
 
-    private static String URL = "jdbc:mysql://localhost:3306/shark92_plus?useSSL=false";
+    private static String URL = "jdbc:mysql://localhost:3306/sensiDB?useSSL=false";
     private static String USER = "root";
     private static String PASS = ".";
 
@@ -26,27 +26,4 @@ public final class ConnectionFactory {
         }
     }
 
-    public static String getURL() {
-        return URL;
-    }
-
-    public static void setURL(String URL) {
-        ConnectionFactory.URL = URL;
-    }
-
-    public static String getUSER() {
-        return USER;
-    }
-
-    public static void setUSER(String USER) {
-        ConnectionFactory.USER = USER;
-    }
-
-    public static String getPASS() {
-        return PASS;
-    }
-
-    public static void setPASS(String PASS) {
-        ConnectionFactory.PASS = PASS;
-    }
 }
