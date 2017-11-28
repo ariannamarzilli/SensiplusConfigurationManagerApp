@@ -159,7 +159,7 @@ public class MainApp extends Application {
             //set sensing element into the controller
             SensingElementOverviewController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setSensingElement(sensingElementData); //???????
+            //controller.setSensingElement(sensingElementData); //???????
             controller.setMainApp(this);
 
 

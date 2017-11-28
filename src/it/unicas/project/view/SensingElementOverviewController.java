@@ -99,17 +99,19 @@ public class SensingElementOverviewController {
         Iterable<SensingElement> sensingElements = sensingElementDAO.fetchAll();
         Iterator<SensingElement> iterator = sensingElements.iterator();
         ObservableList<SensingElement> sensingElementObservableList = FXCollections.observableArrayList();
+        sensingElementTableView.setItems(sensingElementObservableList);
+
         while (iterator.hasNext()) {
-            SensingElement sensingElement = (SensingElement) iterator.next();
+            SensingElement sensingElement = iterator.next();
             sensingElementObservableList.add(sensingElement);
         }
 
-        sensingElementTableView.setItems(sensingElementObservableList);
         // Initialize the sensing element table with the columns.
         //nameColumn.setCellValueFactory(new PropertyValueFactory<>("idSensingElement"));
-        //nameColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+        nameColumn.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getId().toString()) // cellData.getValue().idProperty()
+        );
 
-        
         // Clear sensing element details.
         showSensingElementDetails(null);
 
@@ -132,7 +134,7 @@ public class SensingElementOverviewController {
         this.mainApp = mainApp;
 
         //Add observable list data to the table
-        sensingElementTableView.setItems(mainApp.getSensingElementData());
+        //sensingElementTableView.setItems(mainApp.getSensingElementData());
     }
 
     private void showSensingElementDetails(SensingElement sensingElement) {

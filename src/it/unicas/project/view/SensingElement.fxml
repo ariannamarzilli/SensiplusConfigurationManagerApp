@@ -20,7 +20,7 @@
                <children>
                   <TableView fx:id="sensingElementTableView" layoutY="8.0" prefHeight="308.0" prefWidth="202.0">
                     <columns>
-                        <TableColumn fx:id="nomeColumn" prefWidth="199.0" text="NOME" />
+                        <TableColumn fx:id="nameColumn" prefWidth="199.0" text="NOME" />
                     </columns>
                   </TableView>
                   <AnchorPane layoutX="202.0" prefHeight="324.0" prefWidth="362.0">
