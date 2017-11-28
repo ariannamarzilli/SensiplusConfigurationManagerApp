@@ -13,7 +13,7 @@ import java.util.List;
  *
  * Utilizes the design pattern Singleton.
  */
-public class SensingElementDAO implements CrudDAO<SensingElement, String> {
+public class SensingElementDAO implements CrudDAO<SensingElement> {
 
     private static SensingElementDAO uniqueInstanceOfSensingElementDAO = null;
 
@@ -126,12 +126,11 @@ public class SensingElementDAO implements CrudDAO<SensingElement, String> {
      * @param sensingElement The sensingElement to be updated.
      */
     @Override
-    public void update(SensingElement sensingElement, String id) {
+    public void update(SensingElement sensingElement) {
         try {
             Connection connection = ConnectionFactory.getConnection();
             String sql = "UPDATE SPSensingElement SET " +
-                    "idSPSensingElement = '" + sensingElement.getId() + "' " +
-                    ", rSense = '" + sensingElement.getrSense() + "' " +
+                    " rSense = '" + sensingElement.getrSense() + "' " +
                     ", inGain = '" + sensingElement.getInGain() + "' " +
                     ", outGain = '" + sensingElement.getOutGain() + "' " +
                     ", contacts = '" + sensingElement.getContacts() + "' " +
@@ -154,7 +153,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement, String> {
                     ", defaultAlarmThreshold = '" + sensingElement.getDefaultAlarmThreshold() + "' " +
                     ", multiplier = '" + sensingElement.getMultiplier() + "' " +
                     ", measureUnit = '" + sensingElement.getMeasureUnit() + "' " +
-                    " WHERE idSPSensingElement = '" + id + "';";
+                    " WHERE idSPSensingElement = '" + sensingElement.getId() + "';";
 
             Statement statement = connection.prepareStatement(sql);
             statement.executeUpdate(sql);

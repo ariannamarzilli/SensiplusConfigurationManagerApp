@@ -6,7 +6,7 @@ package it.unicas.project.dao;
  *
  * @param <Entity> The entity.
  */
-public interface CrudDAO<Entity, ID> extends DAO {
+public interface CrudDAO<Entity> extends DAO {
 
     /**
      * Creates the new entity passed in.
@@ -27,7 +27,7 @@ public interface CrudDAO<Entity, ID> extends DAO {
      *
      * @param entity The entity to be updated.
      */
-    void update(Entity entity, ID id);
+    void update(Entity entity);
 
     /**
      * Fetches and returns all the entities.

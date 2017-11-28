@@ -61,6 +61,7 @@ public class SensingElementEditDialogController {
     private SensingElement sensingElement;
     private boolean okClicked = false;
 
+
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -155,7 +156,6 @@ public class SensingElementEditDialogController {
             sensingElement.setDefaultAlarmThreshold(Double.parseDouble(defaultAlarmThresholdTextField.getText()));
             sensingElement.setMultiplier(Integer.parseInt(multiplierTextField.getText()));
             sensingElement.setMeasureUnit(measureUnitTextField.getText());
-
 
             okClicked = true;
             dialogStage.close();

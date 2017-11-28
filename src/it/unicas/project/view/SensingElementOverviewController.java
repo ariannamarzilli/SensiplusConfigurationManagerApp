@@ -3,6 +3,10 @@ package it.unicas.project.view;
 import it.unicas.project.MainApp;
 import it.unicas.project.model.SensingElement;
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -94,172 +98,7 @@ public class SensingElementOverviewController {
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
         Iterable<SensingElement> sensingElements = sensingElementDAO.fetchAll();
         Iterator<SensingElement> iterator = sensingElements.iterator();
-        ObservableList<SensingElement> sensingElementObservableList = new ObservableList<SensingElement>() {
-            @Override
-            public void addListener(ListChangeListener<? super SensingElement> listener) {
-
-            }
-
-            @Override
-            public void removeListener(ListChangeListener<? super SensingElement> listener) {
-
-            }
-
-            @Override
-            public boolean addAll(SensingElement... elements) {
-                return false;
-            }
-
-            @Override
-            public boolean setAll(SensingElement... elements) {
-                return false;
-            }
-
-            @Override
-            public boolean setAll(Collection<? extends SensingElement> col) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(SensingElement... elements) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(SensingElement... elements) {
-                return false;
-            }
-
-            @Override
-            public void remove(int from, int to) {
-
-            }
-
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<SensingElement> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(SensingElement sensingElement) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends SensingElement> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends SensingElement> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public SensingElement get(int index) {
-                return null;
-            }
-
-            @Override
-            public SensingElement set(int index, SensingElement element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, SensingElement element) {
-
-            }
-
-            @Override
-            public SensingElement remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<SensingElement> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<SensingElement> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<SensingElement> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-
-            @Override
-            public void addListener(InvalidationListener listener) {
-
-            }
-
-            @Override
-            public void removeListener(InvalidationListener listener) {
-
-            }
-        };
+        ObservableList<SensingElement> sensingElementObservableList = FXCollections.observableArrayList();
         while (iterator.hasNext()) {
             SensingElement sensingElement = (SensingElement) iterator.next();
             sensingElementObservableList.add(sensingElement);
@@ -270,14 +109,13 @@ public class SensingElementOverviewController {
         //nameColumn.setCellValueFactory(new PropertyValueFactory<>("idSensingElement"));
         //nameColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 
+        
         // Clear sensing element details.
         showSensingElementDetails(null);
 
         // Listen for selection changes and show the Sensing Element details when changed.
         sensingElementTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSensingElementDetails(newValue));
-
-
 
     }
 
@@ -390,9 +228,12 @@ public class SensingElementOverviewController {
     @FXML
     private void handleUpdateSensingElement() {
         int selectedIndex = sensingElementTableView.getSelectionModel().getSelectedIndex();
+
         if (selectedIndex >= 0) {
             SensingElement sensingElement = sensingElementTableView.getItems().get(selectedIndex);
-            SensingElementDAO.getInstance().update(sensingElement, sensingElement.getId());
+            mainApp.showSensingElementEditDialog(sensingElement);
+            SensingElementDAO.getInstance().update(sensingElement);
+            showSensingElementDetails(sensingElement);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -400,7 +241,6 @@ public class SensingElementOverviewController {
             alert.setTitle("No Selection");
             alert.setHeaderText("No Sensing Element Selected");
             alert.setContentText("Please select a Sensing Element in the table.");
-
             alert.showAndWait();
         }
     }
@@ -445,7 +285,6 @@ public class SensingElementOverviewController {
 
 
     }
-
 
 
 }
