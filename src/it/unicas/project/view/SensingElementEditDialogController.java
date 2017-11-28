@@ -112,6 +112,24 @@ public class SensingElementEditDialogController {
     private void handleOk() {
         if (isInputValid()) {
             sensingElement.setId(nameTextField.getText());
+            sensingElement.setrSense(Integer.parseInt(rSenseTextField.getText()));
+            sensingElement.setInGain(Integer.parseInt(inGainTextField.getText()));
+            sensingElement.setOutGain(Integer.parseInt(outGainTextField.getText()));
+            sensingElement.setContacts(contactsTextField.getText());
+            sensingElement.setConversionRate(Integer.parseInt(conversionRateTextField.getText()));
+            sensingElement.setMeasureType(measureTypeTextField.getText());
+            sensingElement.setDcBias(Integer.parseInt(dcBiasTextField.getText()));
+            sensingElement.setFilter(Integer.parseInt(filterTextField.getText()));
+            sensingElement.setFrequency(Integer.parseInt(frequencyTextField.getText()));
+            sensingElement.setHarmonic(harmonicTextField.getText());
+            sensingElement.setInPortADC(inPortADCTextField.getText());
+            sensingElement.setIq(iqTextField.getText());
+            sensingElement.setMeasureTechnique(measureTechniqueTextField.getText());
+            sensingElement.setMeasureUnit(measureTypeTextField.getText());
+            sensingElement.setModeVI(modeVITextField.getText());
+            sensingElement.setnData(Integer.parseInt(nDataTextField.getText()));
+            sensingElement.setPhaseShift(Integer.parseInt(phaseShiftTextField.getText()));
+            sensingElement.setPhaseShiftMode(phaseShiftModeTextField.getText());
 
 
             okClicked = true;

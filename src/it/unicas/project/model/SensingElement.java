@@ -1,5 +1,7 @@
 package it.unicas.project.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,7 +13,7 @@ import javafx.beans.property.StringProperty;
 public final class SensingElement {
 
     private StringProperty id;
-    private Integer rSense;
+    private IntegerProperty rSense;
     private Integer inGain;
     private Integer outGain;
     private String contacts;
@@ -32,7 +34,8 @@ public final class SensingElement {
 
     public SensingElement() {
         this.id = new SimpleStringProperty("");
-        this.rSense = 0;
+        //this.rSense = 0;
+        this.rSense = new SimpleIntegerProperty(0);
         this.inGain = 0;
         this.outGain = 0;
         this.contacts = "";
@@ -54,7 +57,8 @@ public final class SensingElement {
 
     public SensingElement(String id) {
         this.id = new SimpleStringProperty(id);
-        this.rSense = 0;
+        //this.rSense = 0;
+        this.rSense = new SimpleIntegerProperty(0);
         this.inGain = 0;
         this.outGain = 0;
         this.contacts = "";
@@ -85,7 +89,8 @@ public final class SensingElement {
                           String inPortADC, Integer nData,
                           String measureUnit) {
         this.id = new SimpleStringProperty(id);
-        this.rSense = rSense;
+        //this.rSense = rSense;
+        this.rSense = new SimpleIntegerProperty(rSense);
         this.inGain = inGain;
         this.outGain = outGain;
         this.contacts = contacts;
@@ -117,12 +122,24 @@ public final class SensingElement {
         this.id.set(id);
     }
 
-    public Integer getrSense() {
+    /*public Integer getrSense() {
+        return rSense;
+    }*/
+
+    /*public void setrSense(Integer rSense) {
+        this.rSense = rSense;
+    }*/
+
+    public int getrSense() {
+        return rSense.get();
+    }
+
+    public IntegerProperty rSenseProperty() {
         return rSense;
     }
 
-    public void setrSense(Integer rSense) {
-        this.rSense = rSense;
+    public void setrSense(int rSense) {
+        this.rSense.set(rSense);
     }
 
     public Integer getInGain() {

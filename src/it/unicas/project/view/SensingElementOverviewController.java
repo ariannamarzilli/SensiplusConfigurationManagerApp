@@ -78,6 +78,7 @@ public class SensingElementOverviewController {
         sensingElementTableView.setItems(sensingElements);
         // Initialize the sensing element table with the columns.
         //nameColumn.setCellValueFactory(new PropertyValueFactory<>("idSensingElement"));
+        //nameColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 
         // Clear sensing element details.
         showSensingElementDetails(null);
@@ -85,6 +86,8 @@ public class SensingElementOverviewController {
         // Listen for selection changes and show the Sensing Element details when changed.
         sensingElementTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSensingElementDetails(newValue));
+
+
 
     }
 
