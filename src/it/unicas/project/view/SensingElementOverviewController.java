@@ -22,7 +22,7 @@ public class SensingElementOverviewController {
     @FXML
     private TableColumn<SensingElement, String> nameColumn;
     @FXML
-    private Label nameLabel;
+    private Label idLabel;
     @FXML
     private Label rSenseLabel;
     @FXML
@@ -57,6 +57,18 @@ public class SensingElementOverviewController {
     private Label inPortADCLabel;
     @FXML
     private Label nDataLabel;
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Label rangeMinLabel;
+    @FXML
+    private Label rangeMaxLabel;
+    @FXML
+    private Label defaultAlarmThresholdLabel;
+    @FXML
+    private Label multiplierLabel;
+    @FXML
+    private Label measureUnit;
 
 
     boolean cancelClicked = false;
@@ -74,7 +86,7 @@ public class SensingElementOverviewController {
     private void initialize() {
 
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
-        ObservableList<SensingElement> sensingElements = sensingElementDAO.fetchAll();
+        Iterable<SensingElement> sensingElements = sensingElementDAO.fetchAll();
         sensingElementTableView.setItems(sensingElements);
         // Initialize the sensing element table with the columns.
         //nameColumn.setCellValueFactory(new PropertyValueFactory<>("idSensingElement"));
@@ -109,7 +121,7 @@ public class SensingElementOverviewController {
 
     private void showSensingElementDetails(SensingElement sensingElement) {
         if (sensingElement != null) {
-            nameLabel.setText(sensingElement.getId());
+            idLabel.setText(sensingElement.getId());
             rSenseLabel.setText(""+sensingElement.getrSense());
             inGainLabel.setText(""+sensingElement.getInGain());
             outGainLabel.setText(""+sensingElement.getOutGain());
@@ -127,8 +139,15 @@ public class SensingElementOverviewController {
             conversionRateLabel.setText(""+sensingElement.getConversionRate());
             inPortADCLabel.setText(""+sensingElement.getInPortADC());
             nDataLabel.setText(""+sensingElement.getnData());
+            nameLabel.setText(""+sensingElement.getName());
+            rangeMinLabel.setText(""+sensingElement.getRangeMin());
+            rangeMaxLabel.setText(""+sensingElement.getRangeMax());
+            defaultAlarmThresholdLabel.setText(""+sensingElement.getDefaultAlarmThreshold());
+            multiplierLabel.setText(""+sensingElement.getMultiplier());
+            measureUnit.setText(""+sensingElement.getMeasureUnit());
+
         } else {
-            nameLabel.setText("");
+            idLabel.setText("");
             rSenseLabel.setText(""+0);
             inGainLabel.setText(""+0);
             outGainLabel.setText(""+0);
@@ -146,6 +165,12 @@ public class SensingElementOverviewController {
             conversionRateLabel.setText("");
             inPortADCLabel.setText("");
             nDataLabel.setText("");
+            nameLabel.setText("");
+            rangeMinLabel.setText(""+0);
+            rangeMaxLabel.setText(""+0);
+            defaultAlarmThresholdLabel.setText("");
+            multiplierLabel.setText("");
+            measureUnit.setText("");
         }
 
 

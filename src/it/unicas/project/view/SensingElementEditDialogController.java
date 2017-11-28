@@ -3,13 +3,16 @@ package it.unicas.project.view;
 import it.unicas.project.model.SensingElement;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import javax.xml.soap.Text;
 
 
 public class SensingElementEditDialogController {
     @FXML
-    private TextField nameTextField;
+    private TextField idTextField;
     @FXML
     private TextField rSenseTextField;
     @FXML
@@ -44,6 +47,18 @@ public class SensingElementEditDialogController {
     private TextField inPortADCTextField;
     @FXML
     private TextField nDataTextField;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField rangeMinTextField;
+    @FXML
+    private TextField rangeMaxTextField;
+    @FXML
+    private TextField defaultAlarmThresholdTextField;
+    @FXML
+    private TextField multiplierTextField;
+    @FXML
+    private TextField measureUnitTextField;
 
 
     private Stage dialogStage;
@@ -75,7 +90,7 @@ public class SensingElementEditDialogController {
     public void setSensingElement(SensingElement sensingElement) {
         this.sensingElement = sensingElement;
 
-        nameTextField.setText(sensingElement.getId());
+        idTextField.setText(sensingElement.getId());
         rSenseTextField.setText(""+sensingElement.getrSense());
         inGainTextField.setText(""+sensingElement.getInGain());
         outGainTextField.setText(""+sensingElement.getOutGain());
@@ -93,6 +108,13 @@ public class SensingElementEditDialogController {
         conversionRateTextField.setText(""+sensingElement.getConversionRate());
         inPortADCTextField.setText(""+sensingElement.getInPortADC());
         nDataTextField.setText(""+sensingElement.getnData());
+        nameTextField.setText(sensingElement.getName());
+        rangeMinTextField.setText(""+sensingElement.getRangeMin());
+        rangeMaxTextField.setText(""+sensingElement.getRangeMax());
+        defaultAlarmThresholdTextField.setText(""+sensingElement.getDefaultAlarmThreshold());
+        multiplierTextField.setText(""+sensingElement.getMultiplier());
+        measureUnitTextField.setText(""+sensingElement.getMeasureUnit());
+
 
     }
 
@@ -111,7 +133,7 @@ public class SensingElementEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            sensingElement.setId(nameTextField.getText());
+            sensingElement.setId(idTextField.getText());
             sensingElement.setrSense(Integer.parseInt(rSenseTextField.getText()));
             sensingElement.setInGain(Integer.parseInt(inGainTextField.getText()));
             sensingElement.setOutGain(Integer.parseInt(outGainTextField.getText()));
@@ -125,11 +147,18 @@ public class SensingElementEditDialogController {
             sensingElement.setInPortADC(inPortADCTextField.getText());
             sensingElement.setIq(iqTextField.getText());
             sensingElement.setMeasureTechnique(measureTechniqueTextField.getText());
-            sensingElement.setMeasureUnit(measureTypeTextField.getText());
+            sensingElement.setMeasureType(measureTypeTextField.getText());
             sensingElement.setModeVI(modeVITextField.getText());
             sensingElement.setnData(Integer.parseInt(nDataTextField.getText()));
             sensingElement.setPhaseShift(Integer.parseInt(phaseShiftTextField.getText()));
             sensingElement.setPhaseShiftMode(phaseShiftModeTextField.getText());
+            sensingElement.setMultiplier(Integer.parseInt(multiplierTextField.getText()));
+            sensingElement.setName(nameTextField.getText());
+            sensingElement.setRangeMin(Double.parseDouble(rangeMinTextField.getText()));
+            sensingElement.setRangeMax(Double.parseDouble(rangeMaxTextField.getText()));
+            sensingElement.setDefaultAlarmThreshold(Double.parseDouble(defaultAlarmThresholdTextField.getText()));
+            sensingElement.setMultiplier(Integer.parseInt(multiplierTextField.getText()));
+            sensingElement.setMeasureUnit(measureUnitTextField.getText());
 
 
             okClicked = true;
