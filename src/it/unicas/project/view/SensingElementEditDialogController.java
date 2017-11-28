@@ -178,7 +178,7 @@ public class SensingElementEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (nameTextField.getText() == null || nameTextField.getText().length() == 0) {
+        if (idTextField.getText() == null || idTextField.getText().length() == 0) {
             errorMessage += "No valid first name!\n";
 
         }
