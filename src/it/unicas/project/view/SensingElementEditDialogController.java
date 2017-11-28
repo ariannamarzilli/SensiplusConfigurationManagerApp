@@ -3,12 +3,8 @@ package it.unicas.project.view;
 import it.unicas.project.model.SensingElement;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import javax.xml.soap.Text;
-
 
 public class SensingElementEditDialogController {
     @FXML
