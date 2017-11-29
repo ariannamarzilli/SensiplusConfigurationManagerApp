@@ -68,11 +68,11 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, sensingElement.getId());
-            statement.setInt(2, sensingElement.getrSense());
-            statement.setInt(3, sensingElement.getInGain());
-            statement.setInt(4, sensingElement.getOutGain());
+            statement.setString(2, sensingElement.getrSense());
+            statement.setString(3, sensingElement.getInGain());
+            statement.setString(4, sensingElement.getOutGain());
             statement.setString(5, sensingElement.getContacts());
-            statement.setInt(6, sensingElement.getFrequency());
+            statement.setDouble(6, sensingElement.getFrequency());
             statement.setString(7, sensingElement.getHarmonic());
             statement.setInt(8, sensingElement.getDcBias());
             statement.setString(9, sensingElement.getModeVI());
@@ -80,9 +80,9 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
             statement.setString(11, sensingElement.getMeasureType());
             statement.setInt(12, sensingElement.getFilter());
             statement.setString(13, sensingElement.getPhaseShiftMode());
-            statement.setInt(14, sensingElement.getPhaseShift());
+            statement.setDouble(14, sensingElement.getPhaseShift());
             statement.setString(15, sensingElement.getIq());
-            statement.setInt(16, sensingElement.getConversionRate());
+            statement.setDouble(16, sensingElement.getConversionRate());
             statement.setString(17, sensingElement.getInPortADC());
             statement.setInt(18, sensingElement.getnData());
             statement.setString(19, sensingElement.getName());
@@ -181,11 +181,11 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
 
             while (resultSet.next()) {
                 sensingElements.add(new SensingElement(resultSet.getString("idSPSensingElement"),
-                        resultSet.getInt("rSense"),
-                        resultSet.getInt("inGain"),
-                        resultSet.getInt("outGain"),
+                        resultSet.getString("rSense"),
+                        resultSet.getString("inGain"),
+                        resultSet.getString("outGain"),
                         resultSet.getString("contacts"),
-                        resultSet.getInt("frequency"),
+                        resultSet.getDouble("frequency"),
                         resultSet.getString("harmonic"),
                         resultSet.getInt("DCBias"),
                         resultSet.getString("modeVI"),
@@ -193,9 +193,9 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
                         resultSet.getString("measureType"),
                         resultSet.getInt("filter"),
                         resultSet.getString("phaseShiftMode"),
-                        resultSet.getInt("phaseShift"),
+                        resultSet.getDouble("phaseShift"),
                         resultSet.getString("IQ"),
-                        resultSet.getInt("conversionRate"),
+                        resultSet.getDouble("conversionRate"),
                         resultSet.getString("inPortADC"),
                         resultSet.getInt("nData"),
                         resultSet.getString("name"),

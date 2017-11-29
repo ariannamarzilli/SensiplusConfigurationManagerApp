@@ -13,11 +13,11 @@ import javafx.beans.property.StringProperty;
 public final class SensingElement {
 
     private String id;
-    private Integer rSense;
-    private Integer inGain;
-    private Integer outGain;
+    private String rSense;
+    private String inGain;
+    private String outGain;
     private String contacts;
-    private Integer frequency;
+    private Double frequency;
     private String harmonic;
     private Integer dcBias;
     private String modeVI;
@@ -25,9 +25,9 @@ public final class SensingElement {
     private String measureType;
     private Integer filter;
     private String phaseShiftMode;
-    private Integer phaseShift;
+    private Double phaseShift;
     private String iq;
-    private Integer conversionRate;
+    private Double conversionRate;
     private String inPortADC;
     private Integer nData;
     private String name;
@@ -39,66 +39,66 @@ public final class SensingElement {
 
     public SensingElement() {
         this.id = "";
-        this.rSense = 0;
-        this.inGain = 0;
-        this.outGain = 0;
-        this.contacts = "";
-        this.frequency = 0;
-        this.harmonic = "";
+        this.rSense = "50";
+        this.inGain = "1";
+        this.outGain = "0";
+        this.contacts = "TWO";
+        this.frequency = 78125.0;
+        this.harmonic = "FIRST_HARMONIC";
         this.dcBias = 0;
-        this.modeVI = "";
-        this.measureTechnique = "";
-        this.measureType = "";
-        this.filter = 0;
-        this.phaseShiftMode = "";
-        this.phaseShift = 0;
-        this.iq = "";
-        this.conversionRate = 0;
-        this.inPortADC = "";
-        this.nData = 0;
+        this.modeVI = "VOUT_IIN";
+        this.measureTechnique = "EIS";
+        this.measureType = "IN-PHASE";
+        this.filter = 256;
+        this.phaseShiftMode = "QUADRANT";
+        this.phaseShift = 0.0;
+        this.iq = "IN_PHASE";
+        this.conversionRate = 50.0;
+        this.inPortADC = "IA";
+        this.nData = 1;
         this.name = "";
-        this.rangeMin = 0.0;
-        this.rangeMax = 0.0;
-        this.defaultAlarmThreshold = 0.0;
-        this.multiplier = 0;
-        this.measureUnit = "";
+        this.rangeMin = 120.0;
+        this.rangeMax = 180.0;
+        this.defaultAlarmThreshold = 150.0;
+        this.multiplier = 12;
+        this.measureUnit = "F=Farad";
     }
 
     public SensingElement(String id) {
         this.id = id;
-        this.rSense = 0;
-        this.inGain = 0;
-        this.outGain = 0;
-        this.contacts = "";
-        this.frequency = 0;
-        this.harmonic = "";
+        this.rSense = "50";
+        this.inGain = "1";
+        this.outGain = "0";
+        this.contacts = "TWO";
+        this.frequency = 78125.0;
+        this.harmonic = "FIRST_HARMONIC";
         this.dcBias = 0;
-        this.modeVI = "";
-        this.measureTechnique = "";
-        this.measureType = "";
-        this.filter = 0;
-        this.phaseShiftMode = "";
-        this.phaseShift = 0;
-        this.iq = "";
-        this.conversionRate = 0;
-        this.inPortADC = "";
-        this.nData = 0;
+        this.modeVI = "VOUT_IIN";
+        this.measureTechnique = "EIS";
+        this.measureType = "IN-PHASE";
+        this.filter = 256;
+        this.phaseShiftMode = "QUADRANT";
+        this.phaseShift = 0.0;
+        this.iq = "IN_PHASE";
+        this.conversionRate = 50.0;
+        this.inPortADC = "IA";
+        this.nData = 1;
         this.name = "";
-        this.rangeMin = 0.0;
-        this.rangeMax = 0.0;
-        this.defaultAlarmThreshold = 0.0;
-        this.multiplier = 0;
-        this.measureUnit = "";
+        this.rangeMin = 120.0;
+        this.rangeMax = 180.0;
+        this.defaultAlarmThreshold = 150.0;
+        this.multiplier = 12;
+        this.measureUnit = "F=Farad";
     }
 
-    public SensingElement(String id, Integer rSense,
-                          Integer inGain, Integer outGain,
-                          String contacts, Integer frequency,
+    public SensingElement(String id, String rSense,
+                          String inGain, String outGain,
+                          String contacts, Double frequency,
                           String harmonic, Integer dcBias,
                           String modeVI, String measureTechnique,
                           String measureType, Integer filter,
-                          String phaseShiftMode, Integer phaseShift,
-                          String iq, Integer conversionRate,
+                          String phaseShiftMode, Double phaseShift,
+                          String iq, Double conversionRate,
                           String inPortADC, Integer nData, String name,
                           Double rangeMin, Double rangeMax,
                           Double defaultAlarmThreshold, Integer multiplier,
@@ -137,11 +137,11 @@ public final class SensingElement {
         this.id = id;
     }
 
-    public Integer getrSense() {
+    public String getrSense() {
         return rSense;
     }
 
-    public void setrSense(Integer rSense) {
+    public void setrSense(String rSense) {
         this.rSense = rSense;
     }
 
@@ -185,19 +185,19 @@ public final class SensingElement {
         this.multiplier = multiplier;
     }
 
-    public Integer getInGain() {
+    public String getInGain() {
         return inGain;
     }
 
-    public void setInGain(Integer inGain) {
+    public void setInGain(String inGain) {
         this.inGain = inGain;
     }
 
-    public Integer getOutGain() {
+    public String getOutGain() {
         return outGain;
     }
 
-    public void setOutGain(Integer outGain) {
+    public void setOutGain(String outGain) {
         this.outGain = outGain;
     }
 
@@ -209,11 +209,11 @@ public final class SensingElement {
         this.contacts = contacts;
     }
 
-    public Integer getFrequency() {
+    public Double getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(Integer frequency) {
+    public void setFrequency(Double frequency) {
         this.frequency = frequency;
     }
 
@@ -273,11 +273,11 @@ public final class SensingElement {
         this.phaseShiftMode = phaseShiftMode;
     }
 
-    public Integer getPhaseShift() {
+    public Double getPhaseShift() {
         return phaseShift;
     }
 
-    public void setPhaseShift(Integer phaseShift) {
+    public void setPhaseShift(Double phaseShift) {
         this.phaseShift = phaseShift;
     }
 
@@ -289,11 +289,11 @@ public final class SensingElement {
         this.iq = iq;
     }
 
-    public Integer getConversionRate() {
+    public Double getConversionRate() {
         return conversionRate;
     }
 
-    public void setConversionRate(Integer conversionRate) {
+    public void setConversionRate(Double conversionRate) {
         this.conversionRate = conversionRate;
     }
 
