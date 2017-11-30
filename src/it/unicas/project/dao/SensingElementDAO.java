@@ -2,11 +2,10 @@ package it.unicas.project.dao;
 
 import it.unicas.project.model.SensingElement;
 import it.unicas.project.util.ConnectionFactory;
-import javafx.collections.ObservableList;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Implements the CrudDAO interface.
@@ -16,6 +15,8 @@ import java.util.List;
 public class SensingElementDAO implements CrudDAO<SensingElement> {
 
     private static SensingElementDAO uniqueInstanceOfSensingElementDAO = null;
+    Integer emptyIntegerForDirectMeasure = -2049;
+    Double emptyDoubleForDirectMeasure = 2049.0;
 
     /**
      * Returns the unique instance of sensingElementDAO.
@@ -36,6 +37,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
      */
     @Override
     public void create(SensingElement sensingElement) {
+
         try {
             Connection connection = ConnectionFactory.getConnection();
             String sql = "INSERT INTO SPSensingElement (" +
@@ -68,24 +70,93 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, sensingElement.getId());
-            statement.setString(2, sensingElement.getrSense());
-            statement.setString(3, sensingElement.getInGain());
-            statement.setString(4, sensingElement.getOutGain());
-            statement.setString(5, sensingElement.getContacts());
-            statement.setDouble(6, sensingElement.getFrequency());
-            statement.setString(7, sensingElement.getHarmonic());
-            statement.setInt(8, sensingElement.getDcBias());
-            statement.setString(9, sensingElement.getModeVI());
+
+            if (!sensingElement.getrSense().isEmpty()) {
+                statement.setString(2, sensingElement.getrSense());
+            } else {
+                statement.setNull(2, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getInGain().isEmpty()) {
+                statement.setString(3, sensingElement.getInGain());
+            } else {
+                statement.setNull(3, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getOutGain().isEmpty()) {
+                statement.setString(4, sensingElement.getOutGain());
+            } else {
+                statement.setNull(4, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getContacts().isEmpty()) {
+                statement.setString(5, sensingElement.getContacts());
+            } else {
+                statement.setNull(5, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getFrequency().equals(emptyDoubleForDirectMeasure)) {
+                statement.setDouble(6, sensingElement.getFrequency());
+            } else {
+                statement.setNull(6, Types.DOUBLE);
+            }
+
+            if (!sensingElement.getHarmonic().isEmpty()) {
+                statement.setString(7, sensingElement.getHarmonic());
+            } else {
+                statement.setNull(7, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getDcBias().equals(emptyIntegerForDirectMeasure)) {
+                statement.setInt(8, sensingElement.getDcBias());
+            } else {
+                statement.setNull(8, Types.INTEGER);
+            }
+
+            if (!sensingElement.getModeVI().isEmpty()) {
+                statement.setString(9, sensingElement.getModeVI());
+            } else {
+                statement.setNull(9, Types.VARCHAR);
+            }
+
             statement.setString(10, sensingElement.getMeasureTechnique());
-            statement.setString(11, sensingElement.getMeasureType());
+
+            if (!sensingElement.getMeasureType().isEmpty()) {
+                statement.setString(11, sensingElement.getMeasureType());
+            } else {
+                statement.setNull(11, Types.VARCHAR);
+            }
+
             statement.setInt(12, sensingElement.getFilter());
-            statement.setString(13, sensingElement.getPhaseShiftMode());
-            statement.setDouble(14, sensingElement.getPhaseShift());
-            statement.setString(15, sensingElement.getIq());
+
+            if (!sensingElement.getPhaseShiftMode().isEmpty()) {
+                statement.setString(13, sensingElement.getPhaseShiftMode());
+            } else {
+                statement.setNull(13, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getPhaseShift().equals(emptyDoubleForDirectMeasure)) {
+                statement.setDouble(14, sensingElement.getPhaseShift());
+            } else {
+                statement.setNull(14, Types.DOUBLE);
+            }
+
+            if (!sensingElement.getIq().isEmpty()) {
+                statement.setString(15, sensingElement.getIq());
+            } else {
+                statement.setNull(15, Types.VARCHAR);
+            }
+
             statement.setDouble(16, sensingElement.getConversionRate());
             statement.setString(17, sensingElement.getInPortADC());
             statement.setInt(18, sensingElement.getnData());
-            statement.setString(19, sensingElement.getName());
+
+            if (!sensingElement.getName().isEmpty()) {
+                statement.setString(19, sensingElement.getName());
+            } else {
+                statement.setNull(19, Types.VARCHAR);
+            }
+
             statement.setDouble(20, sensingElement.getRangeMin());
             statement.setDouble(21, sensingElement.getRangeMax());
             statement.setDouble(22, sensingElement.getDefaultAlarmThreshold());
@@ -127,35 +198,114 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
      */
     @Override
     public void update(SensingElement sensingElement) {
+
         try {
             Connection connection = ConnectionFactory.getConnection();
             String sql = "UPDATE SPSensingElement SET " +
-                    " rSense = '" + sensingElement.getrSense() + "' " +
-                    ", inGain = '" + sensingElement.getInGain() + "' " +
-                    ", outGain = '" + sensingElement.getOutGain() + "' " +
-                    ", contacts = '" + sensingElement.getContacts() + "' " +
-                    ", frequency = '" + sensingElement.getFrequency() + "' " +
-                    ", harmonic = '" + sensingElement.getHarmonic() + "' " +
-                    ", DCBias = '" + sensingElement.getDcBias() + "' " +
-                    ", modeVI = '" + sensingElement.getModeVI() + "' " +
-                    ", measureTechnique = '" + sensingElement.getMeasureTechnique() + "' " +
-                    ", measureType = '" + sensingElement.getMeasureType() + "' " +
-                    ", filter = '" + sensingElement.getFilter() + "' " +
-                    ", phaseShiftMode = '" + sensingElement.getPhaseShiftMode() + "' " +
-                    ", PhaseShift = '" + sensingElement.getPhaseShift() + "' " +
-                    ", IQ = '" + sensingElement.getIq() + "' " +
-                    ", conversionRate = '" + sensingElement.getConversionRate() + "' " +
-                    ", inPortADC = '" + sensingElement.getInPortADC() + "' " +
-                    ", nData = '" + sensingElement.getnData() + "' " +
-                    ", name = '" + sensingElement.getName() + "' " +
-                    ", rangeMin = '" + sensingElement.getRangeMin() + "' " +
-                    ", raneMax = '" + sensingElement.getRangeMax() + "' " +
-                    ", defaultAlarmThreshold = '" + sensingElement.getDefaultAlarmThreshold() + "' " +
-                    ", multiplier = '" + sensingElement.getMultiplier() + "' " +
-                    ", measureUnit = '" + sensingElement.getMeasureUnit() + "' " +
-                    " WHERE idSPSensingElement = '" + sensingElement.getId() + "';";
+                    "rSense =?, inGain = ?, outGain = ?, contacts = ?, " +
+                    "frequency = ?, harmonic = ?, DCBias = ?, modeVI = ?, " +
+                    "measureTechnique = ?, measureType = ?, filter = ?, "+
+                    "phaseShiftMode = ?, PhaseShift = ?, IQ = ?, " +
+                    "conversionRate = ?, inPortADC = ?, nData = ?, " +
+                    "name = ?, rangeMin = ?, raneMax = ?, defaultAlarmThreshold = ?, " +
+                    "multiplier = ?, measureUnit = ? " +
+                    "WHERE idSPSensingElement = ? ;";
 
-            Statement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+
+            if (!sensingElement.getrSense().isEmpty()) {
+                statement.setString(1, sensingElement.getrSense());
+            } else {
+                statement.setNull(1, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getInGain().isEmpty()) {
+                statement.setString(2, sensingElement.getInGain());
+            } else {
+                statement.setNull(2, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getOutGain().isEmpty()) {
+                statement.setString(3, sensingElement.getOutGain());
+            } else {
+                statement.setNull(3, Types.VARCHAR);
+            }
+
+            if (!sensingElement.getContacts().isEmpty()) {
+                statement.setString(4, sensingElement.getContacts());
+            } else {
+                statement.setNull(4, Types.VARCHAR);
+            }
+
+            if (sensingElement.getFrequency() != 0.0) {
+                statement.setDouble(5, sensingElement.getFrequency());
+            } else {
+                statement.setNull(5, Types.DOUBLE);
+            }
+
+            if (!sensingElement.getHarmonic().isEmpty()) {
+                statement.setString(6, sensingElement.getHarmonic());
+            } else {
+                statement.setNull(6, Types.VARCHAR);
+            }
+
+            if (sensingElement.getDcBias() != 0) {
+                statement.setInt(7, sensingElement.getDcBias());
+            } else {
+                statement.setNull(7, Types.INTEGER);
+            }
+
+            if (!sensingElement.getModeVI().isEmpty()) {
+                statement.setString(8, sensingElement.getModeVI());
+            } else {
+                statement.setNull(8, Types.VARCHAR);
+            }
+
+            statement.setString(9, sensingElement.getMeasureTechnique());
+
+            if (!sensingElement.getMeasureType().isEmpty()) {
+                statement.setString(10, sensingElement.getMeasureType());
+            } else {
+                statement.setNull(10, Types.VARCHAR);
+            }
+
+            statement.setInt(11, sensingElement.getFilter());
+
+            if (!sensingElement.getPhaseShiftMode().isEmpty()) {
+                statement.setString(12, sensingElement.getPhaseShiftMode());
+            } else {
+                statement.setNull(12, Types.VARCHAR);
+            }
+
+            if (sensingElement.getPhaseShift() != 0) {
+                statement.setDouble(13, sensingElement.getPhaseShift());
+            } else {
+                statement.setNull(13, Types.DOUBLE);
+            }
+
+            if (!sensingElement.getIq().isEmpty()) {
+                statement.setString(14, sensingElement.getIq());
+            } else {
+                statement.setNull(14, Types.VARCHAR);
+            }
+
+            statement.setDouble(15, sensingElement.getConversionRate());
+            statement.setString(16, sensingElement.getInPortADC());
+            statement.setInt(17, sensingElement.getnData());
+
+            if (!sensingElement.getName().isEmpty()) {
+                statement.setString(18, sensingElement.getName());
+            } else {
+                statement.setNull(18, Types.VARCHAR);
+            }
+
+            statement.setDouble(19, sensingElement.getRangeMin());
+            statement.setDouble(20, sensingElement.getRangeMax());
+            statement.setDouble(21, sensingElement.getDefaultAlarmThreshold());
+            statement.setInt(22, sensingElement.getMultiplier());
+            statement.setString(23, sensingElement.getMeasureUnit());
+            statement.setString(24, sensingElement.getId());
             statement.executeUpdate(sql);
             statement.close();
             connection.close();

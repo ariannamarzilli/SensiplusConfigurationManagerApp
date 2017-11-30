@@ -49,7 +49,7 @@ public final class SensingElement {
         this.modeVI = "VOUT_IIN";
         this.measureTechnique = "EIS";
         this.measureType = "IN-PHASE";
-        this.filter = 256;
+        this.filter = 1;
         this.phaseShiftMode = "QUADRANT";
         this.phaseShift = 0.0;
         this.iq = "IN_PHASE";
@@ -57,11 +57,11 @@ public final class SensingElement {
         this.inPortADC = "IA";
         this.nData = 1;
         this.name = "";
-        this.rangeMin = 120.0;
-        this.rangeMax = 180.0;
-        this.defaultAlarmThreshold = 150.0;
-        this.multiplier = 12;
-        this.measureUnit = "F=Farad";
+        this.rangeMin = 0.0;
+        this.rangeMax = 100.0;
+        this.defaultAlarmThreshold = 50.0;
+        this.multiplier = 0;
+        this.measureUnit = "O=Ohm";
     }
 
     public SensingElement(String id) {
@@ -76,7 +76,7 @@ public final class SensingElement {
         this.modeVI = "VOUT_IIN";
         this.measureTechnique = "EIS";
         this.measureType = "IN-PHASE";
-        this.filter = 256;
+        this.filter = 1;
         this.phaseShiftMode = "QUADRANT";
         this.phaseShift = 0.0;
         this.iq = "IN_PHASE";
@@ -84,11 +84,11 @@ public final class SensingElement {
         this.inPortADC = "IA";
         this.nData = 1;
         this.name = "";
-        this.rangeMin = 120.0;
-        this.rangeMax = 180.0;
-        this.defaultAlarmThreshold = 150.0;
-        this.multiplier = 12;
-        this.measureUnit = "F=Farad";
+        this.rangeMin = 0.0;
+        this.rangeMax = 100.0;
+        this.defaultAlarmThreshold = 50.0;
+        this.multiplier = 0;
+        this.measureUnit = "O=Ohm";
     }
 
     public SensingElement(String id, String rSense,
@@ -103,6 +103,7 @@ public final class SensingElement {
                           Double rangeMin, Double rangeMax,
                           Double defaultAlarmThreshold, Integer multiplier,
                           String measureUnit) {
+
         this.id = id;
         this.rSense = rSense;
         this.inGain = inGain;
@@ -143,46 +144,6 @@ public final class SensingElement {
 
     public void setrSense(String rSense) {
         this.rSense = rSense;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getRangeMin() {
-        return rangeMin;
-    }
-
-    public void setRangeMin(Double rangeMin) {
-        this.rangeMin = rangeMin;
-    }
-
-    public Double getRangeMax() {
-        return rangeMax;
-    }
-
-    public void setRangeMax(Double rangeMax) {
-        this.rangeMax = rangeMax;
-    }
-
-    public Double getDefaultAlarmThreshold() {
-        return defaultAlarmThreshold;
-    }
-
-    public void setDefaultAlarmThreshold(Double defaultAlarmThreshold) {
-        this.defaultAlarmThreshold = defaultAlarmThreshold;
-    }
-
-    public Integer getMultiplier() {
-        return multiplier;
-    }
-
-    public void setMultiplier(Integer multiplier) {
-        this.multiplier = multiplier;
     }
 
     public String getInGain() {
@@ -237,8 +198,8 @@ public final class SensingElement {
         return modeVI;
     }
 
-    public void setModeVI(String modelVI) {
-        this.modeVI = modelVI;
+    public void setModeVI(String modeVI) {
+        this.modeVI = modeVI;
     }
 
     public String getMeasureTechnique() {
@@ -311,6 +272,46 @@ public final class SensingElement {
 
     public void setnData(Integer nData) {
         this.nData = nData;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getRangeMin() {
+        return rangeMin;
+    }
+
+    public void setRangeMin(Double rangeMin) {
+        this.rangeMin = rangeMin;
+    }
+
+    public Double getRangeMax() {
+        return rangeMax;
+    }
+
+    public void setRangeMax(Double rangeMax) {
+        this.rangeMax = rangeMax;
+    }
+
+    public Double getDefaultAlarmThreshold() {
+        return defaultAlarmThreshold;
+    }
+
+    public void setDefaultAlarmThreshold(Double defaultAlarmThreshold) {
+        this.defaultAlarmThreshold = defaultAlarmThreshold;
+    }
+
+    public Integer getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(Integer multiplier) {
+        this.multiplier = multiplier;
     }
 
     public String getMeasureUnit() {

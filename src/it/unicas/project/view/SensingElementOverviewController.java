@@ -90,6 +90,8 @@ public class SensingElementOverviewController {
     private ObservableList<SensingElement> sensingElementData;
     private boolean okClicked = false;
     private boolean verifylen = true;
+    Integer emptyIntegerForDirectMeasure = -2049;
+    Double emptyDoubleForDirectMeasure = 2049.0;
 
 
     @FXML
@@ -106,11 +108,9 @@ public class SensingElementOverviewController {
             sensingElementObservableList.add(sensingElement);
         }
 
-
         // Initialize the sensing element table with the columns.
-        //nameColumn.setCellValueFactory(new PropertyValueFactory<>("idSensingElement"));
         nameColumn.setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()) // cellData.getValue().idProperty()
+                cellData -> new SimpleStringProperty(cellData.getValue().getId().toString())
         );
 
         // Clear sensing element details.
@@ -145,15 +145,27 @@ public class SensingElementOverviewController {
             inGainLabel.setText(""+sensingElement.getInGain());
             outGainLabel.setText(""+sensingElement.getOutGain());
             contactsLabel.setText(sensingElement.getContacts());
-            frequencyLabel.setText(""+sensingElement.getFrequency());
+            if (sensingElement.getFrequency().equals(emptyDoubleForDirectMeasure)) {
+                frequencyLabel.setText("");
+            } else {
+                frequencyLabel.setText(""+sensingElement.getFrequency());
+            }
             harmonicLabel.setText(sensingElement.getHarmonic());
-            dcBiasLabel.setText(""+sensingElement.getDcBias());
+            if (sensingElement.getDcBias().equals(emptyIntegerForDirectMeasure)) {
+                dcBiasLabel.setText("");
+            } else {
+                dcBiasLabel.setText(""+sensingElement.getDcBias());
+            }
             modeVILabel.setText(sensingElement.getModeVI());
             measureTechniqueLabel.setText(sensingElement.getMeasureTechnique());
             measureTypeLabel.setText(""+sensingElement.getMeasureType());
             filterLabel.setText(""+sensingElement.getFilter());
             phaseShiftModeLabel.setText(""+sensingElement.getPhaseShiftMode());
-            phaseShiftLabel.setText(""+sensingElement.getPhaseShift());
+            if (sensingElement.getPhaseShift().equals(emptyDoubleForDirectMeasure)) {
+                phaseShiftLabel.setText("");
+            } else {
+                phaseShiftLabel.setText(""+sensingElement.getPhaseShift());
+            }
             iqLabel.setText(""+sensingElement.getIq());
             conversionRateLabel.setText(""+sensingElement.getConversionRate());
             inPortADCLabel.setText(""+sensingElement.getInPortADC());
@@ -167,17 +179,17 @@ public class SensingElementOverviewController {
 
         } else {
             idLabel.setText("");
-            rSenseLabel.setText(""+0);
-            inGainLabel.setText(""+0);
-            outGainLabel.setText(""+0);
+            rSenseLabel.setText("");
+            inGainLabel.setText("");
+            outGainLabel.setText("");
             contactsLabel.setText("");
-            frequencyLabel.setText(""+0);
+            frequencyLabel.setText("");
             harmonicLabel.setText("");
-            dcBiasLabel.setText(""+0);
+            dcBiasLabel.setText("");
             modeVILabel.setText("");
             measureTechniqueLabel.setText("");
             measureTypeLabel.setText("");
-            filterLabel.setText(""+0);
+            filterLabel.setText("");
             phaseShiftLabel.setText("");
             phaseShiftLabel.setText("");
             iqLabel.setText("");
@@ -185,14 +197,12 @@ public class SensingElementOverviewController {
             inPortADCLabel.setText("");
             nDataLabel.setText("");
             nameLabel.setText("");
-            rangeMinLabel.setText(""+0);
-            rangeMaxLabel.setText(""+0);
+            rangeMinLabel.setText("");
+            rangeMaxLabel.setText("");
             defaultAlarmThresholdLabel.setText("");
             multiplierLabel.setText("");
             measureUnit.setText("");
         }
-
-
     }
 
     //called when the user clicks on a button named delete

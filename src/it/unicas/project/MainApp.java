@@ -42,17 +42,13 @@ public class MainApp extends Application {
         // Set the application icon.
         this.primaryStage.getIcons().add(new Image("file:resources/images/address_book_32.png"));
 
-
-
         //mostro la scena iniziale, il border pane diviso in 5
         initRootLayout();
-
 
         //e la scena centrale che deve contenere i button: sensing element, family...
         showFirstScene();
 
         this.primaryStage.show();
-
     }
 
 
