@@ -302,21 +302,22 @@ public class SensingElementEditDialogController {
             errorMessage += "No valid NData!\n";
         }
 
-        if (Double.parseDouble(rangeMinTextField.getText()) > Math.pow(10, 21) || Double.parseDouble(rangeMaxTextField.getText()) < -Math.pow(10, 21)){
+        if (Double.parseDouble(rangeMinTextField.getText()) > Math.pow(10, 21) || Double.parseDouble(rangeMaxTextField.getText()) < -Math.pow(10, -21)){
             errorMessage += "No valid Range Min!\n";
         }
 
         if (Double.parseDouble(rangeMaxTextField.getText()) > Math.pow(10, 21) ||
-                Double.parseDouble(rangeMaxTextField.getText()) < -Math.pow(10, 21) ||
+                Double.parseDouble(rangeMaxTextField.getText()) < -Math.pow(10, -21) ||
                 Double.parseDouble(rangeMinTextField.getText()) > Double.parseDouble(rangeMaxTextField.getText())){
             errorMessage += "No valid Range Max!\n";
         }
 
-        if (Double.parseDouble(defaultAlarmThresholdTextField.getText()) > Math.pow(10, 21) || Double.parseDouble(defaultAlarmThresholdTextField.getText()) < -Math.pow(10, 21)){
+        if (Double.parseDouble(defaultAlarmThresholdTextField.getText()) > Math.pow(10, 21) || Double.parseDouble(defaultAlarmThresholdTextField.getText()) < -Math.pow(10, -21)){
             errorMessage += "No valid Alarm Threshold!\n";
         }
 
-        if (Integer.parseInt(multiplierTextField.getText()) >= 21 && Integer.parseInt(multiplierTextField.getText()) <= -21){
+        if (Integer.parseInt(multiplierTextField.getText()) >= 21 || Integer.parseInt(multiplierTextField.getText()) <= -21 ||
+                Integer.parseInt(multiplierTextField.getText())%3 != 0){
             errorMessage += "No valid Multiplier!\n";
         }
 

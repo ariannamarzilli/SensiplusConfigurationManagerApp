@@ -156,7 +156,7 @@ public class MainApp extends Application {
             SensingElementOverviewController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             //controller.setSensingElement(sensingElementData); //???????
-            controller.setMainApp(this);
+            //controller.setMainApp(this);
 
 
             dialogStage.show();
@@ -194,6 +194,10 @@ public class MainApp extends Application {
     //non so se serve qui
     public ObservableList<SensingElement> getSensingElementData() {
         return sensingElementData;
+    }
+
+    public void setSensingElementData(ObservableList<SensingElement> sensingElementData) {
+        this.sensingElementData = sensingElementData;
     }
 
 

@@ -87,7 +87,6 @@ public class SensingElementOverviewController {
 
 
     private Stage dialogStage;
-    private ObservableList<SensingElement> sensingElementData;
     private boolean okClicked = false;
     private boolean verifylen = true;
     Integer emptyIntegerForDirectMeasure = -2049;
@@ -103,18 +102,28 @@ public class SensingElementOverviewController {
         ObservableList<SensingElement> sensingElementObservableList = FXCollections.observableArrayList();
         //sensingElementTableView.setItems(sensingElementObservableList);
 
+
+
         while (iterator.hasNext()) {
             SensingElement sensingElement = iterator.next();
             sensingElementObservableList.add(sensingElement);
         }
 
+        this.setMainApp(mainApp);
+        mainApp.setSensingElementData(sensingElementObservableList);
+
+
         // Initialize the sensing element table with the columns.
         nameColumn.setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getId().toString())
+                cellData -> new SimpleStringProperty(cellData.getValue().getName().toString())
         );
 
         // Clear sensing element details.
         showSensingElementDetails(null);
+
+
+
+
 
         // Listen for selection changes and show the Sensing Element details when changed.
         sensingElementTableView.getSelectionModel().selectedItemProperty().addListener(
@@ -290,14 +299,7 @@ public class SensingElementOverviewController {
             dialogStage.close();
     }
 
-    public void setSensingElement(ObservableList<SensingElement> sensingElementData) {
-        this.sensingElementData = sensingElementData;
-        //nameColumn.setText();
 
-        sensingElementTableView.setItems(sensingElementData);
-
-
-    }
 
 
 }
