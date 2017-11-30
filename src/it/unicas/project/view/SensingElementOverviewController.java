@@ -86,6 +86,8 @@ public class SensingElementOverviewController {
     private MainApp mainApp;
 
 
+    ObservableList<SensingElement> sensingElementsData;
+
     private Stage dialogStage;
     private boolean okClicked = false;
     private boolean verifylen = true;
@@ -109,14 +111,12 @@ public class SensingElementOverviewController {
             sensingElementObservableList.add(sensingElement);
         }
 
-        this.setMainApp(mainApp);
-        mainApp.setSensingElementData(sensingElementObservableList);
+
+        this.setSensingElementsData(sensingElementObservableList);
 
 
         // Initialize the sensing element table with the columns.
-        nameColumn.setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getName().toString())
-        );
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()));
 
         // Clear sensing element details.
         showSensingElementDetails(null);
@@ -143,8 +143,11 @@ public class SensingElementOverviewController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
+
         //Add observable list data to the table
         sensingElementTableView.setItems(mainApp.getSensingElementData());
+
+        //sensingElementTableView.setItems(sensingElementsData);
     }
 
     private void showSensingElementDetails(SensingElement sensingElement) {
@@ -297,6 +300,12 @@ public class SensingElementOverviewController {
     private void handleCancel() {
             cancelClicked = true;
             dialogStage.close();
+    }
+
+
+    public void setSensingElementsData (ObservableList<SensingElement> sensingElementsData) {
+        this.sensingElementsData = sensingElementsData;
+
     }
 
 

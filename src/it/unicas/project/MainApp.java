@@ -156,7 +156,7 @@ public class MainApp extends Application {
             SensingElementOverviewController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             //controller.setSensingElement(sensingElementData); //???????
-            //controller.setMainApp(this);
+            controller.setMainApp(this);
 
 
             dialogStage.show();
