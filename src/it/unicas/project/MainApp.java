@@ -1,5 +1,7 @@
 package it.unicas.project;
 
+import it.unicas.project.dao.FamilyDAO;
+import it.unicas.project.model.Family;
 import it.unicas.project.model.SensingElement;
 import it.unicas.project.view.FirstSceneController;
 import it.unicas.project.view.RootLayoutController;
@@ -21,6 +23,8 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MainApp extends Application {
@@ -187,9 +191,7 @@ public class MainApp extends Application {
     }
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) {launch(args);}
 
     //non so se serve qui
     public ObservableList<SensingElement> getSensingElementData() {

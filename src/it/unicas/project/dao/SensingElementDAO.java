@@ -202,7 +202,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
         try {
             Connection connection = ConnectionFactory.getConnection();
             String sql = "UPDATE SPSensingElement SET " +
-                    "rSense =?, inGain = ?, outGain = ?, contacts = ?, " +
+                    "rSense = ?, inGain = ?, outGain = ?, contacts = ?, " +
                     "frequency = ?, harmonic = ?, DCBias = ?, modeVI = ?, " +
                     "measureTechnique = ?, measureType = ?, filter = ?, "+
                     "phaseShiftMode = ?, PhaseShift = ?, IQ = ?, " +
