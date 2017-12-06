@@ -106,14 +106,14 @@ public class MainApp extends Application {
 
     public void showClusterTable() {
 
-<<<<<<< HEAD
-    public static void main(String[] args) { launch(args);}
+    public static void main (String[] args) {
+        launch(args);
+    }
+
 
     //non so se serve qui
     public ObservableList<SensingElement> getSensingElementData() {
         return sensingElementData;
-=======
->>>>>>> 45f35d6d8688e7150b97697438769645e3d57d69
     }
 
     public void showConfigurationTable() {
