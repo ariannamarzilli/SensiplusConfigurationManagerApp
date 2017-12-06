@@ -69,7 +69,7 @@ public class FamilyDetailsController {
         }
 
         Iterator<String> iterator1 = family.getPortName().iterator();
-        while (iterator.hasNext()) {
+        while (iterator1.hasNext()) {
             portsBox.getCheckModel().check(iterator1.next());
         }
     }
