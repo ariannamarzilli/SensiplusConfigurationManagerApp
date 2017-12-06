@@ -191,7 +191,7 @@ public class MainApp extends Application {
     }
 
 
-    public static void main(String[] args) {launch(args);}
+    public static void main(String[] args) { launch(args);}
 
     //non so se serve qui
     public ObservableList<SensingElement> getSensingElementData() {
@@ -239,3 +239,6 @@ public class MainApp extends Application {
     }
 
 }
+
+
+
