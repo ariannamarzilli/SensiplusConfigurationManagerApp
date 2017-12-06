@@ -2,8 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -84,16 +84,7 @@
             <Label text="Phase Shift" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="21" />
             <Label text="IQ" textFill="#005b96" GridPane.columnIndex="2" GridPane.rowIndex="21" />
             <JFXComboBox fx:id="measureTechniqueComboBox" labelFloat="true" onAction="#handleMeasureTechnique" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="nameTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="idTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.rowIndex="1" />
-            <TextField fx:id="conversionRateTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.rowIndex="4" />
             <JFXComboBox fx:id="inPortADCComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="nDataTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField fx:id="filterTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.rowIndex="7" />
-            <TextField fx:id="defaultAlarmThresholdTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="multiplierTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <TextField fx:id="rangeMinTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.rowIndex="10" />
-            <TextField fx:id="rangeMaxTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <JFXComboBox fx:id="measureUnitComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="10" />
             <JFXComboBox fx:id="rSenseComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.rowIndex="13" />
             <JFXComboBox fx:id="inGainComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="13" />
@@ -101,12 +92,21 @@
             <JFXComboBox fx:id="contactsComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.rowIndex="16" />
             <JFXComboBox fx:id="harmonicComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="16" />
             <JFXComboBox fx:id="modeVIComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="16" />
-            <TextField fx:id="frequencyTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.rowIndex="19" />
-            <TextField fx:id="dcBiasTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="19" />
             <JFXComboBox fx:id="measureTypeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="19" />
             <JFXComboBox fx:id="phaseShiftModeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.rowIndex="22" />
-            <TextField fx:id="phaseShiftTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="22" />
             <JFXComboBox fx:id="iqComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" style="-fx-text-fill: #ffffff;" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="22" />
+            <JFXTextField fx:id="idTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="nameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="conversionRateTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="nDataTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="filterTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="7" />
+            <JFXTextField fx:id="defaultAlarmThresholdTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <JFXTextField fx:id="multiplierTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <JFXTextField fx:id="rangeMinTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="10" />
+            <JFXTextField fx:id="rangeMaxTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <JFXTextField fx:id="frequencyTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="19" />
+            <JFXTextField fx:id="dcBiasTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="19" />
+            <JFXTextField fx:id="phaseShiftTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="22" />
          </children>
       </GridPane>
       <Pane prefHeight="35.0" prefWidth="600.0" style="-fx-background-color: #011f4b;">

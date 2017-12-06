@@ -1,6 +1,7 @@
 package it.unicas.project.view;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import it.unicas.project.MainApp;
 import it.unicas.project.model.SensingElement;
 import javafx.collections.FXCollections;
@@ -50,7 +51,7 @@ public class SensingElementDetailsController {
                     "L = Lumen", "t = time");
 
     @FXML
-    private TextField idTextField;
+    private JFXTextField idTextField;
     @FXML
     private JFXComboBox<String> rSenseComboBox;
     @FXML
@@ -60,11 +61,11 @@ public class SensingElementDetailsController {
     @FXML
     private JFXComboBox<String> contactsComboBox;
     @FXML
-    private TextField frequencyTextField;
+    private JFXTextField frequencyTextField;
     @FXML
     private JFXComboBox<String> harmonicComboBox;
     @FXML
-    private TextField dcBiasTextField;
+    private JFXTextField dcBiasTextField;
     @FXML
     private JFXComboBox<String> modeVIComboBox;
     @FXML
@@ -72,29 +73,29 @@ public class SensingElementDetailsController {
     @FXML
     private JFXComboBox<String> measureTypeComboBox;
     @FXML
-    private TextField filterTextField;
+    private JFXTextField filterTextField;
     @FXML
     private JFXComboBox<String> phaseShiftModeComboBox;
     @FXML
-    private TextField phaseShiftTextField;
+    private JFXTextField phaseShiftTextField;
     @FXML
     private JFXComboBox<String> iqComboBox;
     @FXML
-    private TextField conversionRateTextField;
+    private JFXTextField conversionRateTextField;
     @FXML
     private JFXComboBox<String> inPortADCComboBox;
     @FXML
-    private TextField nDataTextField;
+    private JFXTextField nDataTextField;
     @FXML
-    private TextField nameTextField;
+    private JFXTextField nameTextField;
     @FXML
-    private TextField rangeMinTextField;
+    private JFXTextField rangeMinTextField;
     @FXML
-    private TextField rangeMaxTextField;
+    private JFXTextField rangeMaxTextField;
     @FXML
-    private TextField defaultAlarmThresholdTextField;
+    private JFXTextField defaultAlarmThresholdTextField;
     @FXML
-    private TextField multiplierTextField;
+    private JFXTextField multiplierTextField;
     @FXML
     private JFXComboBox<String> measureUnitComboBox;
 

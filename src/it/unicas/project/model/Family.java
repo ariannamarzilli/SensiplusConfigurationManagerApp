@@ -47,6 +47,17 @@ public class Family {
         this.measureType = measureType;
     }
 
+
+    public Family(Family family) {
+        this.id = family.getId();
+        this.name = family.getName();
+        this.hwVersion = family.getHwVersion();
+        this.sysclock = family.getSysclock();
+        this.osctrim = family.getOsctrim();
+        this.portName = family.getPortName();
+        this.measureType = family.getMeasureType();
+    }
+
     public String getId() {
         return id;
     }
@@ -101,5 +112,18 @@ public class Family {
 
     public void setMeasureType(List<String> measureType) {
         this.measureType = measureType;
+    }
+
+    public boolean equals(Family family) {
+        if (this.id.equals(family.getId()) &&
+                this.name.equals(family.getName()) &&
+                this.hwVersion.equals(family.getHwVersion()) &&
+                this.sysclock.equals(family.getSysclock()) &&
+                this.osctrim.equals(family.getOsctrim()) &&
+                this.portName.equals(family.getPortName()) &&
+                this.measureType.equals(family.getMeasureType())) {
+            return true;
+        }
+        return false;
     }
 }

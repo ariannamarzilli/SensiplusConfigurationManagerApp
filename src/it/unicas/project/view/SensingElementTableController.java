@@ -68,7 +68,6 @@ public class SensingElementTableController {
 
     private MainApp mainApp;
     ObservableList<SensingElement> sensingElementsData;
-    String action = new String();
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
