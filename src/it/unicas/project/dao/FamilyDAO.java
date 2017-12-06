@@ -242,36 +242,37 @@ public class FamilyDAO implements CrudDAO<Family> {
             String sqlUpdateSPFamily = "UPDATE SPFamily SET " +
                     "id = ?, hwVersion = ?, sysclock = ?, osctrim = ?" +
                     " WHERE name = ? ;";
-            String sqlUpdateSPFamilyTemplate = "UPDATE SPFamilyTemplate SET SPPort_idSPPort = ? ;";
 
-            String sqlUpdateSPFamilyHasSPMeasureType = "UPDATE SPFamily_has_SPMeasureType SET " +
-                    "SPMeasureType_idSPMeasureType = ? ;";
+            String sqlIdFamilySelect = "SELECT idSPFamily FROM SPFamily WHERE name = '" + family.getName() + "';";
 
             String sqlIdSPPOrtSelect = "SELECT idSPPort FROM SPPort WHERE name = ?;";
 
-            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureType WHERE name = ?;";
+            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureType WHERE type = ?;";
+
+            String sqlDeleSPPort = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = ?;";
+
+            String sqlDeleteSPMeasureType = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = ?;";
+
+            String sqlSPFamilyTemplateInsert = "INSERT INTO SPFamilyTemplate (" +
+                    "SPFamily_idSPFamily, " +
+                    "SPPort_idSPPort)" +
+                    " VALUES (?, ?)";
+
+            String sqlSPFamilyHasSPMeasureTypeInsert = "INSERT INTO SPFamily_has_SPMeasureType (" +
+                    "SPFamily_idSPFamily, " +
+                    "SPMeasureType_idSPMeasureType)" +
+                    "VALUES (?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sqlUpdateSPFamily, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement statement1 = connection.prepareStatement(sqlUpdateSPFamilyTemplate);
-            PreparedStatement statement2 = connection.prepareStatement(sqlUpdateSPFamilyHasSPMeasureType);
             PreparedStatement statement3 = connection.prepareStatement(sqlIdSPPOrtSelect, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement4 = connection.prepareStatement(sqlIdSPMeasureTypeSelect, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement5 = connection.prepareStatement(sqlIdFamilySelect);
+            PreparedStatement statement6 = connection.prepareStatement(sqlDeleSPPort);
+            PreparedStatement statement7 = connection.prepareStatement(sqlDeleteSPMeasureType);
+            PreparedStatement statement1 = connection.prepareStatement(sqlSPFamilyTemplateInsert);
+            PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyHasSPMeasureTypeInsert);
 
-            //ResultSet resultSet = statement3.executeQuery(sqlIdSPPOrtSelect);
 
-            /*int idPort = 0;
-
-            while (resultSet.next()){
-                idPort = resultSet.getInt("idSPPort");
-            }*/
-
-            //ResultSet resultSet1 = statement4.executeQuery(sqlIdSPMeasureTypeSelect);
-
-            /*int idMeasureType = 0;
-
-            while (resultSet1.next()){
-                idMeasureType = resultSet1.getInt("idSPMeasureType");
-            }*/
 
             if (!family.getName().isEmpty()) {
                 statement.setString(5, family.getName());
@@ -303,80 +304,75 @@ public class FamilyDAO implements CrudDAO<Family> {
                 statement.setNull(4, Types.VARCHAR);
             }
 
-            /*ResultSet resultSet2 = statement.executeQuery();
 
             int idSPFamily = 0;
 
-            while (resultSet2.next()){
-                idSPFamily = resultSet2.getInt("idSPFamily");
-            }*/
+            ResultSet resultSet3 = statement5.executeQuery();
 
-            int affectedRows = statement.executeUpdate();
-
-            long idSPFamily = 0l;
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+            while(resultSet3.next()){
+                idSPFamily = resultSet3.getInt("idSPFamily");
             }
 
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    idSPFamily=(generatedKeys.getLong(1));
-                }
-                else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
-                }
-            }
+
+            statement6.setInt(1, idSPFamily);
+
+            statement6.executeUpdate();
+
+            statement7.setInt(1, idSPFamily);
+
+            statement7.executeUpdate();
+
+
 
             int idPort = 0;
 
             for (String temp : portList) {
 
-                statement1.setString(1, temp);
+                statement3.setString(1, temp);
 
-                ResultSet resultSet = statement1.executeQuery();
+                ResultSet resultSet = statement3.executeQuery();
 
 
                 while (resultSet.next()) {
                     idPort = resultSet.getInt("idSPPort");
                 }
 
-                statement1.setInt(1, (int) idSPFamily);
+                statement1.setInt(1, idSPFamily);
                 statement1.setInt(2, idPort);
 
                 statement1.execute();
             }
-
-
-            /*statement1.setInt(1, (int)idSPFamily);
-            statement1.setInt(1, idPort);
-
-            statement1.execute();*/
-
 
             int idMeasureType = 0;
 
             for (String temp : measureTypeList) {
 
 
-                statement2.setString(1, temp);
-                ResultSet resultSet2 = statement3.executeQuery();
+                statement4.setString(1, temp);
+                ResultSet resultSet1 = statement4.executeQuery();
 
 
-                while (resultSet2.next()) {
-                    idMeasureType = resultSet2.getInt("idSPMeasureType");
+                while (resultSet1.next()) {
+                    idMeasureType = resultSet1.getInt("idSPMeasureType");
                 }
-                statement2.setInt(1, (int)idSPFamily);
-                statement2.setInt(1, idMeasureType);
+
+                statement2.setInt(1, (int) idSPFamily);
+                statement2.setInt(2, idMeasureType);
 
                 statement2.execute();
+
+
             }
+
 
             statement.close();
             statement1.close();
             statement2.close();
             statement3.close();
             statement4.close();
+            statement5.close();
+            statement6.close();
+            statement7.close();
 
             connection.close();
         } catch (SQLException e) {
