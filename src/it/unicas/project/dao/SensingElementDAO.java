@@ -15,8 +15,8 @@ import java.util.List;
 public class SensingElementDAO implements CrudDAO<SensingElement> {
 
     private static SensingElementDAO uniqueInstanceOfSensingElementDAO = null;
-    Integer emptyIntegerForDirectMeasure = -2049;
-    Double emptyDoubleForDirectMeasure = 2049.0;
+    Integer emptyIntegerForDirectMeasure = Integer.MAX_VALUE;
+    Double emptyDoubleForDirectMeasure = Double.MAX_VALUE;
 
     /**
      * Returns the unique instance of sensingElementDAO.
@@ -306,7 +306,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
             statement.setInt(22, sensingElement.getMultiplier());
             statement.setString(23, sensingElement.getMeasureUnit());
             statement.setString(24, sensingElement.getId());
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
             statement.close();
             connection.close();
         } catch (SQLException e) {

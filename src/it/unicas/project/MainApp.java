@@ -1,12 +1,6 @@
 package it.unicas.project;
 
-import it.unicas.project.dao.FamilyDAO;
-import it.unicas.project.model.Family;
 import it.unicas.project.model.SensingElement;
-import it.unicas.project.view.FirstSceneController;
-import it.unicas.project.view.RootLayoutController;
-import it.unicas.project.view.SensingElementEditDialogController;
-import it.unicas.project.view.SensingElementOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +17,6 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class MainApp extends Application {
