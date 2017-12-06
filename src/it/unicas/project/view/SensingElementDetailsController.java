@@ -1,15 +1,16 @@
 package it.unicas.project.view;
 
+import com.jfoenix.controls.JFXComboBox;
+import it.unicas.project.MainApp;
 import it.unicas.project.model.SensingElement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class SensingElementEditDialogController {
+public class SensingElementDetailsController {
 
     ObservableList<String> rSenseList = FXCollections
             .observableArrayList("50", "500", "5000", "50000");
@@ -45,44 +46,43 @@ public class SensingElementEditDialogController {
             .observableArrayList(  "IA", "VA");
 
     ObservableList<String> measureUniteList = FXCollections
-            .observableArrayList(  "O=Ohm", "F=Farad", "H=Henry", "C=Celsius", "%=relative", "V=Voltage", "A=Current",
-                    "L=Lumen", "t=time");
-
+            .observableArrayList(  "O = Ohm", "F = Farad", "H = Henry", "C = Celsius", "% = relative", "V = Voltage", "A = Current",
+                    "L = Lumen", "t = time");
 
     @FXML
     private TextField idTextField;
     @FXML
-    private ComboBox<String> rSenseComboBox;
+    private JFXComboBox<String> rSenseComboBox;
     @FXML
-    private ComboBox<String> inGainComboBox;
+    private JFXComboBox<String> inGainComboBox;
     @FXML
-    private ComboBox<String> outGainComboBox;
+    private JFXComboBox<String> outGainComboBox;
     @FXML
-    private ComboBox<String> contactsComboBox;
+    private JFXComboBox<String> contactsComboBox;
     @FXML
     private TextField frequencyTextField;
     @FXML
-    private ComboBox<String> harmonicComboBox;
+    private JFXComboBox<String> harmonicComboBox;
     @FXML
     private TextField dcBiasTextField;
     @FXML
-    private ComboBox<String> modeVIComboBox;
+    private JFXComboBox<String> modeVIComboBox;
     @FXML
-    private ComboBox<String> measureTechniqueComboBox;
+    private JFXComboBox<String> measureTechniqueComboBox;
     @FXML
-    private ComboBox<String> measureTypeComboBox;
+    private JFXComboBox<String> measureTypeComboBox;
     @FXML
     private TextField filterTextField;
     @FXML
-    private ComboBox<String> phaseShiftModeComboBox;
+    private JFXComboBox<String> phaseShiftModeComboBox;
     @FXML
     private TextField phaseShiftTextField;
     @FXML
-    private ComboBox<String> iqComboBox;
+    private JFXComboBox<String> iqComboBox;
     @FXML
     private TextField conversionRateTextField;
     @FXML
-    private ComboBox<String> inPortADCComboBox;
+    private JFXComboBox<String> inPortADCComboBox;
     @FXML
     private TextField nDataTextField;
     @FXML
@@ -96,14 +96,18 @@ public class SensingElementEditDialogController {
     @FXML
     private TextField multiplierTextField;
     @FXML
-    private ComboBox<String> measureUnitComboBox;
+    private JFXComboBox<String> measureUnitComboBox;
 
-    private Stage dialogStage;
+    private Integer emptyIntegerForDirectMeasure = Integer.MAX_VALUE;
+    private Double emptyDoubleForDirectMeasure = Double.MAX_VALUE;
     private SensingElement sensingElement;
-    private boolean okClicked = false;
-    boolean cancelClicked = false;
-    Integer emptyIntegerForDirectMeasure = -2049;
-    Double emptyDoubleForDirectMeasure = 2049.0;
+    private Stage dialogStage;
+    private MainApp mainApp;
+
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -124,18 +128,12 @@ public class SensingElementEditDialogController {
         iqComboBox.setItems(iqList);
         inPortADCComboBox.setItems(inPortADCList);
         measureUnitComboBox.setItems(measureUniteList);
-    }
 
-    /**
-     * Sets the stage of this dialog.
-     *
-     * @param dialogStage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
     }
 
 
+    // Funzione chiamata per mostrare o parametri di default sull'edit dialogue oppure per mostrare i valori che un sensing
+    // element su cui fare update ha
     /**
      * Sets the person to be edited in the dialog.
      *
@@ -182,24 +180,29 @@ public class SensingElementEditDialogController {
         multiplierTextField.setText(""+sensingElement.getMultiplier());
         measureUnitComboBox.setValue(sensingElement.getMeasureUnit());
 
+
+        if (measureTechniqueComboBox.getSelectionModel().getSelectedItem().equals("DIRECT")) {
+            rSenseComboBox.setDisable(true);
+            inGainComboBox.setDisable(true);
+            outGainComboBox.setDisable(true);
+            contactsComboBox.setDisable(true);
+            frequencyTextField.setDisable(true);
+            harmonicComboBox.setDisable(true);
+            dcBiasTextField.setDisable(true);
+            modeVIComboBox.setDisable(true);
+            measureTypeComboBox.setDisable(true);
+            phaseShiftModeComboBox.setDisable(true);
+            phaseShiftTextField.setDisable(true);
+            iqComboBox.setDisable(true);
+        }
     }
 
     /**
-     * Returns true if the user clicked OK, false otherwise.
-     *
-     * @return
-     */
-    public boolean isOkClicked() {
-        return okClicked;
-    }
-
-    /**
-     * Called when the user clicks ok.
+     * Called when the user clicks Save Changes.
      */
     @FXML
-    private void handleOk() {
+    private void handleSaveChanges() {
         if (isInputValid()) {
-
             if (measureTechniqueComboBox.getValue().equals("DIRECT")) {
                 sensingElement.setId(idTextField.getText());
                 sensingElement.setrSense(new String());
@@ -252,18 +255,9 @@ public class SensingElementEditDialogController {
                 sensingElement.setMultiplier(Integer.parseInt(multiplierTextField.getText()));
                 sensingElement.setMeasureUnit(measureUnitComboBox.getValue());
             }
-            okClicked = true;
+
             dialogStage.close();
         }
-    }
-
-    /**
-     * Called when the user clicks cancel.
-     */
-    @FXML
-    private void handleCancel() {
-        cancelClicked = true;
-        dialogStage.close();
     }
 
     /**
@@ -335,5 +329,40 @@ public class SensingElementEditDialogController {
         }
     }
 
-    public boolean isCancelClicked() {return cancelClicked;}
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    @FXML
+    public void handleMeasureTechnique() {
+        if (measureTechniqueComboBox.getSelectionModel().getSelectedItem().equals("DIRECT")) {
+            rSenseComboBox.setDisable(true);
+            inGainComboBox.setDisable(true);
+            outGainComboBox.setDisable(true);
+            contactsComboBox.setDisable(true);
+            frequencyTextField.setDisable(true);
+            harmonicComboBox.setDisable(true);
+            dcBiasTextField.setDisable(true);
+            modeVIComboBox.setDisable(true);
+            measureTypeComboBox.setDisable(true);
+            phaseShiftModeComboBox.setDisable(true);
+            phaseShiftTextField.setDisable(true);
+            iqComboBox.setDisable(true);
+        }
+        else {
+            rSenseComboBox.setDisable(false);
+            inGainComboBox.setDisable(false);
+            outGainComboBox.setDisable(false);
+            contactsComboBox.setDisable(false);
+            frequencyTextField.setDisable(false);
+            harmonicComboBox.setDisable(false);
+            dcBiasTextField.setDisable(false);
+            modeVIComboBox.setDisable(false);
+            measureTypeComboBox.setDisable(false);
+            phaseShiftModeComboBox.setDisable(false);
+            phaseShiftTextField.setDisable(false);
+            iqComboBox.setDisable(false);
+        }
+    }
+
 }

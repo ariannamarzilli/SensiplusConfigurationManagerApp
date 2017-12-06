@@ -1,14 +1,19 @@
 package it.unicas.project.view;
 
 import it.unicas.project.MainApp;
+import javafx.fxml.FXML;
 
-public class RootLayoutController {
+public class FirstWindowController {
 
-    // Reference to the main application
     private MainApp mainApp;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+    }
+
+    @FXML
+    public void handleGetStarted() {
+        this.mainApp.showSecondWindow();
     }
 
 }

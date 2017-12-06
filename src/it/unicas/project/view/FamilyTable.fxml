@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.FamilyTableController">
+   <children>
+      <ScrollPane layoutX="14.0" layoutY="57.0" prefHeight="273.0" prefWidth="570.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="711.0">
+               <children>
+                  <TreeTableView prefHeight="255.0" prefWidth="775.0">
+                    <columns>
+                      <TreeTableColumn prefWidth="75.0" text="Name" />
+                        <TreeTableColumn prefWidth="75.0" text="Id" />
+                        <TreeTableColumn prefWidth="75.0" text="HwVersion" />
+                        <TreeTableColumn prefWidth="75.0" text="Syslock" />
+                        <TreeTableColumn prefWidth="75.0" text="Osctrim" />
+                        <TreeTableColumn prefWidth="75.0" text="Measure technique Type" />
+                        <TreeTableColumn prefWidth="75.0" text="Ports" />
+                    </columns>
+                  </TreeTableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <JFXButton layoutX="439.0" layoutY="359.0" text="Delete" />
+      <JFXButton layoutX="524.0" layoutY="359.0" text="New" />
+      <Label layoutX="22.0" layoutY="14.0" text="Family" />
+   </children>
+</AnchorPane>
