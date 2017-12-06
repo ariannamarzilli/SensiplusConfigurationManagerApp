@@ -1,5 +1,6 @@
 package it.unicas.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Family {
@@ -19,8 +20,8 @@ public class Family {
         this.hwVersion = "";
         this.sysclock = "";
         this.osctrim = "";
-        this.setPortName(null);
-        this.setMeasureType(null);
+        this.portName = new ArrayList<>();
+        this.measureType = new ArrayList<>();
     }
 
     public Family(String id){
@@ -30,8 +31,8 @@ public class Family {
         this.hwVersion = "";
         this.sysclock = "";
         this.osctrim = "";
-        this.setPortName(null);
-        this.setMeasureType(null);
+        this.portName = new ArrayList<>();
+        this.measureType = new ArrayList<>();
     }
 
     public Family (String id, String name, String hwVersion,

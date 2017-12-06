@@ -128,7 +128,6 @@ public class SensingElementDetailsController {
         iqComboBox.setItems(iqList);
         inPortADCComboBox.setItems(inPortADCList);
         measureUnitComboBox.setItems(measureUniteList);
-
     }
 
 

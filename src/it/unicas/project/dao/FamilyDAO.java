@@ -55,13 +55,11 @@ public class FamilyDAO implements CrudDAO<Family> {
                     "VALUES (?, ?)";
 
 
-
             PreparedStatement statement = connection.prepareStatement(sqlSPFamilyInsert, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement1 = connection.prepareStatement(sqlIdSPPOrtSelect, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyTemplateInsert);
             PreparedStatement statement3 = connection.prepareStatement(sqlIdSPMeasureTypeSelect, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement4 = connection.prepareStatement(sqlSPFamilyHasSPMeasureTypeInsert);
-
 
 
             if (!family.getId().isEmpty()) {
@@ -111,9 +109,6 @@ public class FamilyDAO implements CrudDAO<Family> {
                 }
             }
 
-
-
-
             int idPort = 0;
 
             for (String temp : portList) {
@@ -148,10 +143,7 @@ public class FamilyDAO implements CrudDAO<Family> {
 
                 statement4.setInt(1, (int) idFamily);
                 statement4.setInt(2, idMeasureType);
-
                 statement4.execute();
-
-
             }
             statement2.close();
             statement1.close();

@@ -160,7 +160,6 @@ public class MainApp extends Application {
             FamilyDetailsController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setFamily(family);
-
             dialogStage.showAndWait();
 
         } catch (IOException e) {
