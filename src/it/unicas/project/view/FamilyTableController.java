@@ -116,9 +116,7 @@ public class FamilyTableController {
                     measureTypes.add(family.getMeasureType().get(i));
                 }
 
-                portList = new JFXListView<>();
                 portList.setItems(ports);
-                measureTypeList = new JFXListView<>();
                 measureTypeList.setItems(measureTypes);
 
             } else if (event.getClickCount() == 2) {

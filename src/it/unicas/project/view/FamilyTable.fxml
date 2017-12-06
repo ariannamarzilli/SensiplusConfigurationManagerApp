@@ -48,11 +48,10 @@
                 <DropShadow />
             </effect>
         </Pane>
-      <Label text="Label" />
       <AnchorPane layoutX="562.0" layoutY="108.0" prefHeight="537.0" prefWidth="418.0">
          <children>
-            <Label layoutX="39.0" layoutY="29.0" text="Ports Name" />
-            <Label layoutX="39.0" layoutY="277.0" text="Measure Technique Type" />
+            <Label layoutX="39.0" layoutY="29.0" text="Ports Name" textFill="#005b96" />
+            <Label layoutX="39.0" layoutY="277.0" text="Measure Technique Type" textFill="#005b96" />
             <JFXListView fx:id="portList" layoutX="39.0" layoutY="55.0" prefHeight="188.0" prefWidth="248.0" />
             <JFXListView fx:id="measureTypeList" layoutX="39.0" layoutY="304.0" prefHeight="188.0" prefWidth="248.0" />
          </children>
