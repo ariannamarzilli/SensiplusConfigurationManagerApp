@@ -47,7 +47,7 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             List<String> measureTypeList = family.getMeasureType();
 
-            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureTechnique WHERE type = ?;";
+            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureTechniques WHERE type = ?;";
 
             String sqlSPFamilyHasSPMeasureTypeInsert = "INSERT INTO SPFamily_has_SPMeasureType (" +
                     "SPFamily_idSPFamily, " +
@@ -239,7 +239,7 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             String sqlIdSPPOrtSelect = "SELECT idSPPort FROM SPPort WHERE name = ?;";
 
-            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureTechnique WHERE type = ?;";
+            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureTechniques WHERE type = ?;";
 
             String sqlDeleSPPort = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = ?;";
 
@@ -388,7 +388,7 @@ public class FamilyDAO implements CrudDAO<Family> {
             String sqlSPPort = "SELECT name FROM SPPort WHERE idSPPort = ?";
             String sqlSPFamilyHasSPMeasureType = "SELECT SPMeasureType_idSPMeasureType " +
                     "FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = ?";
-            String sqlSPMeasureType = "SELECT type FROM SPMeasureTechnique WHERE idSPMeasureType = ?";
+            String sqlSPMeasureType = "SELECT type FROM SPMeasureTechniques WHERE idSPMeasureType = ?";
 
             Statement statement = connection.prepareStatement(sqlSPFamilySelect);
             ResultSet resultSet = statement.executeQuery(sqlSPFamilySelect);

@@ -1,6 +1,7 @@
 package it.unicas.project.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Family {
@@ -50,13 +51,22 @@ public class Family {
 
 
     public Family(Family family) {
+        this.portName = new ArrayList<>();
+        this.measureType = new ArrayList<>();
         this.setId(family.getId());
         this.setName(family.getName());
         this.setHwVersion(family.getHwVersion());
         this.setSysclock(family.getSysclock());
         this.setOsctrim(family.getOsctrim());
-        this.setMeasureType(family.getMeasureType());
-        this.setPortName(family.getPortName());
+
+        for (int i = 0; i < family.getPortName().size(); i++) {
+            this.portName.add(family.getPortName().get(i));
+        }
+
+        for (int i = 0; i < family.getMeasureType().size(); i++) {
+            this.measureType.add(family.getMeasureType().get(i));
+        }
+
     }
 
     public String getId() {
