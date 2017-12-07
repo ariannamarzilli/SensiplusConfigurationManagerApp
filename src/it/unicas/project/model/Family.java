@@ -50,13 +50,13 @@ public class Family {
 
 
     public Family(Family family) {
-        this.id = family.getId();
-        this.name = family.getName();
-        this.hwVersion = family.getHwVersion();
-        this.sysclock = family.getSysclock();
-        this.osctrim = family.getOsctrim();
-        this.portName = family.getPortName();
-        this.measureType = family.getMeasureType();
+        this.setId(family.getId());
+        this.setName(family.getName());
+        this.setHwVersion(family.getHwVersion());
+        this.setSysclock(family.getSysclock());
+        this.setOsctrim(family.getOsctrim());
+        this.setMeasureType(family.getMeasureType());
+        this.setPortName(family.getPortName());
     }
 
     public String getId() {

@@ -131,30 +131,30 @@ public final class SensingElement {
     }
 
     public SensingElement(SensingElement sensingElement) {
-        this.id = sensingElement.getId();
-        this.rSense = sensingElement.getrSense();
-        this.inGain = sensingElement.getInGain();
-        this.outGain = sensingElement.getOutGain();
-        this.contacts = sensingElement.getContacts();
-        this.frequency = sensingElement.getFrequency();
-        this.harmonic = sensingElement.getHarmonic();
-        this.dcBias = sensingElement.getDcBias();
-        this.modeVI = sensingElement.getModeVI();
-        this.measureTechnique = sensingElement.getMeasureTechnique();
-        this.measureType = sensingElement.getMeasureType();
-        this.filter = sensingElement.getFilter();
-        this.phaseShiftMode = sensingElement.getPhaseShiftMode();
-        this.phaseShift = sensingElement.getPhaseShift();
-        this.iq = sensingElement.getIq();
-        this.conversionRate = sensingElement.getConversionRate();
-        this.inPortADC = sensingElement.getInPortADC();
-        this.nData = sensingElement.getnData();
-        this.name = sensingElement.getName();
-        this.rangeMin = sensingElement.getRangeMin();
-        this.rangeMax = sensingElement.getRangeMax();
-        this.defaultAlarmThreshold = sensingElement.getDefaultAlarmThreshold();
-        this.multiplier = sensingElement.getMultiplier();
-        this.measureUnit = sensingElement.getMeasureUnit();
+        this.setId(sensingElement.getId());
+        this.setrSense(sensingElement.getrSense());
+        this.setInGain(sensingElement.getInGain());
+        this.setOutGain(sensingElement.getOutGain());
+        this.setContacts(sensingElement.getContacts());
+        this.setFrequency(sensingElement.getFrequency());
+        this.setHarmonic(sensingElement.getHarmonic());
+        this.setDcBias(sensingElement.getDcBias());
+        this.setModeVI(sensingElement.getModeVI());
+        this.setMeasureTechnique(sensingElement.getMeasureTechnique());
+        this.setMeasureType(sensingElement.getMeasureType());
+        this.setFilter(sensingElement.getFilter());
+        this.setPhaseShiftMode(sensingElement.getPhaseShiftMode());
+        this.setPhaseShift(sensingElement.getPhaseShift());
+        this.setIq(sensingElement.getIq());
+        this.setConversionRate(sensingElement.getConversionRate());
+        this.setInPortADC(sensingElement.getInPortADC());
+        this.setnData(sensingElement.getnData());
+        this.setName(sensingElement.getName());
+        this.setRangeMin(sensingElement.getRangeMin());
+        this.setRangeMax(sensingElement.getRangeMax());
+        this.setDefaultAlarmThreshold(sensingElement.getDefaultAlarmThreshold());
+        this.setMultiplier(sensingElement.getMultiplier());
+        this.setMeasureUnit(sensingElement.getMeasureUnit());
     }
 
     public String getId() {
