@@ -10,7 +10,7 @@ public class Family {
     private String hwVersion;
     private String sysclock;
     private String osctrim;
-    private List<String> portName;
+    private List<Port> ports;
     private List<String> measureType;
 
 
@@ -20,7 +20,7 @@ public class Family {
         this.hwVersion = "";
         this.sysclock = "";
         this.osctrim = "";
-        this.portName = new ArrayList<>();
+        this.ports = new ArrayList<>();
         this.measureType = new ArrayList<>();
     }
 
@@ -31,12 +31,12 @@ public class Family {
         this.hwVersion = "";
         this.sysclock = "";
         this.osctrim = "";
-        this.portName = new ArrayList<>();
+        this.ports = new ArrayList<>();
         this.measureType = new ArrayList<>();
     }
 
     public Family (String id, String name, String hwVersion,
-                   String sysclock, String osctrim, List<String> portName,
+                   String sysclock, String osctrim, List<Port> portName,
                    List<String> measureType){
 
         this.id = id;
@@ -44,13 +44,13 @@ public class Family {
         this.hwVersion = hwVersion;
         this.sysclock = sysclock;
         this.osctrim = osctrim;
-        this.portName = portName;
+        this.ports = portName;
         this.measureType = measureType;
     }
 
 
     public Family(Family family) {
-        this.portName = new ArrayList<>();
+        this.ports = new ArrayList<>();
         this.measureType = new ArrayList<>();
         this.setId(family.getId());
         this.setName(family.getName());
@@ -58,8 +58,8 @@ public class Family {
         this.setSysclock(family.getSysclock());
         this.setOsctrim(family.getOsctrim());
 
-        for (int i = 0; i < family.getPortName().size(); i++) {
-            this.portName.add(family.getPortName().get(i));
+        for (int i = 0; i < family.getPorts().size(); i++) {
+            this.ports.add(family.getPorts().get(i));
         }
 
         for (int i = 0; i < family.getMeasureType().size(); i++) {
@@ -108,12 +108,12 @@ public class Family {
         this.osctrim = osctrim;
     }
 
-    public List<String> getPortName() {
-        return portName;
+    public List<Port> getPorts() {
+        return ports;
     }
 
-    public void setPortName(List<String> portName) {
-        this.portName = portName;
+    public void setPorts(List<Port> portName) {
+        this.ports = portName;
     }
 
     public List<String> getMeasureType() {
@@ -130,7 +130,7 @@ public class Family {
                 this.hwVersion.equals(family.getHwVersion()) &&
                 this.sysclock.equals(family.getSysclock()) &&
                 this.osctrim.equals(family.getOsctrim()) &&
-                this.portName.equals(family.getPortName()) &&
+                this.ports.equals(family.getPorts()) &&
                 this.measureType.equals(family.getMeasureType())) {
             return true;
         }
@@ -163,8 +163,8 @@ public class Family {
             this.measureType = new ArrayList<>();
         }
 
-        if (this.getPortName() == null) {
-            this.portName = new ArrayList<>();
+        if (this.getPorts() == null) {
+            this.ports = new ArrayList<>();
         }
     }
 }

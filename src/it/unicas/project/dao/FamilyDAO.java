@@ -1,6 +1,7 @@
 package it.unicas.project.dao;
 
 import it.unicas.project.model.Family;
+import it.unicas.project.model.Port;
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
@@ -37,13 +38,20 @@ public class FamilyDAO implements CrudDAO<Family> {
             String sqlSPFamilyInsert = "INSERT INTO SPFamily (name, id, hwVersion, sysclock, osctrim) VALUES (?, ?, ?, ?, ?)";
 
 
-            List<String> portList = family.getPortName();
+            List<Port> portList = family.getPorts();
             String sqlIdSPPOrtSelect = "SELECT idSPPort FROM SPPort WHERE name = ?;";
 
             String sqlSPFamilyTemplateInsert = "INSERT INTO SPFamilyTemplate (" +
                     "SPFamily_idSPFamily, " +
                     "SPPort_idSPPort)" +
                     " VALUES (?, ?)";
+
+            String sqlSPSensingElementOnFamilyInsert =
+                    "INSERT INTO SPSensingElementOnFamily (" +
+                            "SPSensingElement_idSPSensingElement, " +
+                            "SPFamilyTemplate_idSPFamilyTemplate, " +
+                            "name)" +
+                            " VALUES (?, ?, ?)";
 
             List<String> measureTypeList = family.getMeasureType();
 
@@ -57,9 +65,12 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             PreparedStatement statement = connection.prepareStatement(sqlSPFamilyInsert, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement1 = connection.prepareStatement(sqlIdSPPOrtSelect, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyTemplateInsert);
+            PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyTemplateInsert, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement3 = connection.prepareStatement(sqlIdSPMeasureTypeSelect, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement4 = connection.prepareStatement(sqlSPFamilyHasSPMeasureTypeInsert);
+            PreparedStatement statement5 = connection.prepareStatement(sqlSPSensingElementOnFamilyInsert);
+
+
 
 
             if (!family.getId().isEmpty()) {
@@ -111,9 +122,12 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             int idPort = 0;
 
-            for (String temp : portList) {
+            for (Port temp : portList) {
 
-                statement1.setString(1, temp);
+                String sensingElementId = temp.getIdSensingElement();
+                String portName = temp.getName();
+
+                statement1.setString(1, portName);
 
                 ResultSet resultSet = statement1.executeQuery();
 
@@ -125,7 +139,31 @@ public class FamilyDAO implements CrudDAO<Family> {
                 statement2.setInt(1, (int) idFamily);
                 statement2.setInt(2, idPort);
 
-                statement2.execute();
+
+                long idFamilyTemplate = 0l;
+
+                affectedRows = statement2.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating user failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = statement2.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        idFamilyTemplate=(generatedKeys.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                }
+
+                statement5.setString(1, sensingElementId);
+                statement5.setInt(2, (int) idFamilyTemplate);
+                statement5.setString(3, family.getName());
+
+                statement5.execute();
+
+
             }
 
             int idMeasureType = 0;
@@ -149,6 +187,7 @@ public class FamilyDAO implements CrudDAO<Family> {
             statement1.close();
             statement3.close();
             statement4.close();
+            statement5.close();
 
             statement.close();
 
@@ -187,14 +226,14 @@ public class FamilyDAO implements CrudDAO<Family> {
 
 
             String sqlSPFamilyDelete = "DELETE FROM SPFamily WHERE name ='" + family.getName() + "';";
-            String sqlSPFamilyTemplateDelete = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
-            String sqlSPFamilyHasMeasureTypeDelete = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
+            //String sqlSPFamilyTemplateDelete = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
+            //String sqlSPFamilyHasMeasureTypeDelete = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
 
-            Statement statement2 = connection.prepareStatement(sqlSPFamilyTemplateDelete);
-            statement2.executeUpdate(sqlSPFamilyTemplateDelete);
+           // Statement statement2 = connection.prepareStatement(sqlSPFamilyTemplateDelete);
+            //statement2.executeUpdate(sqlSPFamilyTemplateDelete);
 
-            Statement statement3 = connection.prepareStatement(sqlSPFamilyHasMeasureTypeDelete);
-            statement3.executeUpdate(sqlSPFamilyHasMeasureTypeDelete);
+            //Statement statement3 = connection.prepareStatement(sqlSPFamilyHasMeasureTypeDelete);
+            //statement3.executeUpdate(sqlSPFamilyHasMeasureTypeDelete);
 
 
             Statement statement = connection.prepareStatement(sqlSPFamilyDelete);
@@ -206,8 +245,8 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             statement.close();
             statement1.close();
-            statement2.close();
-            statement3.close();
+            //statement2.close();
+            //statement3.close();
 
             connection.close();
 
@@ -227,7 +266,7 @@ public class FamilyDAO implements CrudDAO<Family> {
 
         try {
 
-            List<String> portList = family.getPortName();
+            List<Port> portList = family.getPorts();
             List<String> measureTypeList = family.getMeasureType();
 
             Connection connection = ConnectionFactory.getConnection();
@@ -245,6 +284,9 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             String sqlDeleteSPMeasureType = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = ?;";
 
+            String sqlDeleteSPSensingElementOnFamily = "DELETE FROM SPSensingElementOnFamily WHERE " +
+                    "name = '" + family.getName() + "';";
+
             String sqlSPFamilyTemplateInsert = "INSERT INTO SPFamilyTemplate (" +
                     "SPFamily_idSPFamily, " +
                     "SPPort_idSPPort)" +
@@ -255,14 +297,25 @@ public class FamilyDAO implements CrudDAO<Family> {
                     "SPMeasureType_idSPMeasureType)" +
                     "VALUES (?, ?)";
 
+            String sqlSPSensingElementOnFamilyInsert =
+                    "INSERT INTO SPSensingElementOnFamily (" +
+                            "SPSensingElement_idSPSensingElement, " +
+                            "SPFamilyTemplate_idSPFamilyTemplate, " +
+                            "name)" +
+                            " VALUES (?, ?, ?)";
+
+
+
             PreparedStatement statement = connection.prepareStatement(sqlUpdateSPFamily, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement3 = connection.prepareStatement(sqlIdSPPOrtSelect, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement4 = connection.prepareStatement(sqlIdSPMeasureTypeSelect, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement5 = connection.prepareStatement(sqlIdFamilySelect);
             PreparedStatement statement6 = connection.prepareStatement(sqlDeleSPPort);
             PreparedStatement statement7 = connection.prepareStatement(sqlDeleteSPMeasureType);
-            PreparedStatement statement1 = connection.prepareStatement(sqlSPFamilyTemplateInsert);
+            PreparedStatement statement1 = connection.prepareStatement(sqlSPFamilyTemplateInsert, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyHasSPMeasureTypeInsert);
+            PreparedStatement statement8 = connection.prepareStatement(sqlDeleteSPSensingElementOnFamily);
+            PreparedStatement statement9 = connection.prepareStatement(sqlSPSensingElementOnFamilyInsert);
 
 
 
@@ -314,13 +367,17 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             statement7.executeUpdate();
 
+            statement8.executeUpdate();
 
 
             int idPort = 0;
 
-            for (String temp : portList) {
+            for (Port temp : portList) {
 
-                statement3.setString(1, temp);
+                String namePort = temp.getName();
+                String idSensingElement = temp.getNameSensingElement();
+
+                statement3.setString(1, namePort);
 
                 ResultSet resultSet = statement3.executeQuery();
 
@@ -332,7 +389,32 @@ public class FamilyDAO implements CrudDAO<Family> {
                 statement1.setInt(1, idSPFamily);
                 statement1.setInt(2, idPort);
 
-                statement1.execute();
+                long idFamilyTemplate = 0l;
+
+                int affectedRows = statement1.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating user failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = statement1.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        idFamilyTemplate=(generatedKeys.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                }
+
+                statement9.setString(1, idSensingElement);
+                statement9.setInt(2, (int)idFamilyTemplate);
+                statement9.setString(3, family.getName());
+
+                statement9.execute();
+
+
+
+
             }
 
             int idMeasureType = 0;
@@ -365,6 +447,7 @@ public class FamilyDAO implements CrudDAO<Family> {
             statement5.close();
             statement6.close();
             statement7.close();
+            statement9.close();
 
             connection.close();
         } catch (SQLException e) {
@@ -384,23 +467,23 @@ public class FamilyDAO implements CrudDAO<Family> {
         try {
             Connection connection = ConnectionFactory.getConnection();
             String sqlSPFamilySelect = "SELECT * FROM SPFamily";
-            String sqlSPFamilyTemplate = "SELECT SPPort_idSPPort FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = ?";
-            String sqlSPPort = "SELECT name FROM SPPort WHERE idSPPort = ?";
             String sqlSPFamilyHasSPMeasureType = "SELECT SPMeasureType_idSPMeasureType " +
                     "FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = ?";
             String sqlSPMeasureType = "SELECT type FROM SPMeasureTechniques WHERE idSPMeasureType = ?";
+            String sqlPort = "SELECT (SELECT name FROM SPPort WHERE idSPPort = SPPort_idSPPort), "+
+                    "SPSensingElement_idSPSensingElement, (SELECT name FROM SPSensingElement WHERE "+
+                    "idSPSensingElement = SPSensingElement_idSPSensingElement)  FROM SPFamily join SPFamilyTemplate on "+
+                    "(idSPFamily = SPFamily_idSPFamily) join SPSensingElementOnFamily on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate)";
+
 
             Statement statement = connection.prepareStatement(sqlSPFamilySelect);
             ResultSet resultSet = statement.executeQuery(sqlSPFamilySelect);
 
-            PreparedStatement statement1 = connection.prepareStatement(sqlSPFamilyTemplate);
-            PreparedStatement statement2 = connection.prepareStatement(sqlSPPort);
             PreparedStatement statement3 = connection.prepareStatement(sqlSPFamilyHasSPMeasureType);
             PreparedStatement statement4 = connection.prepareStatement(sqlSPMeasureType);
+            PreparedStatement statement1 = connection.prepareStatement(sqlPort);
 
-            int idPort=0, idMeasureType=0;
-            List<Integer> portList = new ArrayList<Integer>();
-            List<Integer> measureTypeList = new ArrayList<Integer>();
+
 
 
             while (resultSet.next()) {
@@ -412,23 +495,29 @@ public class FamilyDAO implements CrudDAO<Family> {
 
                 int idFamily = resultSet.getInt("idSPFamily");
 
-                statement1.setInt(1, idFamily);
-                ResultSet resultSetPortId = statement1.executeQuery();
 
+                List<Port> ports = new ArrayList<Port>();
                 List<String> portNameList = new ArrayList<String>();
                 List<String> measureTypeNameList = new ArrayList<String>();
 
 
-                while (resultSetPortId.next()){
-                    portList.add(resultSetPortId.getInt("SPPort_idSPPort"));
+                ResultSet rsPort = statement1.executeQuery();
 
-                    statement2.setInt(1, resultSetPortId.getInt("SPPort_idSPPort"));
+                String portName = "";
+                String idSensingElement = "";
+                String nameSensingElement = "";
 
-                    ResultSet resultSetPortName = statement2.executeQuery();
-                    while (resultSetPortName.next()){
-                        portNameList.add(resultSetPortName.getString("name"));
-                    }
+                while(rsPort.next()){
+
+                    portName = rsPort.getString(1);
+                    idSensingElement = rsPort.getString(2);
+                    nameSensingElement = rsPort.getString(3);
+
+                    ports.add(new Port (portName, idSensingElement, nameSensingElement));
                 }
+
+
+
 
                 statement3.setInt(1, idFamily);
                 ResultSet resultSetMeasureTypeId = statement3.executeQuery();
@@ -445,11 +534,10 @@ public class FamilyDAO implements CrudDAO<Family> {
 
 
 
-               families.add(new Family(id, name, hwVersion, sysclock, osctrim, portNameList, measureTypeNameList));
+               families.add(new Family(id, name, hwVersion, sysclock, osctrim, ports, measureTypeNameList));
             }
             statement.close();
             statement1.close();
-            statement2.close();
             statement3.close();
             statement4.close();
 
