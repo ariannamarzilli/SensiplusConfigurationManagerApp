@@ -473,7 +473,8 @@ public class FamilyDAO implements CrudDAO<Family> {
             String sqlPort = "SELECT (SELECT name FROM SPPort WHERE idSPPort = SPPort_idSPPort), "+
                     "SPSensingElement_idSPSensingElement, (SELECT name FROM SPSensingElement WHERE "+
                     "idSPSensingElement = SPSensingElement_idSPSensingElement)  FROM SPFamily join SPFamilyTemplate on "+
-                    "(idSPFamily = SPFamily_idSPFamily) join SPSensingElementOnFamily on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate)";
+                    "(idSPFamily = SPFamily_idSPFamily) join SPSensingElementOnFamily on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate)" +
+                    " WHERE idSPFamily = ?";
 
 
             Statement statement = connection.prepareStatement(sqlSPFamilySelect);
@@ -499,6 +500,8 @@ public class FamilyDAO implements CrudDAO<Family> {
                 List<Port> ports = new ArrayList<Port>();
                 List<String> portNameList = new ArrayList<String>();
                 List<String> measureTypeNameList = new ArrayList<String>();
+
+                statement1.setInt(1, idFamily);
 
 
                 ResultSet rsPort = statement1.executeQuery();
