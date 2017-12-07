@@ -94,7 +94,6 @@ public class FamilyDetailsController {
         for (int i = 0; i < check1.size(); i++) {
             this.family.getPortName().add(check1.get(i));
         }
-
         dialogStage.close();
     }
 
