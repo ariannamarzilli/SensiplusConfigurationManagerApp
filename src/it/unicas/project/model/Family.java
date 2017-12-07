@@ -1,7 +1,6 @@
 package it.unicas.project.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Family {
@@ -136,5 +135,36 @@ public class Family {
             return true;
         }
         return false;
+    }
+
+    public void checkNullField() {
+
+        if (this.getName() == null) {
+            this.setName("");
+        }
+
+        if (this.getId() == null) {
+            this.setId("");
+        }
+
+        if (this.getHwVersion() == null) {
+            this.setHwVersion("");
+        }
+
+        if (this.getSysclock() == null) {
+            this.setSysclock("");
+        }
+
+        if (this.getOsctrim() == null) {
+            this.setOsctrim("");
+        }
+
+        if (this.getMeasureType() == null) {
+            this.measureType = new ArrayList<>();
+        }
+
+        if (this.getPortName() == null) {
+            this.portName = new ArrayList<>();
+        }
     }
 }

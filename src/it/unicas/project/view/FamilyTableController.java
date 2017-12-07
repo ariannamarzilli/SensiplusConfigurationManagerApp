@@ -62,6 +62,7 @@ public class FamilyTableController {
 
         while(iterator.hasNext()) {
             Family family = iterator.next();
+            family.checkNullField();
             familyObservableList.add(family);
         }
 

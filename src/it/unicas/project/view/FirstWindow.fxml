@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="307.0" fitWidth="386.0" layoutX="7.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../images/image.jpg" />
+            <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/image.jpg" />
          </image>
       </ImageView>
       <Label layoutX="27.0" layoutY="181.0" prefHeight="36.0" prefWidth="349.0" text="SensiPlus Configuration Manager" textAlignment="CENTER" textFill="#acb5b0">
@@ -25,14 +25,17 @@
             <Glow level="1.0" />
          </effect>
       </Label>
-      <Label layoutX="49.0" layoutY="217.0" prefHeight="36.0" prefWidth="305.0" text="Everithing it's easier now with your SensiChips!" textFill="#8a7f7f">
+      <Label layoutX="49.0" layoutY="217.0" prefHeight="36.0" prefWidth="305.0" text="Everithing it's easier now with your SensiPlus Chips!" textFill="#8a7f7f">
          <effect>
             <MotionBlur angle="39.28" radius="1.6" />
          </effect>
+         <font>
+            <Font size="12.0" />
+         </font>
       </Label>
       <ImageView fitHeight="150.0" fitWidth="386.0" layoutX="8.0" layoutY="334.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../images/imagerev.jpg" />
+            <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/imagerev.jpg" />
          </image>
       </ImageView>
       <Button fx:id="getStartedButtongetStartedButton" layoutX="154.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleGetStarted" style="-fx-background-color: #353434;" text="Get Started!" textFill="#ffffff90" />
