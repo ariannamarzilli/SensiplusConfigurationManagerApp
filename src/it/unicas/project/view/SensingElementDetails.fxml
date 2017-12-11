@@ -124,5 +124,15 @@
             <DropShadow />
          </effect>
       </Pane>
+      <JFXButton buttonType="RAISED" layoutX="322.0" layoutY="599.0" onAction="#handleCancel" text="Cancel" textFill="#005b96">
+         <ripplerFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </ripplerFill>
+      </JFXButton>
    </children>
 </AnchorPane>

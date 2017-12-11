@@ -8,6 +8,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import java.util.Iterator;
@@ -75,6 +77,7 @@ public class FamilyTableController {
         osctrimColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOsctrim()));
 
         familyTableView.setItems(familyObservableList);
+
     }
 
     @FXML
@@ -92,11 +95,21 @@ public class FamilyTableController {
     public void handleDelete() {
         int selectedIndex = familyTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            Family family = familyTableView.getItems().get(selectedIndex);
-            FamilyDAO.getInstance().delete(family);
-            familyTableView.getItems().remove(selectedIndex);
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Confirm delete");
+            alert.setHeaderText("Are you sure you want to delete this item?");
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.OK) {
+                Family family = familyTableView.getItems().get(selectedIndex);
+                FamilyDAO.getInstance().delete(family);
+                familyTableView.getItems().remove(selectedIndex);
+            }
         }
     }
+
 
     @FXML
     public void handleClick(MouseEvent event) {
@@ -108,8 +121,8 @@ public class FamilyTableController {
             if (event.getClickCount() == 1) {
 
                 ObservableList<String> ports = FXCollections.observableArrayList();
-                for (int i = 0; i < family.getPortName().size(); i++) {
-                    ports.add(family.getPortName().get(i));
+                for (int i = 0; i < family.getPorts().size(); i++) {
+                    ports.add(family.getPorts().get(i).getName());
                 }
                 ObservableList<String> measureTypes = FXCollections.observableArrayList();
 
@@ -130,4 +143,5 @@ public class FamilyTableController {
             }
         }
     }
+
 }

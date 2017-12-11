@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -41,10 +42,11 @@
                 <DropShadow />
             </effect>
         </Pane>
-      <GridPane layoutX="43.0" layoutY="64.0" prefHeight="535.0" prefWidth="486.0">
+      <GridPane layoutX="25.0" layoutY="61.0" prefHeight="191.0" prefWidth="515.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="257.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="229.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="175.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="169.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="171.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -57,24 +59,90 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Name" textFill="#005b96" />
             <Label text="Id" textFill="#005b96" GridPane.columnIndex="1" />
-            <Label text="HwVersion" textFill="#005b96" GridPane.rowIndex="3" />
-            <Label text="SysClock" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="OscTrim" textFill="#005b96" GridPane.rowIndex="6" />
-            <Label text="MeasureTechnique" textFill="#005b96" GridPane.rowIndex="9" />
-            <Label text="Ports" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="HwVersion" textFill="#005b96" GridPane.columnIndex="2" />
+            <Label text="SysClock" textFill="#005b96" GridPane.rowIndex="3" />
+            <Label text="OscTrim" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="MeasureTechnique" textFill="#005b96" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <JFXTextField fx:id="nameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="1" />
             <JFXTextField fx:id="idTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="hwVersionTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="4" />
-            <JFXTextField fx:id="sysClockTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <JFXTextField fx:id="oscTrimTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="7" />
-            <CheckComboBox fx:id="measureTechniqueBox" prefHeight="27.0" prefWidth="154.0" GridPane.rowIndex="10" />
-            <CheckComboBox fx:id="portsBox" prefHeight="27.0" prefWidth="154.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <JFXTextField fx:id="hwVersionTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="sysClockTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="5" />
+            <JFXTextField fx:id="oscTrimTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <CheckComboBox fx:id="measureTechniqueBox" prefHeight="27.0" prefWidth="154.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label text="Ports" textFill="#005b96" GridPane.rowIndex="7" />
+            <CheckComboBox fx:id="portBox" prefHeight="27.0" prefWidth="154.0" GridPane.rowIndex="9" />
          </children>
       </GridPane>
+      <JFXButton buttonType="RAISED" layoutX="330.0" layoutY="599.0" minWidth="-Infinity" onAction="#handleCancel" text="Cancel" textFill="#005b96">
+         <ripplerFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </ripplerFill>
+      </JFXButton>
+      <ScrollPane layoutX="25.0" layoutY="292.0" prefHeight="294.0" prefWidth="503.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="483.0">
+               <children>
+                  <GridPane fx:id="gridPane" prefHeight="700.0" prefWidth="503.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="port1Label" text="Port1" />
+                        <Label fx:id="port2Label" text="Port2" GridPane.rowIndex="1" />
+                        <Label fx:id="port3Label" text="Port3" GridPane.rowIndex="2" />
+                        <Label fx:id="port4Label" text="Port4" GridPane.rowIndex="3" />
+                        <Label fx:id="port5Label" text="Port5" GridPane.rowIndex="4" />
+                        <Label fx:id="port6Label" text="Port6" GridPane.rowIndex="5" />
+                        <Label fx:id="port7Label" text="Port7" GridPane.rowIndex="6" />
+                        <Label fx:id="port8Label" text="Port8" GridPane.rowIndex="7" />
+                        <Label fx:id="port9Label" text="Port9" GridPane.rowIndex="8" />
+                        <Label fx:id="port10Label" text="Port10" GridPane.rowIndex="9" />
+                        <Label fx:id="port11Label" text="Port11" GridPane.rowIndex="10" />
+                        <Label fx:id="port12Label" text="Port12" GridPane.rowIndex="11" />
+                        <Label fx:id="portVoltageLabel" text="Port Voltage" GridPane.rowIndex="12" />
+                        <Label fx:id="portTemperatureLabel" text="Port temperature" GridPane.rowIndex="13" />
+                        <Label fx:id="portLightLabel" text="Port Light" GridPane.rowIndex="14" />
+                        <Label fx:id="portDarkLabel" text="Port Dark" GridPane.rowIndex="15" />
+                        <Label fx:id="portExt1Label" text="Port Ext1" GridPane.rowIndex="16" />
+                        <Label fx:id="portExt2Label" text="Port Ext2" GridPane.rowIndex="17" />
+                        <Label fx:id="portExt3Label" text="Port Ext3" GridPane.rowIndex="18" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
     </children>
 </AnchorPane>

@@ -259,6 +259,11 @@ public class SensingElementDetailsController {
         }
     }
 
+    @FXML
+    private void handleCancel() {
+        dialogStage.close();
+    }
+
     /**
      * Validates the user input in the text fields.
      *

@@ -5,13 +5,16 @@ import it.unicas.project.dao.SensingElementDAO;
 import it.unicas.project.model.SensingElement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import java.util.Iterator;
+
 
 public class SensingElementTableController {
 
@@ -22,33 +25,9 @@ public class SensingElementTableController {
     @FXML
     private TableColumn<SensingElement, String> nameColumn;
     @FXML
-    private TableColumn<SensingElement, String> rSenseColumn;
-    @FXML
-    private TableColumn<SensingElement, String> inGainColumn;
-    @FXML
-    private TableColumn<SensingElement, String> outGainColumn;
-    @FXML
-    private TableColumn<SensingElement, String> contactsColumn;
-    @FXML
-    private TableColumn<SensingElement, String> frequencyColumn;
-    @FXML
-    private TableColumn<SensingElement, String> harmonicColumn;
-    @FXML
-    private TableColumn<SensingElement, String> dcBiasColumn;
-    @FXML
-    private TableColumn<SensingElement, String> modeVIColumn;
-    @FXML
     private TableColumn<SensingElement, String> measureTechniqueColumn;
     @FXML
-    private TableColumn<SensingElement, String> measureTypeColumn;
-    @FXML
     private TableColumn<SensingElement, String> filterColumn;
-    @FXML
-    private TableColumn<SensingElement, String> phaseShiftModeColumn;
-    @FXML
-    private TableColumn<SensingElement, String> phaseShiftColumn;
-    @FXML
-    private TableColumn<SensingElement, String> iqColumn;
     @FXML
     private TableColumn<SensingElement, String> conversionRateColumn;
     @FXML
@@ -99,20 +78,8 @@ public class SensingElementTableController {
         // Associating the data with the table columns
         idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        rSenseColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getrSense()));
-        inGainColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInGain()));
-        outGainColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOutGain()));
-        contactsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContacts()));
-        frequencyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFrequency().toString()));
-        harmonicColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHarmonic()));
-        dcBiasColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDcBias().toString()));
-        modeVIColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModeVI()));
         measureTechniqueColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMeasureTechnique()));
-        measureTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMeasureType()));
         filterColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFilter().toString()));
-        phaseShiftModeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhaseShiftMode()));
-        phaseShiftColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhaseShift().toString()));
-        iqColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIq()));
         conversionRateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getConversionRate().toString()));
         inPortADCColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInPortADC()));
         nDataColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getnData().toString()));
@@ -123,6 +90,15 @@ public class SensingElementTableController {
         measureUnitColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMeasureUnit()));
 
         sensingElementTableView.setItems(sensingElementObservableList);
+
+        /*
+        sensingElementsData.addListener(new ListChangeListener<SensingElement>() {
+            @Override
+            public void onChanged(Change<? extends SensingElement> c) {
+                sensingElementTableView.setItems(sensingElementsData);
+            }
+        });
+        */
 
     }
 
@@ -146,9 +122,18 @@ public class SensingElementTableController {
     public void handleDelete() {
         int selectedIndex = sensingElementTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            SensingElement sensingElement = sensingElementTableView.getItems().get(selectedIndex);
-            SensingElementDAO.getInstance().delete(sensingElement);
-            sensingElementTableView.getItems().remove(selectedIndex);
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Confirm delete");
+            alert.setHeaderText("Are you sure you want to delete this item?");
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.OK) {
+                SensingElement sensingElement = sensingElementTableView.getItems().get(selectedIndex);
+                SensingElementDAO.getInstance().delete(sensingElement);
+                sensingElementTableView.getItems().remove(selectedIndex);
+            }
 
         } else {
             // Nothing selected.

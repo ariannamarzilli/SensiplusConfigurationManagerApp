@@ -21,20 +21,8 @@
                     <columns>
                       <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id" />
                       <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
-                        <TableColumn fx:id="rSenseColumn" prefWidth="75.0" text="RSense" />
-                        <TableColumn fx:id="inGainColumn" prefWidth="75.0" text="InGain" />
-                        <TableColumn fx:id="outGainColumn" prefWidth="75.0" text="OutGain" />
-                        <TableColumn fx:id="contactsColumn" prefWidth="75.0" text="Contacts" />
-                        <TableColumn fx:id="frequencyColumn" prefWidth="75.0" text="Frequency" />
-                        <TableColumn fx:id="harmonicColumn" prefWidth="75.0" text="Harmonic" />
-                        <TableColumn fx:id="dcBiasColumn" prefWidth="75.0" text="DCBias" />
-                        <TableColumn fx:id="modeVIColumn" prefWidth="75.0" text="ModeVI" />
                         <TableColumn fx:id="measureTechniqueColumn" prefWidth="148.0" text="Measure Technique" />
-                        <TableColumn fx:id="measureTypeColumn" minWidth="2.0" prefWidth="2.0" text="Measure Type" />
                         <TableColumn fx:id="filterColumn" prefWidth="75.0" text="Filter" />
-                        <TableColumn fx:id="phaseShiftModeColumn" prefWidth="75.0" text="Phase Shift Mode" />
-                        <TableColumn fx:id="phaseShiftColumn" prefWidth="75.0" text="Phase Shift" />
-                        <TableColumn fx:id="iqColumn" prefWidth="75.0" text="IQ" />
                         <TableColumn fx:id="conversionRateColumn" prefWidth="75.0" text="Conversion Rate" />
                         <TableColumn fx:id="inPortADCColumn" prefWidth="75.0" text="InPort ADC" />
                         <TableColumn fx:id="nDataColumn" prefWidth="75.0" text="NData" />

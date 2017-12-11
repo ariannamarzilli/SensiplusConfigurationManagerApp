@@ -141,9 +141,11 @@ public class MainApp extends Application {
         }
     }
 
+
     public void showFamilyEditDialog(Family family) {
 
         try {
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/FamilyDetails.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
@@ -156,10 +158,10 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            //set sensing element into the controller
             FamilyDetailsController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
             controller.setFamily(family);
+            controller.setDialogStage(dialogStage);
+
             dialogStage.showAndWait();
 
         } catch (IOException e) {

@@ -16,10 +16,10 @@ public class Family {
 
     public Family(){
         this.id = "";
-        this.name = "";
-        this.hwVersion = "";
-        this.sysclock = "";
-        this.osctrim = "";
+        this.name = "MEASURING_INSTRUMENT";
+        this.hwVersion = "RUN4";
+        this.sysclock = "10000000";
+        this.osctrim = "0X06";
         this.ports = new ArrayList<>();
         this.measureType = new ArrayList<>();
     }
