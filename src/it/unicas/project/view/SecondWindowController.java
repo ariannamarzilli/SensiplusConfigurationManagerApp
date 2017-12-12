@@ -11,23 +11,23 @@ public class SecondWindowController {
     }
 
     public void handleSensingElement() {
-        this.mainApp.showSensingElementTable();
+        this.mainApp.showSensingElementOverview();
     }
 
     public void handleFamily() {
-        this.mainApp.showFamilyTable();
+        this.mainApp.showFamilyOverview();
     }
 
     public void handleChip() {
-        this.mainApp.showChipTable();
+        this.mainApp.showChipOverview();
     }
 
     public void handleCluster() {
-        this.mainApp.showClusterTable();
+        this.mainApp.showClusterOverview();
     }
 
     public void handleConfiguration() {
-        this.mainApp.showConfigurationTable();
+        this.mainApp.showConfigurationOverview();
     }
 
 }

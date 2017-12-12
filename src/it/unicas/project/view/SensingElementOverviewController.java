@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.Iterator;
 
 
-public class SensingElementTableController {
+public class SensingElementOverviewController {
 
     @FXML
     private TableView<SensingElement> sensingElementTableView = new TableView<>();

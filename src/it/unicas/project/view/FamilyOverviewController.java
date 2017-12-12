@@ -16,7 +16,7 @@ import java.util.Iterator;
 import javafx.scene.input.MouseEvent;
 
 
-public class FamilyTableController {
+public class FamilyOverviewController {
 
     @FXML
     private TableView<Family> familyTableView = new TableView<>();

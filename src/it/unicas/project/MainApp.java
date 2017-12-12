@@ -1,13 +1,9 @@
 package it.unicas.project;
 
+import it.unicas.project.model.Chip;
 import it.unicas.project.model.Family;
 import it.unicas.project.model.SensingElement;
-import it.unicas.project.view.FirstWindowController;
-import it.unicas.project.view.SecondWindowController;
-import it.unicas.project.view.SensingElementDetailsController;
-import it.unicas.project.view.SensingElementTableController;
-import it.unicas.project.view.FamilyTableController;
-import it.unicas.project.view.FamilyDetailsController;
+import it.unicas.project.view.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +22,7 @@ public class MainApp extends Application {
     private BorderPane rootWindow;
     private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
     private ObservableList<Family> familyData = FXCollections.observableArrayList();
+    private ObservableList<Chip> chipData = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -74,14 +71,13 @@ public class MainApp extends Application {
         }
     }
 
-    public void showSensingElementTable() {
-
+    public void showSensingElementOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/SensingElementTable.fxml"));
-            Node sensingElementTable = (Node) loader.load();
-            rootWindow.setCenter(sensingElementTable);
-            SensingElementTableController controller = loader.getController();
+            loader.setLocation(MainApp.class.getResource("view/SensingElementOverview.fxml"));
+            Node sensingElementOverview = (Node) loader.load();
+            rootWindow.setCenter(sensingElementOverview);
+            SensingElementOverviewController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,28 +85,37 @@ public class MainApp extends Application {
 
     }
 
-    public void showFamilyTable() {
+    public void showFamilyOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/FamilyTable.fxml"));
-            Node sensingElementTable = (Node) loader.load();
-            rootWindow.setCenter(sensingElementTable);
-            FamilyTableController controller = loader.getController();
+            loader.setLocation(MainApp.class.getResource("view/FamilyOverview.fxml"));
+            Node familyOverview = (Node) loader.load();
+            rootWindow.setCenter(familyOverview);
+            FamilyOverviewController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void showChipTable() {
-
+    public void showChipOverview() {
+        /*
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
+            Node chipOverview = (Node) loader.load();
+            rootWindow.setCenter(chipOverview);
+            ChipOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
-    public void showClusterTable() {
+    public void showClusterOverview() {}
 
-    }
-
-    public void showConfigurationTable() {
+    public void showConfigurationOverview() {
 
     }
 
@@ -141,7 +146,6 @@ public class MainApp extends Application {
         }
     }
 
-
     public void showFamilyEditDialog(Family family) {
 
         try {
@@ -169,6 +173,34 @@ public class MainApp extends Application {
         }
     }
 
+    public void showChipEditDialog(Chip chip) {
+        /*
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ChipDetails.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            //dialog stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Show Chip");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ChipDetailsController controller = loader.getController();
+            controller.setChip(chip);
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
+    }
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -179,6 +211,10 @@ public class MainApp extends Application {
 
     public ObservableList<Family> getFamilyData() {
         return familyData;
+    }
+
+    public ObservableList<Chip> getChipData() {
+        return chipData;
     }
 
     public static void main(String[] args) {
