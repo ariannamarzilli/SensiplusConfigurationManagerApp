@@ -32,6 +32,7 @@ public class Port {
 
     public Port(String name) {
         this.name = name;
+        this.idSensingElement = "";
     }
 
     public Port (String name, String idSensingElement) {

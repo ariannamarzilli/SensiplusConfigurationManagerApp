@@ -35,10 +35,13 @@ public class FamilyDAO implements CrudDAO<Family> {
 
         try {
             Connection connection = ConnectionFactory.getConnection();
+
             String sqlSPFamilyInsert = "INSERT INTO SPFamily (name, id, hwVersion, sysclock, osctrim) VALUES (?, ?, ?, ?, ?)";
 
+            //family object has a list of ports,
 
             List<Port> portList = family.getPorts();
+
             String sqlIdSPPOrtSelect = "SELECT idSPPort FROM SPPort WHERE name = ?;";
 
             String sqlSPFamilyTemplateInsert = "INSERT INTO SPFamilyTemplate (" +
@@ -124,7 +127,9 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             for (Port temp : portList) {
 
+
                 String sensingElementId = temp.getIdSensingElement();
+
                 String portName = temp.getName();
 
                 statement1.setString(1, portName);
@@ -157,11 +162,14 @@ public class FamilyDAO implements CrudDAO<Family> {
                     }
                 }
 
-                statement5.setString(1, sensingElementId);
-                statement5.setInt(2, (int) idFamilyTemplate);
-                statement5.setString(3, family.getName());
+                if(sensingElementId != "" && sensingElementId != null) {
 
-                statement5.execute();
+                    statement5.setString(1, sensingElementId);
+                    statement5.setInt(2, (int) idFamilyTemplate);
+                    statement5.setString(3, family.getName());
+
+                    statement5.execute();
+                }
 
 
             }
@@ -223,18 +231,33 @@ public class FamilyDAO implements CrudDAO<Family> {
                 idSPFamily = resultSet.getInt("idSPFamily");
             }
 
+            String sqlSPFamilyTemplateId = "SELECT idSPFamilyTemplate FROM SPFamilyTemplate WHERE SPFamily_idSPFamily ='" + idSPFamily + "';";
+            Statement statement4 = connection.prepareStatement(sqlSPFamilyTemplateId);
+            ResultSet resultSet1 = statement4.executeQuery(sqlSPFamilyTemplateId);
+
+            int idSPFamilyTemplate = 0;
+
+            while (resultSet1.next()){
+                idSPFamilyTemplate = resultSet1.getInt("idSPFamilyTemplate");
+            }
 
 
             String sqlSPFamilyDelete = "DELETE FROM SPFamily WHERE name ='" + family.getName() + "';";
-            //String sqlSPFamilyTemplateDelete = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
-            //String sqlSPFamilyHasMeasureTypeDelete = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
 
-           // Statement statement2 = connection.prepareStatement(sqlSPFamilyTemplateDelete);
-            //statement2.executeUpdate(sqlSPFamilyTemplateDelete);
+            //
+            String sqlSPFamilyTemplateDelete = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
+            String sqlSPFamilyHasMeasureTypeDelete = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = '" + idSPFamily + "';";
+            String sqlSPSensingElementOnFamilyDelete = "DELETE FROM SPSensingElementOnFamily WHERE SPFamilyTemplate_idSPFamilyTemplate = '" + idSPFamilyTemplate + "';";
 
-            //Statement statement3 = connection.prepareStatement(sqlSPFamilyHasMeasureTypeDelete);
-            //statement3.executeUpdate(sqlSPFamilyHasMeasureTypeDelete);
+            Statement statement2 = connection.prepareStatement(sqlSPFamilyTemplateDelete);
+            statement2.executeUpdate(sqlSPFamilyTemplateDelete);
 
+            Statement statement5 = connection.prepareStatement(sqlSPSensingElementOnFamilyDelete);
+            statement5.executeUpdate(sqlSPSensingElementOnFamilyDelete);
+
+            Statement statement3 = connection.prepareStatement(sqlSPFamilyHasMeasureTypeDelete);
+            statement3.executeUpdate(sqlSPFamilyHasMeasureTypeDelete);
+            //
 
             Statement statement = connection.prepareStatement(sqlSPFamilyDelete);
             statement.executeUpdate(sqlSPFamilyDelete);
@@ -245,8 +268,10 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             statement.close();
             statement1.close();
-            //statement2.close();
-            //statement3.close();
+            statement2.close();
+            statement3.close();
+            statement4.close();
+            statement5.close();
 
             connection.close();
 
@@ -358,16 +383,17 @@ public class FamilyDAO implements CrudDAO<Family> {
                 idSPFamily = resultSet3.getInt("idSPFamily");
             }
 
-
+            statement8.executeUpdate();
             statement6.setInt(1, idSPFamily);
 
             statement6.executeUpdate();
+
 
             statement7.setInt(1, idSPFamily);
 
             statement7.executeUpdate();
 
-            statement8.executeUpdate();
+
 
 
             int idPort = 0;
@@ -375,7 +401,7 @@ public class FamilyDAO implements CrudDAO<Family> {
             for (Port temp : portList) {
 
                 String namePort = temp.getName();
-                String idSensingElement = temp.getNameSensingElement();
+                String idSensingElement = temp.getIdSensingElement();
 
                 statement3.setString(1, namePort);
 
@@ -406,12 +432,13 @@ public class FamilyDAO implements CrudDAO<Family> {
                     }
                 }
 
-                statement9.setString(1, idSensingElement);
-                statement9.setInt(2, (int)idFamilyTemplate);
-                statement9.setString(3, family.getName());
+                if (idSensingElement != "" && idSensingElement != null) {
+                    statement9.setString(1, idSensingElement);
+                    statement9.setInt(2, (int) idFamilyTemplate);
+                    statement9.setString(3, family.getName());
 
-                statement9.execute();
-
+                    statement9.execute();
+                }
 
 
 

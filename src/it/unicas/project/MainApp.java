@@ -1,7 +1,9 @@
 package it.unicas.project;
 
+import it.unicas.project.dao.FamilyDAO;
 import it.unicas.project.model.Chip;
 import it.unicas.project.model.Family;
+import it.unicas.project.model.Port;
 import it.unicas.project.model.SensingElement;
 import it.unicas.project.view.*;
 import javafx.application.Application;
@@ -15,6 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainApp extends Application {
 
@@ -217,9 +221,7 @@ public class MainApp extends Application {
         return chipData;
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) { launch(args);}
 
 }
 
