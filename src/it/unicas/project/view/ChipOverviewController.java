@@ -98,7 +98,7 @@ public class ChipOverviewController {
 
     }
 
-    @FXML
+   /* @FXML
     private void handleClickOnChip(MouseEvent event) {
 
         sensingElementOnChipClicked.getCalibrationList().clear();
@@ -136,7 +136,7 @@ public class ChipOverviewController {
                 }
             }
         }
-    }
+    }*/
 
     @FXML
     private void handleClickOnSensingElement() {
@@ -166,7 +166,7 @@ public class ChipOverviewController {
         }
     }
 
-    @FXML
+   /* @FXML
     private void handleClickOnCalibrationName() {
 
         if (!calibrationNameList.getSelectionModel().getSelectedItems().isEmpty()) {
@@ -189,7 +189,7 @@ public class ChipOverviewController {
             calibrationNameList.setItems(parameters);
 
         }
-    }
+    }*/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

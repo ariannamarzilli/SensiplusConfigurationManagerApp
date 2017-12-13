@@ -1,5 +1,6 @@
 package it.unicas.project;
 
+import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.model.*;
 import it.unicas.project.view.*;
 import javafx.application.Application;
@@ -13,6 +14,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainApp extends Application {
@@ -215,7 +218,25 @@ public class MainApp extends Application {
         return sensingElementOnChipData;
     }
 
-    public static void main(String[] args) { launch(args);}
+    public static void main(String[] args) {
+
+        Chip chip = new Chip("name4", "id1");
+
+        List<Calibration> calibrations = new ArrayList<>();
+
+        Calibration calibration = new Calibration("cal1", 2, 3);
+        Calibration calibration1 = new Calibration("cal2", 2, 2);
+
+        calibrations.add(calibration);
+        calibrations.add(calibration1);
+
+        SensingElementOnChip sensingElementOnChip = new SensingElementOnChip(chip, calibrations, "id1");
+
+        ChipDAO chipDAO = ChipDAO.getInstance();
+        chipDAO.create(sensingElementOnChip);
+
+
+    }
 
 }
 

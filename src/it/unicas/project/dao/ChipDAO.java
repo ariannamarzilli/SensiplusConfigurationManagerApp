@@ -36,7 +36,7 @@ public class ChipDAO implements CrudDAO<SensingElementOnChip> {
 
             String sqlSPChipInsert = "INSERT INTO SPChip (idSPChip, SPFamily_idSPFamily) VALUES (?, ?)";
 
-            String sqlSPChipSelect = "SELECT idSPChip FROM SPChip WHERE '" + sensingElementOnChip.getChip().getId() + "';";
+            String sqlSPChipSelect = "SELECT COUNT(idSPChip) FROM SPChip WHERE '" + sensingElementOnChip.getChip().getId() + "';";
 
 
             List<Calibration> calibrations = sensingElementOnChip.getCalibrationList();
@@ -57,7 +57,7 @@ public class ChipDAO implements CrudDAO<SensingElementOnChip> {
             String sqlIdSensingElementOnFamilySelect = "SELECT idSPSensingElementOnFamily FROM SPSensingElementOnFamily" +
                    " WHERE SPSensingElement_idSPSensingElement = ?;";
 
-            String sqlSPFamilyIDSelect = "SELECT idSPFamily FROM SPFamily WHERE name = ?";
+            String sqlSPFamilyIDSelect = "SELECT idSPFamily FROM SPFamily WHERE name = ?;";
 
 
 
@@ -69,26 +69,31 @@ public class ChipDAO implements CrudDAO<SensingElementOnChip> {
 
             ResultSet resultSet1 = statement2.executeQuery(sqlSPChipSelect);
 
-            if (!resultSet1.next()) {
+            while (resultSet1.next()) {
 
-                if (!sensingElementOnChip.getChip().getId().isEmpty()) {
-                    statement.setString(1, sensingElementOnChip.getChip().getId());
-                } else {
-                    statement.setNull(1, Types.VARCHAR);
-                }
+                int count = resultSet1.getInt(1);
 
-                if (!sensingElementOnChip.getChip().getFamilyName().isEmpty()) {
-                    statement5.setString(2, sensingElementOnChip.getChip().getFamilyName());
-                    ResultSet rs = statement5.executeQuery(sqlSPFamilyIDSelect);
-                    while (rs.next()){
-                        statement.setInt(2, rs.getInt("idSPFamily"));
+                if (count > 0) {
+
+                    if (!sensingElementOnChip.getChip().getId().isEmpty()) {
+                        statement.setString(1, sensingElementOnChip.getChip().getId());
+                    } else {
+                        statement.setNull(1, Types.VARCHAR);
                     }
 
-                } else {
-                    statement.setNull(2, Types.VARCHAR);
-                }
+                    if (!sensingElementOnChip.getChip().getFamilyName().isEmpty()) {
+                        statement5.setString(1, sensingElementOnChip.getChip().getFamilyName());
+                        ResultSet rs = statement5.executeQuery();
+                        while (rs.next()) {
+                            statement.setInt(2, rs.getInt("idSPFamily"));
+                        }
 
-                statement.execute();
+                    } else {
+                        statement.setNull(2, Types.VARCHAR);
+                    }
+
+                    statement.execute();
+                }
             }
 
 
@@ -121,7 +126,8 @@ public class ChipDAO implements CrudDAO<SensingElementOnChip> {
                 statement1.setInt(3, n);
 
                 if(!sensingElementOnChip.getIdSensingElement().isEmpty()) {
-                    ResultSet resultSet4 = statement4.executeQuery(sqlIdSensingElementOnFamilySelect);
+                    statement4.setString(1, sensingElementOnChip.getIdSensingElement());
+                    ResultSet resultSet4 = statement4.executeQuery();
                     int idSensingElementOnFamily = 0;
 
                     while (resultSet4.next()){
@@ -132,7 +138,7 @@ public class ChipDAO implements CrudDAO<SensingElementOnChip> {
 
 
                 if (!sensingElementOnChip.getIdSensingElement().isEmpty() && !temp.getName().isEmpty()) {
-                    ResultSet resultSet = statement1.executeQuery();
+                    statement1.execute();
                 }
 
             }

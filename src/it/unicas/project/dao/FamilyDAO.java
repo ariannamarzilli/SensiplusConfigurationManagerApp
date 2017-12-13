@@ -488,7 +488,7 @@ public class FamilyDAO implements CrudDAO<Family> {
      * @return All the sensingElements.
      */
     @Override
-    public Iterable<SensingElementOnChip> fetchAll() {
+    public Iterable<Family> fetchAll() {
 
         List<Family> families = new ArrayList<>();
 
