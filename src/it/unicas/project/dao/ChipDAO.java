@@ -108,8 +108,6 @@ public class ChipDAO implements CrudDAO<Chip> {
             }   */
 
             String sensingElementId = sensingElementOnChip.getIdSensingElement();
-            int n = sensingElementOnChip.getN();
-            int m = sensingElementOnChip.getM();
 
             for (Calibration temp : calibrations) {
 
@@ -126,6 +124,9 @@ public class ChipDAO implements CrudDAO<Chip> {
 
                     idCalibration = resultSet2.getInt("idSPCalibration");
                 }
+
+                int n = temp.getN();
+                int m = temp.getM();
 
                 statement1.setString(1, sensingElementOnChip.getChip().getId();
                 statement1.setInt(2, m);
