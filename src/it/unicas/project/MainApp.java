@@ -1,10 +1,6 @@
 package it.unicas.project;
 
-import it.unicas.project.dao.FamilyDAO;
-import it.unicas.project.model.Chip;
-import it.unicas.project.model.Family;
-import it.unicas.project.model.Port;
-import it.unicas.project.model.SensingElement;
+import it.unicas.project.model.*;
 import it.unicas.project.view.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,8 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class MainApp extends Application {
 
@@ -26,7 +21,7 @@ public class MainApp extends Application {
     private BorderPane rootWindow;
     private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
     private ObservableList<Family> familyData = FXCollections.observableArrayList();
-    private ObservableList<Chip> chipData = FXCollections.observableArrayList();
+    private ObservableList<SensingElementOnChip> sensingElementOnChipData = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -102,7 +97,7 @@ public class MainApp extends Application {
     }
 
     public void showChipOverview() {
-        /*
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
@@ -113,7 +108,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     public void showClusterOverview() {}
@@ -176,8 +171,8 @@ public class MainApp extends Application {
         }
     }
 
-    public void showChipEditDialog(Chip chip) {
-        /*
+    public void showChipEditDialog(SensingElementOnChip sensingElementOnChip) {
+
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -193,7 +188,7 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
 
             ChipDetailsController controller = loader.getController();
-            controller.setChip(chip);
+            controller.setSensingElementOnChip(sensingElementOnChip);
             controller.setDialogStage(dialogStage);
 
             dialogStage.showAndWait();
@@ -201,7 +196,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     public Stage getPrimaryStage() {
@@ -216,8 +211,8 @@ public class MainApp extends Application {
         return familyData;
     }
 
-    public ObservableList<Chip> getChipData() {
-        return chipData;
+    public ObservableList<SensingElementOnChip> getSensingElementOnChipData() {
+        return sensingElementOnChipData;
     }
 
     public static void main(String[] args) { launch(args);}
