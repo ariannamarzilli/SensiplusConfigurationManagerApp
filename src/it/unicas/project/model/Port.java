@@ -51,4 +51,13 @@ public class Port {
         this.idSensingElement = sensingElement.getId();
         this.name = namePort;
     }
+
+    public boolean equals(Port port) {
+        if (this.name.equals(port.getName()) &&
+                this.idSensingElement.equals(port.getIdSensingElement())) {
+            return true;
+        }
+        return false;
+    }
+
 }

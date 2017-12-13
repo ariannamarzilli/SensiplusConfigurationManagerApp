@@ -120,6 +120,8 @@ public class FamilyOverviewController {
 
             if (event.getClickCount() == 1) {
 
+                portList.getItems().clear();
+                measureTypeList.getItems().clear();
                 ObservableList<String> ports = FXCollections.observableArrayList();
                 for (int i = 0; i < family.getPorts().size(); i++) {
                     ports.add(family.getPorts().get(i).getName());

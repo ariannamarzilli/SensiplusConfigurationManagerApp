@@ -55,7 +55,6 @@ public class MainApp extends Application {
     }
 
     public void showSecondWindow() {
-
         try {
 
             FXMLLoader loader = new FXMLLoader();

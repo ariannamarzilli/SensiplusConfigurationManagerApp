@@ -10,11 +10,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
-
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyDetailsController {
@@ -134,6 +134,7 @@ public class FamilyDetailsController {
 
     @FXML
     private void initialize() {
+
         measureTechniqueBox.getItems().addAll("DIRECT", "EIS", "POT", "ENERGY_SPECTROSCOPY", "ULTRASOUND");
         portBox.getItems().addAll("PORT1", "PORT2", "PORT3", "PORT4", "PORT5", "PORT6", "PORT7",
                 "PORT8", "PORT9", "PORT10", "PORT11", "PORT12", "PORT_EXT1", "PORT_EXT2", "PORT_EXT3", "PORT_TEMPERATURE",
@@ -141,35 +142,38 @@ public class FamilyDetailsController {
 
 
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
-        Iterable<SensingElement> sensingElements = sensingElementDAO.fetchAll();
-        Iterator<SensingElement> iterator = sensingElements.iterator();
-        sensingElementId = FXCollections.observableArrayList();
-        while (iterator.hasNext()) {
-            SensingElement sensingElement = iterator.next();
-            sensingElementId.add(sensingElement.getId());
+        Iterable<SensingElement> se = sensingElementDAO.fetchAll();     //devo usare una funzione che restituisce sensing element mai montati
+        List<SensingElement> sensingElements = new ArrayList<>();
+
+        while (se.iterator().hasNext()) {
+            sensingElements.add(se.iterator().next());
         }
 
-        for (int i = 0; i < sensingElementId.size(); i++) {
-            sensingElementPort1Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort2Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort3Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort4Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort5Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort6Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort7Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort8Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort9Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort10Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort11Box.getItems().add(sensingElementId.get(i));
-            sensingElementPort12Box.getItems().add(sensingElementId.get(i));
-            sensingElementPortExt1Box.getItems().add(sensingElementId.get(i));
-            sensingElementPortExt2Box.getItems().add(sensingElementId.get(i));
-            sensingElementPortExt3Box.getItems().add(sensingElementId.get(i));
-            sensingElementPortVoltageBox.getItems().add(sensingElementId.get(i));
-            sensingElementPortTemperatureBox.getItems().add(sensingElementId.get(i));
-            sensingElementPortLightBox.getItems().add(sensingElementId.get(i));
-            sensingElementPortDarkBox.getItems().add(sensingElementId.get(i));
-        }
+        sensingElementId = FXCollections.observableArrayList();
+        sensingElements.stream().forEach(sensingElement -> sensingElementId.add(sensingElement.getId()));
+
+        //family.getPorts().stream().forEach(port -> sensingElementId.add(port.getIdSensingElement()));   //aggiungo i sensing element montati sulle porte della family selezionata
+
+        sensingElementPort1Box.setItems(sensingElementId);
+        sensingElementPort1Box.setItems(sensingElementId);
+        sensingElementPort2Box.setItems(sensingElementId);
+        sensingElementPort3Box.setItems(sensingElementId);
+        sensingElementPort4Box.setItems(sensingElementId);
+        sensingElementPort5Box.setItems(sensingElementId);
+        sensingElementPort6Box.setItems(sensingElementId);
+        sensingElementPort7Box.setItems(sensingElementId);
+        sensingElementPort8Box.setItems(sensingElementId);
+        sensingElementPort9Box.setItems(sensingElementId);
+        sensingElementPort10Box.setItems(sensingElementId);
+        sensingElementPort11Box.setItems(sensingElementId);
+        sensingElementPort12Box.setItems(sensingElementId);
+        sensingElementPortExt1Box.setItems(sensingElementId);
+        sensingElementPortExt2Box.setItems(sensingElementId);
+        sensingElementPortExt3Box.setItems(sensingElementId);
+        sensingElementPortVoltageBox.setItems(sensingElementId);
+        sensingElementPortTemperatureBox.setItems(sensingElementId);
+        sensingElementPortLightBox.setItems(sensingElementId);
+        sensingElementPortDarkBox.setItems(sensingElementId);
 
         portBox.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
             @Override
@@ -330,7 +334,9 @@ public class FamilyDetailsController {
 
             }
         });
+
     }
+
 
 
     public void setFamily(Family family) {
@@ -348,7 +354,7 @@ public class FamilyDetailsController {
 
         if (family.getPorts().size() != 0) {
             for (int i = 0; i < family.getPorts().size(); i++) {
-                portBox.getCheckModel().check(family.getPorts().get(i).getIdSensingElement());
+                portBox.getCheckModel().check(family.getPorts().get(i).getName());
             }
 
             handleWidgetsInScrollPane(family.getPorts(), "PORT1", port1Label, sensingElementPort1Box);
@@ -374,28 +380,29 @@ public class FamilyDetailsController {
         } else {
             setDisableAllWidgetsInScrollPane(true);
         }
-
-
     }
 
     @FXML
     private void handleSaveChanges() {
-        this.family.setName(nameTextField.getText());
-        this.family.setId(idTextField.getText());
-        this.family.setHwVersion(hwVersionTextField.getText());
-        this.family.setOsctrim(oscTrimTextField.getText());
-        this.family.setSysclock(sysClockTextField.getText());
 
-        this.family.getMeasureType().clear();
+        if (areChoosedSensingElementsCorrect()) {
+            this.family.setName(nameTextField.getText());
+            this.family.setId(idTextField.getText());
+            this.family.setHwVersion(hwVersionTextField.getText());
+            this.family.setOsctrim(oscTrimTextField.getText());
+            this.family.setSysclock(sysClockTextField.getText());
+            this.family.getMeasureType().clear();
+            measureTechniqueBox.getCheckModel().getCheckedItems().stream().forEach(measureTechnique -> this.family.getMeasureType().add(measureTechnique));
+            savePorts(family);
+            dialogStage.close();
 
-        ObservableList<String> check = measureTechniqueBox.getCheckModel().getCheckedItems();
-        for (int i = 0; i < check.size(); i++) {
-            this.family.getMeasureType().add(check.get(i));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Sensing Element already selected for another port");
+            alert.showAndWait();
         }
 
-        savePorts(family);
-
-        dialogStage.close();
     }
 
     @FXML
@@ -449,11 +456,22 @@ public class FamilyDetailsController {
     }
 
     private void handleWidgetsInScrollPane(List<Port> ports, String PORT, Label label, JFXComboBox sensingElementBox) {
+        //Questo metodo gestisce tutti i widgts contenuti nello scrollPane in DamilyDetails. I parametri passati in
+        // ingresso sono la lista di porte specificate in una family, il nome della porta da controllare e i due widgets
+        // da gestire.
 
-        if (ports.contains(new Port(PORT))) {
+        // Creo una lista che contiene esclusivamente i nomi delle porte
+        List<String> portNamelist = new ArrayList<>();
+
+        ports.stream().forEach(port -> portNamelist.add(port.getName()));
+
+        // Il metodo contains utilizza equals per determinare se un oggetto è contenuto nella lista o meno. Per questo
+        // motivo è preferibile utilizzare portnameList e non ports. Due porte sono uguali se è uguale sia il nome che
+        // l'id del sensing element (che potrebbe non essere specificato)
+        if (portNamelist.contains(PORT)) {
             label.setDisable(false);
             sensingElementBox.setDisable(false);
-            int index = ports.indexOf(new Port(PORT));
+            int index = portNamelist.indexOf(PORT);
             if (!ports.get(index).getIdSensingElement().isEmpty()) {
                 sensingElementBox.setValue(ports.get(index).getIdSensingElement());
             }
@@ -464,66 +482,208 @@ public class FamilyDetailsController {
     }
 
     private void savePorts(Family family) {
-        ObservableList<String> check = portBox.getCheckModel().getCheckedItems();
         family.getPorts().clear();
 
-        if (check.contains("PORT1")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT1")) {
             family.getPorts().add(new Port("PORT1", sensingElementPort1Box.getValue()));
         }
-        if (check.contains("PORT2")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT2")) {
             family.getPorts().add(new Port("PORT2", sensingElementPort2Box.getValue()));
         }
-        if (check.contains("PORT3")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT3")) {
             family.getPorts().add(new Port("PORT3", sensingElementPort3Box.getValue()));
         }
-        if (check.contains("PORT4")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT4")) {
             family.getPorts().add(new Port("PORT4", sensingElementPort4Box.getValue()));
         }
-        if (check.contains("PORT5")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT5")) {
             family.getPorts().add(new Port("PORT5", sensingElementPort5Box.getValue()));
         }
-        if (check.contains("PORT6")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT6")) {
             family.getPorts().add(new Port("PORT6", sensingElementPort6Box.getValue()));
         }
-        if (check.contains("PORT7")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT7")) {
             family.getPorts().add(new Port("PORT7", sensingElementPort7Box.getValue()));
         }
-        if (check.contains("PORT8")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT8")) {
             family.getPorts().add(new Port("PORT8", sensingElementPort8Box.getValue()));
         }
-        if (check.contains("PORT9")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT9")) {
             family.getPorts().add(new Port("PORT9", sensingElementPort9Box.getValue()));
         }
-        if (check.contains("PORT10")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT10")) {
             family.getPorts().add(new Port("PORT10", sensingElementPort10Box.getValue()));
         }
-        if (check.contains("PORT11")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT11")) {
             family.getPorts().add(new Port("PORT11", sensingElementPort11Box.getValue()));
         }
-        if (check.contains("PORT12")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT12")) {
             family.getPorts().add(new Port("PORT12", sensingElementPort12Box.getValue()));
         }
-        if (check.contains("PORT_EXT1")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT_EXT1")) {
             family.getPorts().add(new Port("PORT_EXT1", sensingElementPortExt1Box.getValue()));
         }
-        if (check.contains("PORT_EXT2")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT_EXT2")) {
             family.getPorts().add(new Port("PORT_EXT2", sensingElementPortExt2Box.getValue()));
         }
-        if (check.contains("PORT_EXT3")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT_EXT3")) {
             family.getPorts().add(new Port("PORT_EXT3", sensingElementPortExt3Box.getValue()));
         }
-        if (check.contains("PORT_TEMPERATURE")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT_TEMPERATURE")) {
             family.getPorts().add(new Port("PORT_TEMPERATURE", sensingElementPortTemperatureBox.getValue()));
         }
-        if (check.contains("PORT_VOLTAGE")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT_VOLTAGE")) {
             family.getPorts().add(new Port("PORT_VOLTAGE", sensingElementPortVoltageBox.getValue()));
         }
-        if (check.contains("PORT_DARK")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT_DARK")) {
             family.getPorts().add(new Port("PORT_DARK", sensingElementPortDarkBox.getValue()));
         }
-        if (check.contains("PORT_LIGHT")) {
+        if (portBox.getCheckModel().getCheckedItems().contains("PORT_LIGHT")) {
             family.getPorts().add(new Port("PORT_LIGHT", sensingElementPortLightBox.getValue()));
         }
     }
+
+
+    private boolean areChoosedSensingElementsCorrect() {
+
+        ArrayList<String> choosedSensingElements = new ArrayList<>();
+
+        if (!sensingElementPort1Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort1Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort1Box.getValue());
+            }
+        }
+        if (!sensingElementPort2Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort2Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort2Box.getValue());
+            }
+        }
+        if (!sensingElementPort3Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort3Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort3Box.getValue());
+            }
+        }
+        if (!sensingElementPort4Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort4Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort4Box.getValue());
+            }
+        }
+        if (!sensingElementPort5Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort5Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort5Box.getValue());
+            }
+        }
+        if (!sensingElementPort6Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort6Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort6Box.getValue());
+            }
+        }
+        if (!sensingElementPort7Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort7Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort7Box.getValue());
+            }
+        }
+        if (!sensingElementPort8Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort8Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort8Box.getValue());
+            }
+        }
+        if (!sensingElementPort9Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort9Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort9Box.getValue());
+            }
+        }
+        if (!sensingElementPort10Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort10Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort10Box.getValue());
+            }
+        }
+        if (!sensingElementPort11Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort11Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort11Box.getValue());
+            }
+        }
+        if (!sensingElementPort12Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPort12Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPort12Box.getValue());
+            }
+        }
+        if (!sensingElementPortExt1Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPortExt1Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPortExt1Box.getValue());
+            }
+        }
+        if (!sensingElementPortExt2Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPortExt2Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPortExt2Box.getValue());
+            }
+        }
+        if (!sensingElementPortExt3Box.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPortExt3Box.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPortExt3Box.getValue());
+            }
+        }
+        if (!sensingElementPortVoltageBox.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPortVoltageBox.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPortVoltageBox.getValue());
+            }
+        }
+        if (!sensingElementPortTemperatureBox.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPortTemperatureBox.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPortTemperatureBox.getValue());
+            }
+        }
+        if (!sensingElementPortLightBox.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPortLightBox.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPortLightBox.getValue());
+            }
+        }
+        if (!sensingElementPortDarkBox.isDisable()) {
+            if (choosedSensingElements.contains(sensingElementPortDarkBox.getValue().toString())) {
+                return false;
+            } else {
+                choosedSensingElements.add(sensingElementPortDarkBox.getValue());
+            }
+        }
+
+        return true;
+    }
+
 
 }
