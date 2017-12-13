@@ -1,6 +1,7 @@
 package it.unicas.project.dao;
 
 import it.unicas.project.model.SensingElement;
+import it.unicas.project.model.SensingElementOnChip;
 import it.unicas.project.util.ConnectionFactory;
 import java.sql.*;
 import java.util.ArrayList;
@@ -319,7 +320,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
      * @return All the sensingElements.
      */
     @Override
-    public Iterable<SensingElement> fetchAll() {
+    public Iterable<SensingElementOnChip> fetchAll() {
 
         List<SensingElement> sensingElements = new ArrayList<>();
 

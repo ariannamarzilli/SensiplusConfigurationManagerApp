@@ -2,7 +2,7 @@ package it.unicas.project.dao;
 
 import it.unicas.project.model.Family;
 import it.unicas.project.model.Port;
-import it.unicas.project.model.SensingElement;
+import it.unicas.project.model.SensingElementOnChip;
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
@@ -488,7 +488,7 @@ public class FamilyDAO implements CrudDAO<Family> {
      * @return All the sensingElements.
      */
     @Override
-    public Iterable<Family> fetchAll() {
+    public Iterable<SensingElementOnChip> fetchAll() {
 
         List<Family> families = new ArrayList<>();
 

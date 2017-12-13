@@ -1,14 +1,12 @@
 package it.unicas.project.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Chip {
 
     String familyName;
     String id;
 
-    public Chip(String familyName, String id, List<SensingElement> sensingElementList) {
+    public Chip(String familyName, String id) {
         this.familyName = familyName;
         this.id = id;
     }

@@ -4,9 +4,10 @@ import it.unicas.project.model.*;
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ChipDAO implements CrudDAO<Chip> {
+public class ChipDAO implements CrudDAO<SensingElementOnChip> {
 
     private static ChipDAO uniqueInstanceOfChipDAO = null;
 
@@ -14,9 +15,9 @@ public class ChipDAO implements CrudDAO<Chip> {
      * Returns the unique instance of sensingElementDAO.
      * @return
      */
-    public static FamilyDAO getInstance() {
+    public static ChipDAO getInstance() {
         if (uniqueInstanceOfChipDAO == null) {
-            uniqueInstanceOfChipDAO = new FamilyDAO();
+            uniqueInstanceOfChipDAO = new ChipDAO();
             return uniqueInstanceOfChipDAO;
         } else {
             return uniqueInstanceOfChipDAO;
@@ -50,61 +51,46 @@ public class ChipDAO implements CrudDAO<Chip> {
                     "SPCalibration_idSPCalibration)" +
                     " VALUES (?, ?, ?, ?, ?)";
 
-            /*String sqlSPSensingElementOnFamilyInsert =
-                    "INSERT INTO SPSensingElementOnFamily (" +
-                            "SPSensingElement_idSPSensingElement, " +
-                            "SPFamilyTemplate_idSPFamilyTemplate, " +
-                            "name)" +
-                            " VALUES (?, ?, ?)";   */
-
-            //List<String> measureTypeList = family.getMeasureType();
 
             String sqlIdSPCalibrationSelect = "SELECT idSPCalibration FROM SPCalibration WHERE name = ?;";
+
+            String sqlIdSensingElementOnFamilySelect = "SELECT idSPSensingElementOnFamily FROM SPSensingElementOnFamily" +
+                   " WHERE SPSensingElement_idSPSensingElement = ?;";
+
+            String sqlSPFamilyIDSelect = "SELECT idSPFamily FROM SPFamily WHERE name = ?";
 
 
 
             PreparedStatement statement = connection.prepareStatement(sqlSPChipInsert, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement1 = connection.prepareStatement(sqlSPSensingElementOnChipInsert, Statement.RETURN_GENERATED_KEYS);
             Statement statement2 = connection.prepareStatement(sqlSPChipSelect);
+            PreparedStatement statement4 = connection.prepareStatement(sqlIdSensingElementOnFamilySelect);
+            PreparedStatement statement5 = connection.prepareStatement(sqlSPFamilyIDSelect);
 
             ResultSet resultSet1 = statement2.executeQuery(sqlSPChipSelect);
 
             if (!resultSet1.next()) {
 
                 if (!sensingElementOnChip.getChip().getId().isEmpty()) {
-                    statement.setString(2, sensingElementOnChip.getChip().getId());
+                    statement.setString(1, sensingElementOnChip.getChip().getId());
                 } else {
-                    statement.setNull(2, Types.VARCHAR);
+                    statement.setNull(1, Types.VARCHAR);
                 }
 
                 if (!sensingElementOnChip.getChip().getFamilyName().isEmpty()) {
-                    statement.setString(1, sensingElementOnChip.getChip().getFamilyName());
+                    statement5.setString(2, sensingElementOnChip.getChip().getFamilyName());
+                    ResultSet rs = statement5.executeQuery(sqlSPFamilyIDSelect);
+                    while (rs.next()){
+                        statement.setInt(2, rs.getInt("idSPFamily"));
+                    }
+
                 } else {
-                    statement.setNull(1, Types.VARCHAR);
+                    statement.setNull(2, Types.VARCHAR);
                 }
 
                 statement.execute();
             }
 
-
-            /*long idFamily = 0l;
-
-            int affectedRows = statement.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
-            }
-
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    idFamily=(generatedKeys.getLong(1));
-                }
-                else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
-                }
-            }   */
-
-            String sensingElementId = sensingElementOnChip.getIdSensingElement();
 
             for (Calibration temp : calibrations) {
 
@@ -112,32 +98,51 @@ public class ChipDAO implements CrudDAO<Chip> {
                // String portName = temp.getName();
                 String sqlIdCalibrationSelect = "SELECT idSPCalibration FROM SPCalibration WHERE name = '" + temp.getName() + "';";
                 Statement statement3 = connection.prepareStatement(sqlIdCalibrationSelect);
+                ResultSet resultSet2;
+                if (!temp.getName().isEmpty()) {
+                    resultSet2 = statement3.executeQuery(sqlIdCalibrationSelect);
 
-                ResultSet resultSet2 = statement3.executeQuery(sqlIdCalibrationSelect);
+                    int idCalibration = 0;
 
-                int idCalibration = 0;
+                    while (resultSet2.next()) {
 
-                while (resultSet2.next()) {
+                        idCalibration = resultSet2.getInt("idSPCalibration");
+                    }
+                    statement1.setInt(5, idCalibration);
 
-                    idCalibration = resultSet2.getInt("idSPCalibration");
                 }
+
 
                 int n = temp.getN();
                 int m = temp.getM();
 
-                statement1.setString(1, sensingElementOnChip.getChip().getId();
+                statement1.setString(1, sensingElementOnChip.getChip().getId());
                 statement1.setInt(2, m);
                 statement1.setInt(3, n);
-                statement1.setString(4, sensingElementId);
-                statement1.setInt(5, idCalibration);
+
+                if(!sensingElementOnChip.getIdSensingElement().isEmpty()) {
+                    ResultSet resultSet4 = statement4.executeQuery(sqlIdSensingElementOnFamilySelect);
+                    int idSensingElementOnFamily = 0;
+
+                    while (resultSet4.next()){
+                        idSensingElementOnFamily = resultSet4.getInt("idSPSensingElementOnFamily");
+                    }
+                    statement1.setInt(4, idSensingElementOnFamily);
+                }
 
 
-                ResultSet resultSet = statement1.executeQuery();
+                if (!sensingElementOnChip.getIdSensingElement().isEmpty() && !temp.getName().isEmpty()) {
+                    ResultSet resultSet = statement1.executeQuery();
+                }
 
             }
 
 
             connection.close();
+            statement.close();
+            statement1.close();
+            statement2.close();
+            statement4.close();
 
             } catch (SQLException e) {
             e.printStackTrace();
@@ -180,205 +185,238 @@ public class ChipDAO implements CrudDAO<Chip> {
     }
 
     /**
-     * Updates the sensingElement whith the same id of the sensingElement passed in.
+     * Updates the sensingElementOnChip and the chips whith the same id of the sensingElementOnChip passed in.
      *
-     * @param family The sensingElement to be updated.
+     * @param sensingElementOnChip The sensingElement to be updated.
      */
     @Override
-    public void update(Family family) {
+    public void update(SensingElementOnChip sensingElementOnChip) {
 
         try {
 
-            List<Port> portList = family.getPorts();
-            List<String> measureTypeList = family.getMeasureType();
+            List<Calibration> calibrationList = sensingElementOnChip.getCalibrationList();
 
             Connection connection = ConnectionFactory.getConnection();
-            String sqlUpdateSPFamily = "UPDATE SPFamily SET " +
-                    "id = ?, hwVersion = ?, sysclock = ?, osctrim = ?" +
-                    " WHERE name = ? ;";
 
-            String sqlIdFamilySelect = "SELECT idSPFamily FROM SPFamily WHERE name = '" + family.getName() + "';";
+            String sqlUpdateSPChip = "UPDATE SPChip SET " +
+                    "SPFamily_idSPFamily = ?" +
+                    " WHERE idSPChip = '" + sensingElementOnChip.getChip().getId() + "';";
 
-            String sqlIdSPPOrtSelect = "SELECT idSPPort FROM SPPort WHERE name = ?;";
 
-            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureTechniques WHERE type = ?;";
+            String sqlDeleteSPSensingElementOnChip = "DELETE FROM SPSensingElementOnChip WHERE " +
+                    "SPChip_idSPChip = '" + sensingElementOnChip.getChip().getId() + "';";
 
-            String sqlDeleSPPort = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = ?;";
 
-            String sqlDeleteSPMeasureType = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = ?;";
+            String sqlSPSensingElementOnChipInsert =
+                    "INSERT INTO SPSensingElementOnChip (" +
+                            "SPChip_idSPChip, " +
+                            "m, " +
+                            "n, " +
+                            "SPSensingElementOnFamily_idSPSensingElementOnFamily, " +
+                            "SPCalibration_idSPCalibration)" +
+                            " VALUES (?, ?, ?, ?, ?)";
 
-            String sqlDeleteSPSensingElementOnFamily = "DELETE FROM SPSensingElementOnFamily WHERE " +
-                    "name = '" + family.getName() + "';";
-
-            String sqlSPFamilyTemplateInsert = "INSERT INTO SPFamilyTemplate (" +
-                    "SPFamily_idSPFamily, " +
-                    "SPPort_idSPPort)" +
-                    " VALUES (?, ?)";
-
-            String sqlSPFamilyHasSPMeasureTypeInsert = "INSERT INTO SPFamily_has_SPMeasureType (" +
-                    "SPFamily_idSPFamily, " +
-                    "SPMeasureType_idSPMeasureType)" +
-                    "VALUES (?, ?)";
-
-            String sqlSPSensingElementOnFamilyInsert =
-                    "INSERT INTO SPSensingElementOnFamily (" +
-                            "SPSensingElement_idSPSensingElement, " +
-                            "SPFamilyTemplate_idSPFamilyTemplate, " +
-                            "name)" +
-                            " VALUES (?, ?, ?)";
+            String sqlIdSensingElementOnFamilySelect = "SELECT idSPSensingElementOnFamily FROM SPSensingElementOnFamily" +
+                    " WHERE SPSensingElement_idSPSensingElement = ?;";
 
 
 
-            PreparedStatement statement = connection.prepareStatement(sqlUpdateSPFamily, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement statement3 = connection.prepareStatement(sqlIdSPPOrtSelect, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement statement4 = connection.prepareStatement(sqlIdSPMeasureTypeSelect, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement statement5 = connection.prepareStatement(sqlIdFamilySelect);
-            PreparedStatement statement6 = connection.prepareStatement(sqlDeleSPPort);
-            PreparedStatement statement7 = connection.prepareStatement(sqlDeleteSPMeasureType);
-            PreparedStatement statement1 = connection.prepareStatement(sqlSPFamilyTemplateInsert, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyHasSPMeasureTypeInsert);
-            PreparedStatement statement8 = connection.prepareStatement(sqlDeleteSPSensingElementOnFamily);
-            PreparedStatement statement9 = connection.prepareStatement(sqlSPSensingElementOnFamilyInsert);
+            PreparedStatement statement = connection.prepareStatement(sqlUpdateSPChip);
+            Statement statement1 = connection.prepareStatement(sqlDeleteSPSensingElementOnChip);
+            PreparedStatement statement2 = connection.prepareStatement(sqlSPSensingElementOnChipInsert);
+            PreparedStatement statement4 = connection.prepareStatement(sqlIdSensingElementOnFamilySelect);
 
 
-
-            if (!family.getName().isEmpty()) {
-                statement.setString(5, family.getName());
-            } else {
-                statement.setNull(5, Types.VARCHAR);
-            }
-
-            if (!family.getId().isEmpty()){
-                statement.setString(1, family.getId());
+            if (!sensingElementOnChip.getChip().getFamilyName().isEmpty()){
+                statement.setString(1, sensingElementOnChip.getChip().getFamilyName());
             } else {
                 statement.setNull(1, Types.VARCHAR);
             }
 
-            if (!family.getHwVersion().isEmpty()) {
-                statement.setString(2, family.getHwVersion());
-            } else {
-                statement.setNull(2, Types.VARCHAR);
-            }
+            statement1.executeUpdate(sqlDeleteSPSensingElementOnChip);
 
-            if (!family.getSysclock().isEmpty()) {
-                statement.setString(3, family.getSysclock());
-            } else {
-                statement.setNull(3, Types.VARCHAR);
-            }
-
-            if (!family.getOsctrim().isEmpty()) {
-                statement.setString(4, family.getOsctrim());
-            } else {
-                statement.setNull(4, Types.VARCHAR);
-            }
+            for (Calibration temp : calibrationList) {
 
 
-            int idSPFamily = 0;
+                String sqlIdCalibrationSelect = "SELECT idSPCalibration FROM SPCalibration WHERE name = '" + temp.getName() + "';";
+                Statement statement3 = connection.prepareStatement(sqlIdCalibrationSelect);
+                ResultSet resultSet2;
+                if (!temp.getName().isEmpty()) {
+                    resultSet2 = statement3.executeQuery(sqlIdCalibrationSelect);
 
-            ResultSet resultSet3 = statement5.executeQuery();
+                    int idCalibration = 0;
 
-            while(resultSet3.next()){
-                idSPFamily = resultSet3.getInt("idSPFamily");
-            }
+                    while (resultSet2.next()) {
 
-            statement8.executeUpdate();
-            statement6.setInt(1, idSPFamily);
-
-            statement6.executeUpdate();
-
-
-            statement7.setInt(1, idSPFamily);
-
-            statement7.executeUpdate();
-
-
-
-
-            int idPort = 0;
-
-            for (Port temp : portList) {
-
-                String namePort = temp.getName();
-                String idSensingElement = temp.getIdSensingElement();
-
-                statement3.setString(1, namePort);
-
-                ResultSet resultSet = statement3.executeQuery();
-
-
-                while (resultSet.next()) {
-                    idPort = resultSet.getInt("idSPPort");
-                }
-
-                statement1.setInt(1, idSPFamily);
-                statement1.setInt(2, idPort);
-
-                long idFamilyTemplate = 0l;
-
-                int affectedRows = statement1.executeUpdate();
-
-                if (affectedRows == 0) {
-                    throw new SQLException("Creating user failed, no rows affected.");
-                }
-
-                try (ResultSet generatedKeys = statement1.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        idFamilyTemplate=(generatedKeys.getLong(1));
+                        idCalibration = resultSet2.getInt("idSPCalibration");
                     }
-                    else {
-                        throw new SQLException("Creating user failed, no ID obtained.");
+                    statement2.setInt(5, idCalibration);
+
+                }
+
+
+                int n = temp.getN();
+                int m = temp.getM();
+
+                statement2.setString(1, sensingElementOnChip.getChip().getId());
+                statement2.setInt(2, m);
+                statement2.setInt(3, n);
+
+                if(!sensingElementOnChip.getIdSensingElement().isEmpty()) {
+                    ResultSet resultSet4 = statement4.executeQuery(sqlIdSensingElementOnFamilySelect);
+                    int idSensingElementOnFamily = 0;
+
+                    while (resultSet4.next()){
+                        idSensingElementOnFamily = resultSet4.getInt("idSPSensingElementOnFamily");
                     }
-                }
-
-                if (idSensingElement != "" && idSensingElement != null) {
-                    statement9.setString(1, idSensingElement);
-                    statement9.setInt(2, (int) idFamilyTemplate);
-                    statement9.setString(3, family.getName());
-
-                    statement9.execute();
+                    statement2.setInt(4, idSensingElementOnFamily);
                 }
 
 
+                if (!sensingElementOnChip.getIdSensingElement().isEmpty() && !temp.getName().isEmpty()) {
+                    ResultSet resultSet = statement1.executeQuery(sqlSPSensingElementOnChipInsert);
+                }
 
             }
 
-            int idMeasureType = 0;
-
-            for (String temp : measureTypeList) {
 
 
-                statement4.setString(1, temp);
-                ResultSet resultSet1 = statement4.executeQuery();
-
-
-                while (resultSet1.next()) {
-                    idMeasureType = resultSet1.getInt("idSPMeasureType");
-                }
-
-                statement2.setInt(1, (int) idSPFamily);
-                statement2.setInt(2, idMeasureType);
-
-                statement2.execute();
-
-
-            }
 
 
             statement.close();
             statement1.close();
             statement2.close();
-            statement3.close();
             statement4.close();
-            statement5.close();
-            statement6.close();
-            statement7.close();
-            statement9.close();
+
 
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Fetches all the sensingElements.
+     * @return All the sensingElements.
+     */
+    @Override
+    public Iterable<SensingElementOnChip> fetchAll() {
+
+        List<SensingElementOnChip> sensingElementOnChips = new ArrayList<>();
+
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+
+            String sqlSPChipSelect = "SELECT * FROM SPChip";
+            String sqlSPSensingElementOnChipSelect = "SELECT (SPSensingElementOnFamily_idSPSensingElementOnFamily)" +
+                    " FROM SPSensingElementOnChip WHERE SPChip_idSPChip = ?";
+            String sqlSPCalibrationsSelect = "SELECT (n, m, SPCalibration_idSPCalibration FROM SPSensingElementOnFamily WHERE SPChip_idSPChip = ?";
+            String sqlSPSensingElementIDSelect = "SELECT SPSensingElement_idSPSensingElement FROM SPSensingElementOnFamily WHERE idSPSensingElementOnFamily = ?";
+            String sqlSPCalibrationNameSelect = "SELECT name FROM SPCalibration WHERE idSPCalibration = ?";
+            String sqlSPFamilyNameSelect = "SELECT name FROM SPFamily WHERE idSPFamily = ?";
+
+
+
+            Statement statement = connection.prepareStatement(sqlSPChipSelect);
+            ResultSet resultSet = statement.executeQuery(sqlSPChipSelect);
+
+            PreparedStatement statement1 = connection.prepareStatement(sqlSPSensingElementOnChipSelect);
+            PreparedStatement statement2 = connection.prepareStatement(sqlSPSensingElementIDSelect);
+            PreparedStatement statement3 = connection.prepareStatement(sqlSPCalibrationNameSelect);
+            PreparedStatement statement4 = connection.prepareStatement(sqlSPFamilyNameSelect);
+            PreparedStatement statement5 = connection.prepareStatement(sqlSPCalibrationsSelect);
+
+
+
+            while (resultSet.next()) {
+                String chipId = resultSet.getString("idSPChip");
+                int familyId = resultSet.getInt("SPFamily_idSPFamily");
+
+                statement4.setInt(1, familyId);
+
+                ResultSet rsFamily = statement4.executeQuery();
+
+                String familyName = "";
+
+                while(rsFamily.next()){
+
+                    familyName = rsFamily.getString("name");
+
+                }
+
+
+                statement2.setString(1, chipId);
+
+                ResultSet rsSEOnFamily = statement2.executeQuery();
+
+
+                int n = 0, m = 0, sensingElementOnFamilyId = 0, calibrationId = 0;
+
+                while (rsSEOnFamily.next()){
+
+                    sensingElementOnFamilyId = rsSEOnFamily.getInt(4);
+                    //calibrationId = rsSEOnFamily.getInt(5);
+                }
+
+                statement2.setInt(1, sensingElementOnFamilyId);
+
+                ResultSet rsSensingElement = statement2.executeQuery();
+
+                String sensingElementId = "";
+
+                while (rsSensingElement.next()){
+                    sensingElementId = rsSensingElement.getString("idSPSensingElement");
+                }
+
+
+                List<Calibration> calibrations = new ArrayList<>();
+
+                statement5.setString(1, chipId);
+
+                ResultSet rsCalibrations = statement5.executeQuery();
+
+                while (rsCalibrations.next()) {
+
+                    statement3.setInt(1, rsCalibrations.getInt("SPCalibration_idSPCalibration"));
+
+                    ResultSet rsCalibration = statement3.executeQuery();
+
+                    String calibrationName = "";
+
+                    n = rsCalibrations.getInt("n");
+                    m = rsCalibrations.getInt("m");
+
+                    while (rsCalibration.next()) {
+                        calibrationName = rsCalibration.getString("name");
+                    }
+
+                    Calibration calibration = new Calibration(calibrationName, n, m);
+                    calibrations.add(calibration);
+                }
+                Chip chip = new Chip(familyName, chipId);
+
+                SensingElementOnChip sensingElementOnChip = new SensingElementOnChip(chip, calibrations, sensingElementId);
+
+
+                sensingElementOnChips.add(sensingElementOnChip);
+            }
+            statement.close();
+            statement1.close();
+            statement3.close();
+            statement4.close();
+            statement5.close();
+            statement2.close();
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sensingElementOnChips;
+    }
+
 
 
 

@@ -1,5 +1,7 @@
 package it.unicas.project.dao;
 
+import it.unicas.project.model.SensingElementOnChip;
+
 /**
  * Generic interface that extends the DAO generic interface
  * and adds CRUD operations.
