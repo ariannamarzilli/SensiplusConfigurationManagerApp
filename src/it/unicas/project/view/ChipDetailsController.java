@@ -1,24 +1,21 @@
 package it.unicas.project.view;
 
-/*
-import it.unicas.project.model.Chip;
+import it.unicas.project.model.SensingElementOnChip;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-*/
 
 public class ChipDetailsController {
 
-    /*
     private Stage dialogStage;
-    Chip chip;
+    SensingElementOnChip sensingElementOnChip;
 
     @FXML
     private void initialize() {
 
     }
 
-    public void setChip(Chip chip) {
-        this.chip = chip;
+    public void setSensingElementOnChip(SensingElementOnChip sensingElementOnChip) {
+        this.sensingElementOnChip = sensingElementOnChip;
     }
 
     @FXML
@@ -34,6 +31,6 @@ public class ChipDetailsController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
-    */
+
 
 }
