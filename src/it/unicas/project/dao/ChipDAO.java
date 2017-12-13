@@ -1,9 +1,6 @@
 package it.unicas.project.dao;
 
-import it.unicas.project.model.Calibration;
-import it.unicas.project.model.Chip;
-import it.unicas.project.model.SensingElement;
-import it.unicas.project.model.SensingElementOnChip;
+import it.unicas.project.model.*;
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
@@ -162,32 +159,18 @@ public class ChipDAO implements CrudDAO<Chip> {
 
             String sqlSPChipDelete = "DELETE FROM SPChip WHERE name ='" + sensingElementOnChip.getChip().getId() + "';";
 
-            //
             String sqlSPSensingElementOnFamilyDelete = "DELETE FROM SPSensingElementOnChip WHERE  = '" + sensingElementOnChip.getChip().getId() + "';";
 
-            /*Statement statement2 = connection.prepareStatement(sqlSPFamilyTemplateDelete);
-            statement2.executeUpdate(sqlSPFamilyTemplateDelete);
+            Statement statement = connection.prepareStatement(sqlSPSensingElementOnFamilyDelete);
+            statement.executeUpdate(sqlSPSensingElementOnFamilyDelete);
 
-            Statement statement5 = connection.prepareStatement(sqlSPSensingElementOnFamilyDelete);
-            statement5.executeUpdate(sqlSPSensingElementOnFamilyDelete);
-
-            Statement statement3 = connection.prepareStatement(sqlSPFamilyHasMeasureTypeDelete);
-            statement3.executeUpdate(sqlSPFamilyHasMeasureTypeDelete);
-            //
-
-            Statement statement = connection.prepareStatement(sqlSPFamilyDelete);
-            statement.executeUpdate(sqlSPFamilyDelete);
-
-
+            Statement statement1 = connection.prepareStatement(sqlSPChipDelete);
+            statement1.executeUpdate(sqlSPChipDelete);
 
 
 
             statement.close();
             statement1.close();
-            statement2.close();
-            statement3.close();
-            statement4.close();
-            statement5.close();*/
 
             connection.close();
 
@@ -195,6 +178,208 @@ public class ChipDAO implements CrudDAO<Chip> {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Updates the sensingElement whith the same id of the sensingElement passed in.
+     *
+     * @param family The sensingElement to be updated.
+     */
+    @Override
+    public void update(Family family) {
+
+        try {
+
+            List<Port> portList = family.getPorts();
+            List<String> measureTypeList = family.getMeasureType();
+
+            Connection connection = ConnectionFactory.getConnection();
+            String sqlUpdateSPFamily = "UPDATE SPFamily SET " +
+                    "id = ?, hwVersion = ?, sysclock = ?, osctrim = ?" +
+                    " WHERE name = ? ;";
+
+            String sqlIdFamilySelect = "SELECT idSPFamily FROM SPFamily WHERE name = '" + family.getName() + "';";
+
+            String sqlIdSPPOrtSelect = "SELECT idSPPort FROM SPPort WHERE name = ?;";
+
+            String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureTechniques WHERE type = ?;";
+
+            String sqlDeleSPPort = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = ?;";
+
+            String sqlDeleteSPMeasureType = "DELETE FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = ?;";
+
+            String sqlDeleteSPSensingElementOnFamily = "DELETE FROM SPSensingElementOnFamily WHERE " +
+                    "name = '" + family.getName() + "';";
+
+            String sqlSPFamilyTemplateInsert = "INSERT INTO SPFamilyTemplate (" +
+                    "SPFamily_idSPFamily, " +
+                    "SPPort_idSPPort)" +
+                    " VALUES (?, ?)";
+
+            String sqlSPFamilyHasSPMeasureTypeInsert = "INSERT INTO SPFamily_has_SPMeasureType (" +
+                    "SPFamily_idSPFamily, " +
+                    "SPMeasureType_idSPMeasureType)" +
+                    "VALUES (?, ?)";
+
+            String sqlSPSensingElementOnFamilyInsert =
+                    "INSERT INTO SPSensingElementOnFamily (" +
+                            "SPSensingElement_idSPSensingElement, " +
+                            "SPFamilyTemplate_idSPFamilyTemplate, " +
+                            "name)" +
+                            " VALUES (?, ?, ?)";
+
+
+
+            PreparedStatement statement = connection.prepareStatement(sqlUpdateSPFamily, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement3 = connection.prepareStatement(sqlIdSPPOrtSelect, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement4 = connection.prepareStatement(sqlIdSPMeasureTypeSelect, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement5 = connection.prepareStatement(sqlIdFamilySelect);
+            PreparedStatement statement6 = connection.prepareStatement(sqlDeleSPPort);
+            PreparedStatement statement7 = connection.prepareStatement(sqlDeleteSPMeasureType);
+            PreparedStatement statement1 = connection.prepareStatement(sqlSPFamilyTemplateInsert, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyHasSPMeasureTypeInsert);
+            PreparedStatement statement8 = connection.prepareStatement(sqlDeleteSPSensingElementOnFamily);
+            PreparedStatement statement9 = connection.prepareStatement(sqlSPSensingElementOnFamilyInsert);
+
+
+
+            if (!family.getName().isEmpty()) {
+                statement.setString(5, family.getName());
+            } else {
+                statement.setNull(5, Types.VARCHAR);
+            }
+
+            if (!family.getId().isEmpty()){
+                statement.setString(1, family.getId());
+            } else {
+                statement.setNull(1, Types.VARCHAR);
+            }
+
+            if (!family.getHwVersion().isEmpty()) {
+                statement.setString(2, family.getHwVersion());
+            } else {
+                statement.setNull(2, Types.VARCHAR);
+            }
+
+            if (!family.getSysclock().isEmpty()) {
+                statement.setString(3, family.getSysclock());
+            } else {
+                statement.setNull(3, Types.VARCHAR);
+            }
+
+            if (!family.getOsctrim().isEmpty()) {
+                statement.setString(4, family.getOsctrim());
+            } else {
+                statement.setNull(4, Types.VARCHAR);
+            }
+
+
+            int idSPFamily = 0;
+
+            ResultSet resultSet3 = statement5.executeQuery();
+
+            while(resultSet3.next()){
+                idSPFamily = resultSet3.getInt("idSPFamily");
+            }
+
+            statement8.executeUpdate();
+            statement6.setInt(1, idSPFamily);
+
+            statement6.executeUpdate();
+
+
+            statement7.setInt(1, idSPFamily);
+
+            statement7.executeUpdate();
+
+
+
+
+            int idPort = 0;
+
+            for (Port temp : portList) {
+
+                String namePort = temp.getName();
+                String idSensingElement = temp.getIdSensingElement();
+
+                statement3.setString(1, namePort);
+
+                ResultSet resultSet = statement3.executeQuery();
+
+
+                while (resultSet.next()) {
+                    idPort = resultSet.getInt("idSPPort");
+                }
+
+                statement1.setInt(1, idSPFamily);
+                statement1.setInt(2, idPort);
+
+                long idFamilyTemplate = 0l;
+
+                int affectedRows = statement1.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating user failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = statement1.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        idFamilyTemplate=(generatedKeys.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                }
+
+                if (idSensingElement != "" && idSensingElement != null) {
+                    statement9.setString(1, idSensingElement);
+                    statement9.setInt(2, (int) idFamilyTemplate);
+                    statement9.setString(3, family.getName());
+
+                    statement9.execute();
+                }
+
+
+
+            }
+
+            int idMeasureType = 0;
+
+            for (String temp : measureTypeList) {
+
+
+                statement4.setString(1, temp);
+                ResultSet resultSet1 = statement4.executeQuery();
+
+
+                while (resultSet1.next()) {
+                    idMeasureType = resultSet1.getInt("idSPMeasureType");
+                }
+
+                statement2.setInt(1, (int) idSPFamily);
+                statement2.setInt(2, idMeasureType);
+
+                statement2.execute();
+
+
+            }
+
+
+            statement.close();
+            statement1.close();
+            statement2.close();
+            statement3.close();
+            statement4.close();
+            statement5.close();
+            statement6.close();
+            statement7.close();
+            statement9.close();
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

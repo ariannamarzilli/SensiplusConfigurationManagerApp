@@ -9,7 +9,7 @@ public class SensingElementOnChip {
     private List<Calibration> calibrationList;
     private String idSensingElement;
 
-    public SensingElementOnChip(Chip chip, List<Calibration> calibrationList, int n, int m, String idSensingElement) {
+    public SensingElementOnChip(Chip chip, List<Calibration> calibrationList, String idSensingElement) {
         this.chip = chip;
         this.calibrationList = calibrationList;
         this.idSensingElement = idSensingElement;
