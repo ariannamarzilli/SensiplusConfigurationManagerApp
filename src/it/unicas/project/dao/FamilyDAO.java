@@ -374,6 +374,8 @@ public class FamilyDAO implements CrudDAO<Family> {
                 statement.setNull(4, Types.VARCHAR);
             }
 
+            statement.execute();
+
 
             int idSPFamily = 0;
 
@@ -382,6 +384,8 @@ public class FamilyDAO implements CrudDAO<Family> {
             while(resultSet3.next()){
                 idSPFamily = resultSet3.getInt("idSPFamily");
             }
+
+            //qui vengono fatti i delete dalle tabelle intermedie
 
             statement8.executeUpdate();
             statement6.setInt(1, idSPFamily);
