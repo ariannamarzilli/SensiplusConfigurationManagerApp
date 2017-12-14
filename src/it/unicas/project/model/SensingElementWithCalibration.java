@@ -3,27 +3,22 @@ package it.unicas.project.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SensingElementOnChip {
+public class SensingElementWithCalibration {
 
-    private Chip chip;
     private List<Calibration> calibrationList;
     private String idSensingElement;
 
-    public SensingElementOnChip(Chip chip, List<Calibration> calibrationList, String idSensingElement) {
-        this.chip = chip;
+    public SensingElementWithCalibration(List<Calibration> calibrationList, String idSensingElement) {
         this.calibrationList = calibrationList;
         this.idSensingElement = idSensingElement;
     }
 
-    public SensingElementOnChip(Chip chip) {
-        this.chip = chip;
+    public SensingElementWithCalibration() {
         this.calibrationList = new ArrayList<>();
         this.idSensingElement = "";
     }
 
-    public Chip getChip() {
-        return chip;
-    }
+
 
     public List<Calibration> getCalibrationList() {
         return calibrationList;
@@ -35,9 +30,6 @@ public class SensingElementOnChip {
 
 
 
-    public void setChip(Chip chip) {
-        this.chip = chip;
-    }
 
     public String getIdSensingElement() {
         return idSensingElement;

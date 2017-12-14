@@ -2,7 +2,6 @@ package it.unicas.project.dao;
 
 import it.unicas.project.model.Family;
 import it.unicas.project.model.Port;
-import it.unicas.project.model.SensingElementOnChip;
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
