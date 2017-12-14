@@ -52,11 +52,7 @@ public class ChipOverviewController {
 
         while(iterator.hasNext()) {
             Chip chip = iterator.next();
-
-            /*
-            in questo punto bisogna fare un controllo sui valori nulli
-             */
-
+            chip.checkNullField();
             chipObservableList.add(chip);
         }
 
@@ -65,6 +61,7 @@ public class ChipOverviewController {
         idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         familyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFamilyName()));
 
+        chipTableView.setItems(chipData);
     }
 
     @FXML
@@ -137,8 +134,9 @@ public class ChipOverviewController {
 
         if (!sensingElementList.getSelectionModel().getSelectedItems().isEmpty()) {
 
-            String sensingElementIdClicked = sensingElementList.getSelectionModel().getSelectedItems().toString();
+            String sensingElementIdClicked = new String(sensingElementList.getSelectionModel().getSelectedItems().toString());
             ObservableList<String> calibrationNames = FXCollections.observableArrayList();
+            clickedSensingElementWithCalibrations = new SensingElementWithCalibration();
 
             for (int i = 0; i < clickedChip.getSensingElementWithCalibrations().size(); i++) {
                 if (clickedChip.getSensingElementWithCalibrations().get(i).getIdSensingElement().equals(sensingElementIdClicked)) {
