@@ -330,11 +330,6 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                String sqlCalibrationSelect = "SELECT SPCalibration_idSPCalibration WHERE SPSensingElement_idSPSensingElement = '" +
-                        resultSet.getString("idSPSensingElement") + "';";
-
-                Statement statement1 = connection.prepareStatement(sqlCalibrationSelect);
-                ResultSet resultSet1 = statement1.executeQuery(sqlCalibrationSelect);
 
                 sensingElements.add(new SensingElement(resultSet.getString("idSPSensingElement"),
                         resultSet.getString("rSense"),
