@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 
 import java.util.Iterator;
+import java.util.List;
 
 
 public class ChipOverviewController {
@@ -45,15 +46,13 @@ public class ChipOverviewController {
     private void initialize() {
 
         ChipDAO chipDAO = new ChipDAO();
-        Iterable<Chip> chips = chipDAO.fetchAll();
-        Iterator<Chip> iterator = chips.iterator();
+        List<Chip> chips = chipDAO.fetchAll();
 
         ObservableList<Chip> chipObservableList = FXCollections.observableArrayList();
 
-        while(iterator.hasNext()) {
-            Chip chip = iterator.next();
-            chip.checkNullField();
-            chipObservableList.add(chip);
+        for (int i = 0; i < chips.size(); i++) {
+            chips.get(i).checkNullField();
+            chipObservableList.add(chips.get(i));
         }
 
         this.setChipData(chipObservableList);

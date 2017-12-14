@@ -142,12 +142,8 @@ public class FamilyDetailsController {
 
 
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
-        Iterable<SensingElement> se = sensingElementDAO.fetchAll();     //devo usare una funzione che restituisce sensing element mai montati
-        List<SensingElement> sensingElements = new ArrayList<>();
-
-        while (se.iterator().hasNext()) {
-            sensingElements.add(se.iterator().next());
-        }
+        //devo usare una funzione che restituisce sensing element mai montati
+        List<SensingElement> sensingElements = sensingElementDAO.fetchAll();
 
         sensingElementId = FXCollections.observableArrayList();
         sensingElements.stream().forEach(sensingElement -> sensingElementId.add(sensingElement.getId()));
