@@ -1,6 +1,5 @@
 package it.unicas.project.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +16,18 @@ public class Chip {
     }
 
     public Chip() {
+        familyName = "";
+        id = "";
+        sensingElementWithCalibrations = new ArrayList<>();
     }
 
     public Chip(Chip chip){
-
-        this.id = chip.getId();
-        this.familyName = chip.getFamilyName();
-        this.sensingElementWithCalibrations = chip.getSensingElementWithCalibrations();
-
+        sensingElementWithCalibrations = new ArrayList<>();
+        setFamilyName(chip.getFamilyName());
+        setId(chip.getId());
+        for (int i = 0; i < chip.getSensingElementWithCalibrations().size(); i++) {
+            sensingElementWithCalibrations.add(chip.getSensingElementWithCalibrations().get(i));
+        }
     }
 
     public Chip(String id) {
@@ -65,4 +68,15 @@ public class Chip {
         return false;
     }
 
+    public void checkNullField() {
+        if (this.familyName == null) {
+            familyName = "";
+        }
+        if (this.id == null) {
+            id = "";
+        }
+        if (this.sensingElementWithCalibrations == null) {
+            sensingElementWithCalibrations = new ArrayList<>();
+        }
+    }
 }

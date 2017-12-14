@@ -24,7 +24,7 @@ public class MainApp extends Application {
     private BorderPane rootWindow;
     private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
     private ObservableList<Family> familyData = FXCollections.observableArrayList();
-    private ObservableList<SensingElementOnChip> sensingElementOnChipData = FXCollections.observableArrayList();
+    private ObservableList<Chip> chipData = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -174,7 +174,7 @@ public class MainApp extends Application {
         }
     }
 
-    public void showChipEditDialog(SensingElementOnChip sensingElementOnChip) {
+    public void showChipEditDialog(Chip chip) {
 
         try {
 
@@ -191,7 +191,7 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
 
             ChipDetailsController controller = loader.getController();
-            controller.setSensingElementOnChip(sensingElementOnChip);
+            controller.setSensingElementOnChip(chip);
             controller.setDialogStage(dialogStage);
 
             dialogStage.showAndWait();
@@ -214,28 +214,12 @@ public class MainApp extends Application {
         return familyData;
     }
 
-    public ObservableList<SensingElementOnChip> getSensingElementOnChipData() {
-        return sensingElementOnChipData;
+    public ObservableList<Chip> getChipData() {
+        return chipData;
     }
 
     public static void main(String[] args) {
-
-        Chip chip = new Chip("name4", "id1");
-
-        List<Calibration> calibrations = new ArrayList<>();
-
-        Calibration calibration = new Calibration("cal1", 2, 3);
-        Calibration calibration1 = new Calibration("cal2", 2, 2);
-
-        calibrations.add(calibration);
-        calibrations.add(calibration1);
-
-        SensingElementOnChip sensingElementOnChip = new SensingElementOnChip(chip, calibrations, "id1");
-
-        ChipDAO chipDAO = ChipDAO.getInstance();
-        chipDAO.create(sensingElementOnChip);
-
-
+        launch(args);
     }
 
 }
