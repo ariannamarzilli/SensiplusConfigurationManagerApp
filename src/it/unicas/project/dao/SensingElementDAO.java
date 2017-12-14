@@ -319,7 +319,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
      * @return All the sensingElements.
      */
     @Override
-    public Iterable<SensingElement> fetchAll() {
+    public List<SensingElement> fetchAll() {
 
         List<SensingElement> sensingElements = new ArrayList<>();
 

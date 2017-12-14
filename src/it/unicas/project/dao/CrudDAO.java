@@ -1,5 +1,7 @@
 package it.unicas.project.dao;
 
+import java.util.List;
+
 /**
  * Generic interface that extends the DAO generic interface
  * and adds CRUD operations.
@@ -34,5 +36,5 @@ public interface CrudDAO<Entity> extends DAO {
      *
      * @return All the entities fetched.
      */
-    Iterable<Entity> fetchAll();
+    List<Entity> fetchAll();
 }
