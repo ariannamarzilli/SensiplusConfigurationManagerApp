@@ -409,8 +409,12 @@ public class ChipDAO implements CrudDAO<Chip> {
 
                     SensingElementWithCalibration sensingElementWithCalibration = new SensingElementWithCalibration(calibrations, sensingElementId);
 
-                    sensingElementWithCalibrations.add(sensingElementWithCalibration);
+                    if (!(sensingElementWithCalibrations.contains(sensingElementWithCalibration))) {
+
+                        sensingElementWithCalibrations.add(sensingElementWithCalibration);
+                    }
                 }
+
 
                 Chip chip = new Chip(familyName, chipId, sensingElementWithCalibrations);
 

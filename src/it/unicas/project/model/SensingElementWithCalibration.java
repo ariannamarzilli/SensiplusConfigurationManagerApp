@@ -54,9 +54,12 @@ public class SensingElementWithCalibration {
         }
     }
 
-    public boolean equals(SensingElementWithCalibration sensingElementWithCalibration) {
-        if (this.calibrationList.equals(sensingElementWithCalibration.getCalibrationList()) &&
-                this.idSensingElement.equals(sensingElementWithCalibration.getIdSensingElement())) {
+    @Override
+    public boolean equals(Object sensingElementWithCalibration) {
+        SensingElementWithCalibration se = (SensingElementWithCalibration) sensingElementWithCalibration;
+
+        if (this.calibrationList.equals(se.getCalibrationList()) &&
+                this.idSensingElement.equals(se.getIdSensingElement())) {
             return true;
         }
         return false;

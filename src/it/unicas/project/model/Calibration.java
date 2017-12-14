@@ -65,10 +65,13 @@ public class Calibration {
         }
     }
 
-    public boolean equals(Calibration calibration) {
-        if (this.name.equals(calibration.getName()) &&
-                this.m.equals(calibration.getM()) &&
-                this.n.equals(calibration.getN())) {
+    @Override
+    public boolean equals(Object calibration) {
+
+        Calibration c = (Calibration) calibration;
+        if (this.name.equals(c.getName()) &&
+                this.m.equals(c.getM()) &&
+                this.n.equals(c.getN())) {
             return true;
         }
         return false;
