@@ -70,7 +70,7 @@ public class FamilyOverviewController {
         this.setFamilyData(familyObservableList);
 
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         hwVersionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHwVersion()));
         sysClockColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSysclock()));
         osctrimColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOsctrim()));

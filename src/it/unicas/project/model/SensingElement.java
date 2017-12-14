@@ -353,8 +353,10 @@ public final class SensingElement {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        SensingElement sensingElement = (SensingElement) o;
 
-    public boolean equals(SensingElement sensingElement) {
         if (this.getId().equals(sensingElement.getId()) &&
                 this.getName().equals(sensingElement.getName()) &&
                 this.getrSense().equals(sensingElement.getrSense()) &&

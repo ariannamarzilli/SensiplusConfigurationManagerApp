@@ -124,7 +124,10 @@ public class Family {
         this.measureType = measureType;
     }
 
-    public boolean equals(Family family) {
+    @Override
+    public boolean equals(Object o) {
+        Family family = (Family) o;
+
         if (this.id.equals(family.getId()) &&
                 this.name.equals(family.getName()) &&
                 this.hwVersion.equals(family.getHwVersion()) &&
