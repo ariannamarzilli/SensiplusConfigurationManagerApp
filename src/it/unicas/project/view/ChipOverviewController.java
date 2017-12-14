@@ -134,7 +134,7 @@ public class ChipOverviewController {
 
         if (!sensingElementList.getSelectionModel().getSelectedItems().isEmpty()) {
 
-            String sensingElementIdClicked = new String(sensingElementList.getSelectionModel().getSelectedItems().toString());
+            String sensingElementIdClicked = sensingElementList.getSelectionModel().getSelectedItem();
             ObservableList<String> calibrationNames = FXCollections.observableArrayList();
             clickedSensingElementWithCalibrations = new SensingElementWithCalibration();
 
