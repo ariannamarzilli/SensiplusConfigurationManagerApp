@@ -1,10 +1,9 @@
 package it.unicas.project.view;
 
-
 import it.unicas.project.MainApp;
 import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.model.Chip;
-import it.unicas.project.model.SensingElementOnChip;
+import it.unicas.project.model.SensingElementWithCalibration;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,13 +17,13 @@ import java.util.Iterator;
 public class ChipOverviewController {
 
     @FXML
-    private TableView<SensingElementOnChip> chipTableView = new TableView<>();
+    private TableView<Chip> chipTableView = new TableView<>();
 
     @FXML
-    private TableColumn<SensingElementOnChip, String> idColumn;
+    private TableColumn<Chip, String> idColumn;
 
     @FXML
-    private TableColumn<SensingElementOnChip, String> familyColumn;
+    private TableColumn<Chip, String> familyColumn;
 
     @FXML
     private ListView<String> sensingElementList;
@@ -35,45 +34,47 @@ public class ChipOverviewController {
     @FXML
     private ListView<Integer> calibrationParametersList;
 
-    ObservableList<SensingElementOnChip> sensingElementOnChipData;
+    private ObservableList<Chip> chipData;
 
-    SensingElementOnChip sensingElementOnChipClicked = new SensingElementOnChip(new Chip());
+    private Chip clickedChip;
+    private SensingElementWithCalibration clickedSensingElementWithCalibrations;
+
     private MainApp mainApp;
 
     @FXML
     private void initialize() {
 
         ChipDAO chipDAO = new ChipDAO();
-        Iterable<SensingElementOnChip> sensingElementOnChips = chipDAO.fetchAll();
-        Iterator<SensingElementOnChip> iterator = sensingElementOnChips.iterator();
+        Iterable<Chip> chips = chipDAO.fetchAll();
+        Iterator<Chip> iterator = chips.iterator();
 
-        ObservableList<SensingElementOnChip> sensingElementOnChipObservableList = FXCollections.observableArrayList();
+        ObservableList<Chip> chipObservableList = FXCollections.observableArrayList();
 
         while(iterator.hasNext()) {
-            SensingElementOnChip sensingElementOnChip = iterator.next();
+            Chip chip = iterator.next();
 
             /*
             in questo punto bisogna fare un controllo sui valori nulli
              */
 
-            sensingElementOnChipObservableList.add(sensingElementOnChip);
+            chipObservableList.add(chip);
         }
 
-        this.setSensingElementOnChipData(sensingElementOnChipObservableList);
+        this.setChipData(chipObservableList);
 
-        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChip().getId()));
-        familyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChip().getId()));
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        familyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFamilyName()));
 
     }
 
     @FXML
     private void handleNew() {
-        SensingElementOnChip tempChip = new SensingElementOnChip(new Chip());
-        SensingElementOnChip oldChip = new SensingElementOnChip(new Chip());
+        Chip tempChip = new Chip();
+        Chip oldChip = new Chip(tempChip);
         mainApp.showChipEditDialog(tempChip);
         if (!tempChip.equals(oldChip)) {
             ChipDAO.getInstance().create(tempChip);
-            mainApp.getSensingElementOnChipData().add(tempChip);
+            mainApp.getChipData().add(tempChip);
         }
     }
 
@@ -90,7 +91,7 @@ public class ChipOverviewController {
             alert.showAndWait();
 
             if (alert.getResult() == ButtonType.OK) {
-                SensingElementOnChip chip = chipTableView.getItems().get(selectedIndex);
+                Chip chip = chipTableView.getItems().get(selectedIndex);
                 ChipDAO.getInstance().delete(chip);
                 chipTableView.getItems().remove(selectedIndex);
             }
@@ -98,29 +99,22 @@ public class ChipOverviewController {
 
     }
 
-   /* @FXML
+    @FXML
     private void handleClickOnChip(MouseEvent event) {
-
-        sensingElementOnChipClicked.getCalibrationList().clear();
-        sensingElementOnChipClicked.setIdSensingElement("");
 
         sensingElementList.getSelectionModel().clearSelection();
         calibrationNameList.getSelectionModel().clearSelection();
         calibrationParametersList.getSelectionModel().clearSelection();
 
-        if ((!sensingElementOnChipData.isEmpty()) && chipTableView.getSelectionModel().getSelectedItem() != null) {
-            SensingElementOnChip chipClicked = chipTableView.getSelectionModel().getSelectedItem();
+        if ((!chipData.isEmpty()) && chipTableView.getSelectionModel().getSelectedItem() != null) {
+            clickedChip = chipTableView.getSelectionModel().getSelectedItem();
 
             if (event.getClickCount() == 1) {
 
-
                 ObservableList<String> sensingElements = FXCollections.observableArrayList();
 
-                for (int i = 0; i < sensingElementOnChipData.size(); i++) {
-                    if (sensingElementOnChipData.get(i).getChip().equals(chipClicked.getChip())) {
-
-                        sensingElements.add(sensingElementOnChipData.get(i).getIdSensingElement());
-                    }
+                for (int i = 0; i < clickedChip.getSensingElementWithCalibrations().size(); i++) {
+                    sensingElements.add(clickedChip.getSensingElementWithCalibrations().get(i).getIdSensingElement());
                 }
 
                 if (sensingElements.size() != 0) {
@@ -128,15 +122,15 @@ public class ChipOverviewController {
                 }
 
             } else if (event.getClickCount() == 2) {
-                SensingElementOnChip oldChip = new SensingElementOnChip(chipClicked);   //copia
-                mainApp.showChipEditDialog(chipClicked);
-                if (!chipClicked.equals(oldChip)) {
-                    ChipDAO.getInstance().update(chipClicked);
-                    mainApp.getSensingElementOnChipData().add(chipClicked);
+                Chip oldChip = new Chip(clickedChip);   //copia
+                mainApp.showChipEditDialog(clickedChip);
+                if (!clickedChip.equals(oldChip)) {
+                    ChipDAO.getInstance().update(clickedChip);
+                    mainApp.getChipData().add(clickedChip);
                 }
             }
         }
-    }*/
+    }
 
     @FXML
     private void handleClickOnSensingElement() {
@@ -145,18 +139,15 @@ public class ChipOverviewController {
 
             String sensingElementIdClicked = sensingElementList.getSelectionModel().getSelectedItems().toString();
             ObservableList<String> calibrationNames = FXCollections.observableArrayList();
-            boolean found = false;
-            int index = 0;
 
-            while (!found && index < sensingElementOnChipData.size()) {
-                if (sensingElementOnChipData.get(index).getIdSensingElement().equals(sensingElementIdClicked)) {
-                    found = true;
-                    sensingElementOnChipData.get(index).getCalibrationList().stream().forEach(calibration -> calibrationNames.add(calibration.getName()));
-                    sensingElementOnChipClicked.setIdSensingElement(sensingElementIdClicked);
-                    sensingElementOnChipClicked.setCalibrationList(sensingElementOnChipData.get(index).getCalibrationList());
+            for (int i = 0; i < clickedChip.getSensingElementWithCalibrations().size(); i++) {
+                if (clickedChip.getSensingElementWithCalibrations().get(i).getIdSensingElement().equals(sensingElementIdClicked)) {
+                    clickedSensingElementWithCalibrations = clickedChip.getSensingElementWithCalibrations().get(i);
                 }
+            }
 
-                index = index + 1;
+            for (int i = 0; i < clickedSensingElementWithCalibrations.getCalibrationList().size(); i++) {
+                calibrationNames.add(clickedSensingElementWithCalibrations.getCalibrationList().get(i).getName());
             }
 
             if (calibrationNames.size() != 0) {
@@ -166,36 +157,31 @@ public class ChipOverviewController {
         }
     }
 
-   /* @FXML
+    @FXML
     private void handleClickOnCalibrationName() {
 
         if (!calibrationNameList.getSelectionModel().getSelectedItems().isEmpty()) {
 
-            String calibrationName = calibrationNameList.getSelectionModel().getSelectedItem();
+            String calibrationNameClicked = calibrationNameList.getSelectionModel().getSelectedItem();
             ObservableList<Integer> parameters = FXCollections.observableArrayList();
 
-            boolean found = false;
-            int index = 0;
-
-            while (!found && index <sensingElementOnChipClicked.getCalibrationList().size()) {
-
-                if (sensingElementOnChipClicked.getCalibrationList().get(index).getName().equals(calibrationName)) {
-                    found = true;
-                    parameters.setAll(sensingElementOnChipClicked.getCalibrationList().get(index).getM(), sensingElementOnChipClicked.getCalibrationList().get(index).getN());
+            for (int i = 0; i < clickedSensingElementWithCalibrations.getCalibrationList().size(); i++) {
+                if (clickedSensingElementWithCalibrations.getCalibrationList().get(i).getName().equals(calibrationNameClicked)) {
+                    parameters.add(clickedSensingElementWithCalibrations.getCalibrationList().get(i).getM());
+                    parameters.add(clickedSensingElementWithCalibrations.getCalibrationList().get(i).getN());
                 }
-                index++;
             }
 
-            calibrationNameList.setItems(parameters);
+            calibrationParametersList.setItems(parameters);
 
         }
-    }*/
+    }
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-    public void setSensingElementOnChipData(ObservableList<SensingElementOnChip> sensingElementOnChipData) {
-        this.sensingElementOnChipData = sensingElementOnChipData;
+    public void setChipData(ObservableList<Chip> chipData) {
+        this.chipData = chipData;
     }
 }

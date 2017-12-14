@@ -2,6 +2,10 @@ package it.unicas.project.model;
 
 public class Calibration {
 
+    private String name;
+    private Integer n;
+    private Integer m;
+
     public Calibration(String name, int n, int m) {
 
         this.name = name;
@@ -18,6 +22,12 @@ public class Calibration {
     public Calibration() {
     }
 
+    public Calibration(Calibration calibration) {
+        this.setName(calibration.getName());
+        this.setN(calibration.getN());
+        this.setM(calibration.getM());
+    }
+
     public String getName() {
         return name;
     }
@@ -25,10 +35,6 @@ public class Calibration {
     public void setName(String name) {
         this.name = name;
     }
-
-    private String name;
-    private int n;
-    private  int m;
 
     public int getN() {
         return n;
@@ -44,5 +50,27 @@ public class Calibration {
 
     public void setM(int m) {
         this.m = m;
+    }
+
+    public void checkNullField() {
+
+        if (name == null) {
+            this.setName("");
+        }
+        if (m == null ) {
+            m = Integer.MAX_VALUE;
+        }
+        if (n == null) {
+            n = Integer.MAX_VALUE;
+        }
+    }
+
+    public boolean equals(Calibration calibration) {
+        if (this.name.equals(calibration.getName()) &&
+                this.m.equals(calibration.getM()) &&
+                this.n.equals(calibration.getN())) {
+            return true;
+        }
+        return false;
     }
 }
