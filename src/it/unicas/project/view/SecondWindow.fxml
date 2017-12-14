@@ -18,7 +18,7 @@
             <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="208.0" onAction="#handleChip" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Chip" textAlignment="CENTER" textFill="#b3cde0" />
             <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="258.0" onAction="#handleCluster" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Cluster" textAlignment="CENTER" textFill="#b3cde0" />
             <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="308.0" onAction="#handleConfiguration" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Configuration" textAlignment="CENTER" textFill="#b3cde0" />
-            <Pane prefHeight="73.0" prefWidth="220.0" style="-fx-background-color: #011f4b#011f4b;">
+            <Pane prefHeight="71.0" prefWidth="220.0" style="-fx-background-color: #011f4b#011f4b;">
                <children>
                   <Label alignment="CENTER" layoutX="12.0" layoutY="7.0" prefHeight="37.0" prefWidth="196.0" text="SensiPlus Configuration" textFill="WHITE">
                      <font>
@@ -38,7 +38,7 @@
                   </Label>
                </children>
                <effect>
-                  <DropShadow />
+                  <DropShadow blurType="ONE_PASS_BOX" />
                </effect>
             </Pane>
          </children>

@@ -13,6 +13,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import java.util.Iterator;
+import java.util.List;
+
 import javafx.scene.input.MouseEvent;
 
 
@@ -57,21 +59,18 @@ public class FamilyOverviewController {
     @FXML
     public void initialize() {
         FamilyDAO familyDAO = new FamilyDAO();
-        Iterable<Family> families = familyDAO.fetchAll();
-        Iterator<Family> iterator = families.iterator();
-
+        List<Family> families = familyDAO.fetchAll();
         ObservableList<Family> familyObservableList = FXCollections.observableArrayList();
 
-        while(iterator.hasNext()) {
-            Family family = iterator.next();
-            family.checkNullField();
-            familyObservableList.add(family);
+        for (int i = 0; i < families.size(); i++) {
+            families.get(i).checkNullField();
+            familyObservableList.add(families.get(i));
         }
 
         this.setFamilyData(familyObservableList);
 
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         hwVersionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHwVersion()));
         sysClockColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSysclock()));
         osctrimColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOsctrim()));

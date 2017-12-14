@@ -313,7 +313,7 @@ public class ChipDAO implements CrudDAO<Chip> {
      * @return All the sensingElements.
      */
     @Override
-    public Iterable<Chip> fetchAll() {
+    public List<Chip> fetchAll() {
 
         List<Chip> chips = new ArrayList<>();
 

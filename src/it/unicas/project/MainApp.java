@@ -41,6 +41,7 @@ public class MainApp extends Application {
             AnchorPane firstWindow = (AnchorPane) loader.load();
             Scene scene = new Scene(firstWindow);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
 
             FirstWindowController controller = loader.getController();

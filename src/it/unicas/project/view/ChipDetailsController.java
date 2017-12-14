@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ChipDetailsController {
     private GridPane gridPane;
 
     private Stage dialogStage;
-    private Iterable<Family> families;
+    private List<Family> families;
     private Chip chip;
     private List<Label> idSensingElementLabelList = new ArrayList<>();
     private List<JFXComboBox<String>> calibrationNameComboBoxList = new ArrayList<>();
@@ -41,9 +40,7 @@ public class ChipDetailsController {
         families = FamilyDAO.getInstance().fetchAll();
         ObservableList<String> familyNames = FXCollections.observableArrayList();
 
-        while (families.iterator().hasNext()) {
-            familyNames.add(families.iterator().next().getName());
-        }
+        families.stream().forEach(family -> familyNames.add(family.getName()));
 
         familyNameBox.setItems(familyNames);
 

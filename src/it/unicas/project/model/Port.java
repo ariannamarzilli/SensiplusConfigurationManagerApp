@@ -52,7 +52,9 @@ public class Port {
         this.name = namePort;
     }
 
-    public boolean equals(Port port) {
+    @Override
+    public boolean equals(Object o) {
+        Port port = (Port) o;
         if (this.name.equals(port.getName()) &&
                 this.idSensingElement.equals(port.getIdSensingElement())) {
             return true;

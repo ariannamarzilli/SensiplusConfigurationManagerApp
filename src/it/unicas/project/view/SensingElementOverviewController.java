@@ -5,7 +5,6 @@ import it.unicas.project.dao.SensingElementDAO;
 import it.unicas.project.model.SensingElement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,7 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import java.util.Iterator;
+import java.util.List;
 
 
 public class SensingElementOverviewController {
@@ -52,25 +51,20 @@ public class SensingElementOverviewController {
         this.mainApp = mainApp;
     }
 
+    /**
+     *
+     */
     @FXML
     private void initialize() {
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
-        Iterable<SensingElement> sensingElements = sensingElementDAO.fetchAll();
-        Iterator<SensingElement> iterator = sensingElements.iterator();
+        List<SensingElement> sensingElements = sensingElementDAO.fetchAll();
 
         // Defining table data in an Observable List
         ObservableList<SensingElement> sensingElementObservableList = FXCollections.observableArrayList();
 
-        while (iterator.hasNext()) {
-            SensingElement sensingElement = iterator.next();
-            /*
-            Dati i sensing element memorizzati nel database, i campi nulli vengono inizializzati con:
-            - Stringa vuota per String
-            - Integer.MAX_VALUE per interi
-            - Double.MAX_VALUE per double
-             */
-            sensingElement.checkNullField();
-            sensingElementObservableList.add(sensingElement);
+        for (int i = 0; i < sensingElements.size(); i++) {
+            sensingElements.get(i).checkNullField();
+            sensingElementObservableList.add(sensingElements.get(i));
         }
 
         this.setSensingElementsData(sensingElementObservableList);

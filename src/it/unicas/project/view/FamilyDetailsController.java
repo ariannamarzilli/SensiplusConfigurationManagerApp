@@ -142,12 +142,8 @@ public class FamilyDetailsController {
 
 
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
-        Iterable<SensingElement> se = sensingElementDAO.fetchAll();     //devo usare una funzione che restituisce sensing element mai montati
-        List<SensingElement> sensingElements = new ArrayList<>();
-
-        while (se.iterator().hasNext()) {
-            sensingElements.add(se.iterator().next());
-        }
+        //devo usare una funzione che restituisce sensing element mai montati
+        List<SensingElement> sensingElements = sensingElementDAO.fetchAll();
 
         sensingElementId = FXCollections.observableArrayList();
         sensingElements.stream().forEach(sensingElement -> sensingElementId.add(sensingElement.getId()));
@@ -543,142 +539,179 @@ public class FamilyDetailsController {
         }
     }
 
-
     private boolean areChoosedSensingElementsCorrect() {
 
         ArrayList<String> choosedSensingElements = new ArrayList<>();
 
         if (!sensingElementPort1Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort1Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort1Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort1Box.getValue());
+                if (sensingElementPort1Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort1Box.getValue());
+                }
             }
         }
         if (!sensingElementPort2Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort2Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort2Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort2Box.getValue());
+                if (sensingElementPort2Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort2Box.getValue());
+                }
             }
         }
         if (!sensingElementPort3Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort3Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort3Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort3Box.getValue());
+                if (sensingElementPort3Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort3Box.getValue());
+                }
             }
         }
         if (!sensingElementPort4Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort4Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort4Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort4Box.getValue());
+                if (sensingElementPort4Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort4Box.getValue());
+                }
             }
         }
         if (!sensingElementPort5Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort5Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort5Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort5Box.getValue());
+                if (sensingElementPort5Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort5Box.getValue());
+                }
             }
         }
         if (!sensingElementPort6Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort6Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort6Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort6Box.getValue());
+                if (sensingElementPort6Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort6Box.getValue());
+                }
             }
         }
         if (!sensingElementPort7Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort7Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort7Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort7Box.getValue());
+                if (sensingElementPort7Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort7Box.getValue());
+                }
             }
         }
         if (!sensingElementPort8Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort8Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort8Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort8Box.getValue());
+                if (sensingElementPort8Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort8Box.getValue());
+                }
             }
         }
         if (!sensingElementPort9Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort9Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort9Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort9Box.getValue());
+                if (sensingElementPort9Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort9Box.getValue());
+                }
             }
         }
         if (!sensingElementPort10Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort10Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort10Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort10Box.getValue());
+                if (sensingElementPort10Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort10Box.getValue());
+                }
             }
         }
         if (!sensingElementPort11Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort11Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort11Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort11Box.getValue());
+                if (sensingElementPort11Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort11Box.getValue());
+                }
             }
         }
         if (!sensingElementPort12Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPort12Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPort12Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPort12Box.getValue());
+                if (sensingElementPort12Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPort12Box.getValue());
+                }
             }
         }
         if (!sensingElementPortExt1Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPortExt1Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPortExt1Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPortExt1Box.getValue());
+                if (sensingElementPortExt1Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPortExt1Box.getValue());
+                }
             }
         }
         if (!sensingElementPortExt2Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPortExt2Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPortExt2Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPortExt2Box.getValue());
+                if (sensingElementPortExt2Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPortExt2Box.getValue());
+                }
             }
         }
         if (!sensingElementPortExt3Box.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPortExt3Box.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPortExt3Box.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPortExt3Box.getValue());
+                if (sensingElementPortExt3Box.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPortExt3Box.getValue());
+                }
             }
         }
         if (!sensingElementPortVoltageBox.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPortVoltageBox.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPortVoltageBox.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPortVoltageBox.getValue());
+                if (sensingElementPortVoltageBox.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPortVoltageBox.getValue());
+                }
             }
         }
         if (!sensingElementPortTemperatureBox.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPortTemperatureBox.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPortTemperatureBox.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPortTemperatureBox.getValue());
+                if (sensingElementPortTemperatureBox.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPortTemperatureBox.getValue());
+                }
             }
         }
         if (!sensingElementPortLightBox.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPortLightBox.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPortLightBox.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPortLightBox.getValue());
+                if (sensingElementPortLightBox.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPortLightBox.getValue());
+                }
             }
         }
         if (!sensingElementPortDarkBox.isDisable()) {
-            if (choosedSensingElements.contains(sensingElementPortDarkBox.getValue().toString())) {
+            if (choosedSensingElements.size() != 0 && choosedSensingElements.contains(sensingElementPortDarkBox.getValue())) {
                 return false;
             } else {
-                choosedSensingElements.add(sensingElementPortDarkBox.getValue());
+                if (sensingElementPortDarkBox.getValue() != null) {
+                    choosedSensingElements.add(sensingElementPortDarkBox.getValue());
+                }
             }
         }
 
