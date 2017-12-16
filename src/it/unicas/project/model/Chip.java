@@ -7,33 +7,26 @@ public class Chip {
 
     String familyName;
     String id;
-    List<SensingElementWithCalibration> sensingElementWithCalibrations;
 
-    public Chip(String familyName, String id, List<SensingElementWithCalibration> sensingElementWithCalibrations) {
+    public Chip(String familyName, String id) {
         this.familyName = familyName;
         this.id = id;
-        this.sensingElementWithCalibrations = sensingElementWithCalibrations;
     }
 
     public Chip() {
         familyName = "";
         id = "";
-        sensingElementWithCalibrations = new ArrayList<>();
     }
 
     public Chip(Chip chip){
-        sensingElementWithCalibrations = new ArrayList<>();
         setFamilyName(chip.getFamilyName());
         setId(chip.getId());
-        for (int i = 0; i < chip.getSensingElementWithCalibrations().size(); i++) {
-            sensingElementWithCalibrations.add(chip.getSensingElementWithCalibrations().get(i));
-        }
+
     }
 
     public Chip(String id) {
         this.id = id;
         this.familyName = "";
-        this.sensingElementWithCalibrations = new ArrayList<>();
     }
 
     public String getFamilyName() {
@@ -52,13 +45,6 @@ public class Chip {
         this.id = id;
     }
 
-    public List<SensingElementWithCalibration> getSensingElementWithCalibrations() {
-        return sensingElementWithCalibrations;
-    }
-
-    public void setSensingElementWithCalibrations(List<SensingElementWithCalibration> sensingElementWithCalibrations) {
-        this.sensingElementWithCalibrations = sensingElementWithCalibrations;
-    }
 
     public boolean equals(Chip chip) {
         if (this.id.equals(chip.getId()) &&
@@ -74,9 +60,6 @@ public class Chip {
         }
         if (this.id == null) {
             id = "";
-        }
-        if (this.sensingElementWithCalibrations == null) {
-            sensingElementWithCalibrations = new ArrayList<>();
         }
     }
 }
