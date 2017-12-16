@@ -12,7 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.input.MouseEvent;
@@ -144,5 +143,6 @@ public class FamilyOverviewController {
             }
         }
     }
+
 
 }

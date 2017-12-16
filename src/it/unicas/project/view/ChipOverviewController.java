@@ -1,5 +1,5 @@
 package it.unicas.project.view;
-
+/*
 import it.unicas.project.MainApp;
 import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.model.Chip;
@@ -17,29 +17,21 @@ import java.util.List;
 
 public class ChipOverviewController {
 
-    @FXML
-    private TableView<Chip> chipTableView = new TableView<>();
+    @FXML private TableView<Chip> chipTableView = new TableView<>();
 
-    @FXML
-    private TableColumn<Chip, String> idColumn;
+    @FXML private TableColumn<Chip, String> idColumn;
 
-    @FXML
-    private TableColumn<Chip, String> familyColumn;
+    @FXML private TableColumn<Chip, String> familyColumn;
 
-    @FXML
-    private ListView<String> sensingElementList;
+    @FXML private TableView<Chip> SensingElementOnPortTableView = new TableView<>();
 
-    @FXML
-    private ListView<String> calibrationNameList;
+    @FXML private TableColumn<Chip, String> portColumn;
 
-    @FXML
-    private ListView<Integer> calibrationParametersList;
+    @FXML private TableColumn<Chip, String> sensingElementColumn;
 
     private ObservableList<Chip> chipData;
-
     private Chip clickedChip;
     private SensingElementWithCalibration clickedSensingElementWithCalibrations;
-
     private MainApp mainApp;
 
     @FXML
@@ -61,6 +53,7 @@ public class ChipOverviewController {
         familyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFamilyName()));
 
         chipTableView.setItems(chipData);
+
     }
 
     @FXML
@@ -98,9 +91,6 @@ public class ChipOverviewController {
     @FXML
     private void handleClickOnChip(MouseEvent event) {
 
-        sensingElementList.getSelectionModel().clearSelection();
-        calibrationNameList.getSelectionModel().clearSelection();
-        calibrationParametersList.getSelectionModel().clearSelection();
 
         if ((!chipData.isEmpty()) && chipTableView.getSelectionModel().getSelectedItem() != null) {
             clickedChip = chipTableView.getSelectionModel().getSelectedItem();
@@ -128,52 +118,6 @@ public class ChipOverviewController {
         }
     }
 
-    @FXML
-    private void handleClickOnSensingElement() {
-
-        if (!sensingElementList.getSelectionModel().getSelectedItems().isEmpty()) {
-
-            String sensingElementIdClicked = sensingElementList.getSelectionModel().getSelectedItem();
-            ObservableList<String> calibrationNames = FXCollections.observableArrayList();
-            clickedSensingElementWithCalibrations = new SensingElementWithCalibration();
-
-            for (int i = 0; i < clickedChip.getSensingElementWithCalibrations().size(); i++) {
-                if (clickedChip.getSensingElementWithCalibrations().get(i).getIdSensingElement().equals(sensingElementIdClicked)) {
-                    clickedSensingElementWithCalibrations = clickedChip.getSensingElementWithCalibrations().get(i);
-                }
-            }
-
-            for (int i = 0; i < clickedSensingElementWithCalibrations.getCalibrationList().size(); i++) {
-                calibrationNames.add(clickedSensingElementWithCalibrations.getCalibrationList().get(i).getName());
-            }
-
-            if (calibrationNames.size() != 0) {
-                calibrationNameList.setItems(calibrationNames);
-            }
-
-        }
-    }
-
-    @FXML
-    private void handleClickOnCalibrationName() {
-
-        if (!calibrationNameList.getSelectionModel().getSelectedItems().isEmpty()) {
-
-            String calibrationNameClicked = calibrationNameList.getSelectionModel().getSelectedItem();
-            ObservableList<Integer> parameters = FXCollections.observableArrayList();
-
-            for (int i = 0; i < clickedSensingElementWithCalibrations.getCalibrationList().size(); i++) {
-                if (clickedSensingElementWithCalibrations.getCalibrationList().get(i).getName().equals(calibrationNameClicked)) {
-                    parameters.add(clickedSensingElementWithCalibrations.getCalibrationList().get(i).getM());
-                    parameters.add(clickedSensingElementWithCalibrations.getCalibrationList().get(i).getN());
-                }
-            }
-
-            calibrationParametersList.setItems(parameters);
-
-        }
-    }
-
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
@@ -182,3 +126,4 @@ public class ChipOverviewController {
         this.chipData = chipData;
     }
 }
+*/

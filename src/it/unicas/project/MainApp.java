@@ -1,6 +1,5 @@
 package it.unicas.project;
 
-import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.model.*;
 import it.unicas.project.view.*;
 import javafx.application.Application;
@@ -14,9 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class MainApp extends Application {
 
@@ -25,6 +21,8 @@ public class MainApp extends Application {
     private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
     private ObservableList<Family> familyData = FXCollections.observableArrayList();
     private ObservableList<Chip> chipData = FXCollections.observableArrayList();
+    private ObservableList<Cluster> clusterData = FXCollections.observableArrayList();
+    private ObservableList<Configuration> configurationData = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -101,7 +99,7 @@ public class MainApp extends Application {
     }
 
     public void showChipOverview() {
-
+        /*
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
@@ -112,13 +110,24 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        */
     }
 
     public void showClusterOverview() {}
 
     public void showConfigurationOverview() {
-
+        /*
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ConfigurationOverview.fxml"));
+            Node configurationOverview = (Node) loader.load();
+            rootWindow.setCenter(configurationOverview);
+            ConfigurationOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     public void showSensingElementEditDialog(SensingElement sensingElement) {
@@ -176,7 +185,7 @@ public class MainApp extends Application {
     }
 
     public void showChipEditDialog(Chip chip) {
-
+        /*
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -200,7 +209,36 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
+    }
 
+    public void showClusterEditDialog(Cluster cluster) { }
+
+    public void showConfigurationEditDialog(Configuration configuration) {
+        /*
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ConfigurationDetails.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            //dialog stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Show Configuration");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ConfigurationDetailsController controller = loader.getController();
+            controller.setConfiguration(configuration);
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     public Stage getPrimaryStage() {
@@ -217,6 +255,14 @@ public class MainApp extends Application {
 
     public ObservableList<Chip> getChipData() {
         return chipData;
+    }
+
+    public ObservableList<Cluster> getClusterData() {
+        return clusterData;
+    }
+
+    public ObservableList<Configuration> getConfigurationData() {
+        return configurationData;
     }
 
     public static void main(String[] args) {
