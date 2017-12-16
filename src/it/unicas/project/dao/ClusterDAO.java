@@ -1,6 +1,5 @@
 package it.unicas.project.dao;
 
-<<<<<<< HEAD
 import it.unicas.project.model.Calibration;
 import it.unicas.project.model.Chip;
 import it.unicas.project.model.Cluster;
@@ -17,6 +16,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
     /**
      * Returns the unique instance of clusterDAO.
+     *
      * @return
      */
     public static ClusterDAO getInstance() {
@@ -30,6 +30,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
     /**
      * Inserts in the db a sensingElement passed in.
+     *
      * @param chip The sensingElement to be added.
      */
     @Override
@@ -60,7 +61,6 @@ public class ClusterDAO implements CrudDAO<Cluster> {
                     " WHERE SPSensingElement_idSPSensingElement = ?;";
 
             String sqlSPFamilyIDSelect = "SELECT idSPFamily FROM SPFamily WHERE name = ?;";
-
 
 
             PreparedStatement statement = connection.prepareStatement(sqlSPChipInsert, Statement.RETURN_GENERATED_KEYS);
@@ -164,6 +164,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
     /**
      * Deletes from the db the sensingElement passed in.
+     *
      * @param chip The sensingElement to be deleted.
      */
     @Override
@@ -171,7 +172,6 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
         try {
             Connection connection = ConnectionFactory.getConnection();
-
 
 
             String sqlSPChipDelete = "DELETE FROM SPChip WHERE idSPChip ='" + chip.getId() + "';";
@@ -183,7 +183,6 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
             Statement statement1 = connection.prepareStatement(sqlSPChipDelete);
             statement1.executeUpdate(sqlSPChipDelete);
-
 
 
             statement.close();
@@ -232,14 +231,13 @@ public class ClusterDAO implements CrudDAO<Cluster> {
                     " WHERE SPSensingElement_idSPSensingElement = ?;";
 
 
-
             PreparedStatement statement = connection.prepareStatement(sqlUpdateSPChip);
             Statement statement1 = connection.prepareStatement(sqlDeleteSPSensingElementOnChip);
             PreparedStatement statement2 = connection.prepareStatement(sqlSPSensingElementOnChipInsert);
             PreparedStatement statement4 = connection.prepareStatement(sqlIdSensingElementOnFamilySelect);
 
 
-            if (!chip.getFamilyName().isEmpty()){
+            if (!chip.getFamilyName().isEmpty()) {
                 statement.setString(1, chip.getFamilyName());
             } else {
                 statement.setNull(1, Types.VARCHAR);
@@ -296,9 +294,6 @@ public class ClusterDAO implements CrudDAO<Cluster> {
             }
 
 
-
-
-
             statement.close();
             statement1.close();
             statement2.close();
@@ -314,6 +309,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
     /**
      * Fetches all the sensingElements.
+     *
      * @return All the sensingElements.
      */
     @Override
@@ -333,8 +329,6 @@ public class ClusterDAO implements CrudDAO<Cluster> {
             String sqlSPFamilyNameSelect = "SELECT name FROM SPFamily WHERE idSPFamily = ?";
 
 
-
-
             Statement statement = connection.prepareStatement(sqlSPChipSelect);
             ResultSet resultSet = statement.executeQuery(sqlSPChipSelect);
 
@@ -343,7 +337,6 @@ public class ClusterDAO implements CrudDAO<Cluster> {
             PreparedStatement statement3 = connection.prepareStatement(sqlSPCalibrationNameSelect);
             PreparedStatement statement4 = connection.prepareStatement(sqlSPFamilyNameSelect);
             PreparedStatement statement5 = connection.prepareStatement(sqlSPCalibrationsSelect);
-
 
 
             while (resultSet.next()) {
@@ -356,7 +349,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
                 String familyName = "";
 
-                while(rsFamily.next()){
+                while (rsFamily.next()) {
 
                     familyName = rsFamily.getString("name");
 
@@ -372,7 +365,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
                 int n = 0, m = 0, sensingElementOnFamilyId = 0, calibrationId = 0;
 
-                while (rsSEOnChip.next()){
+                while (rsSEOnChip.next()) {
 
                     sensingElementOnFamilyId = rsSEOnChip.getInt("SPSensingElementOnFamily_idSPSensingElementOnFamily");
 
@@ -382,7 +375,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
                     String sensingElementId = "";
 
-                    while (rsSensingElement.next()){
+                    while (rsSensingElement.next()) {
                         sensingElementId = rsSensingElement.getString("SPSensingElement_idSPSensingElement");
                     }
 
@@ -441,7 +434,4 @@ public class ClusterDAO implements CrudDAO<Cluster> {
         return chips;
     }
 
-=======
-public class ClusterDAO {
->>>>>>> 1bba8cf022dd3829bba439921b8280859eabd3a6
 }

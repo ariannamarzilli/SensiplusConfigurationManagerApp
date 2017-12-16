@@ -1,38 +1,18 @@
 package it.unicas.project.dao;
 
 import it.unicas.project.model.Configuration;
-<<<<<<< HEAD
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
-=======
 
->>>>>>> 1bba8cf022dd3829bba439921b8280859eabd3a6
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigurationDAO implements CrudDAO<Configuration> {
 
-<<<<<<< HEAD
     private static ConfigurationDAO uniqueInstanceOfConfigurationDAO = null;
 
-    /**
-     * Returns the unique instance of sensingElementDAO.
-     * @return
-     */
     public static ConfigurationDAO getInstance() {
-=======
-    /*
-    private static ConfigurationDAO uniqueInstanceOfConfigurationDAO = null;
-
-    /**
-     * Returns the unique instance of configurationDAO.
-     * @return
-     */
-
-    /*
-    public static SensingElementDAO getInstance() {
->>>>>>> 1bba8cf022dd3829bba439921b8280859eabd3a6
         if (uniqueInstanceOfConfigurationDAO == null) {
             uniqueInstanceOfConfigurationDAO = new ConfigurationDAO();
             return uniqueInstanceOfConfigurationDAO;
@@ -41,11 +21,7 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
         }
     }
 
-<<<<<<< HEAD
-    /**
-     * Inserts in the db a sensingElement passed in.
-     * @param configuration The sensingElement to be added.
-     */
+
     @Override
     public void create(Configuration configuration) {
 
@@ -200,24 +176,13 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
      * Fetches all the sensingElements.
      * @return All the sensingElements.
      */
-=======
-    */
 
-    @Override
-    public void create(Configuration configuration) {}
 
-    @Override
-    public void delete(Configuration configuration) {}
 
-    @Override
-    public void update(Configuration configuration) {}
-
->>>>>>> 1bba8cf022dd3829bba439921b8280859eabd3a6
     @Override
     public List<Configuration> fetchAll() {
 
         List<Configuration> configurations = new ArrayList<>();
-<<<<<<< HEAD
 
         try {
             Connection connection = ConnectionFactory.getConnection();
@@ -249,9 +214,4 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
 
 
 
-=======
-        return configurations;
-    }
-
->>>>>>> 1bba8cf022dd3829bba439921b8280859eabd3a6
 }
