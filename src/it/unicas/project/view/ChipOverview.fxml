@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b3cde0#b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ChipOverviewController">
     <children>
-        <ScrollPane layoutX="26.0" layoutY="128.0" minHeight="499.0" minWidth="286.0" prefHeight="511.0" prefWidth="286.0">
-            <content>
-                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="268.0">
-                    <children>
-                        <TableView fx:id="chipTableView" editable="true" layoutX="-2.0" layoutY="-3.0" minHeight="500.0" minWidth="500.0" onMousePressed="#handleClickOnChip" prefHeight="530.0" prefWidth="6502.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-6000.0">
-                            <columns>
-                                <TableColumn fx:id="idColumn" prefWidth="140.0" text="Id" />
-                                <TableColumn fx:id="familyColumn" prefWidth="129.0" text="Family Name" />
-                            </columns>
-                        </TableView>
-                    </children>
-                </AnchorPane>
-            </content>
-        </ScrollPane>
         <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#03396c" />
         <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#03396c" />
         <Pane prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
@@ -45,15 +31,22 @@
                 <DropShadow />
             </effect>
         </Pane>
-        <AnchorPane layoutX="328.0" layoutY="114.0" prefHeight="531.0" prefWidth="652.0">
-            <children>
-                <Label layoutX="39.0" layoutY="21.0" text="Sensing Elements" textFill="#005b96" />
-                <Label layoutX="359.0" layoutY="21.0" text="Calibrations Name" textFill="#005b96" />
-                <JFXListView fx:id="sensingElementList" layoutX="39.0" layoutY="55.0" onMouseClicked="#handleClickOnSensingElement" prefHeight="466.0" prefWidth="248.0" />
-                <JFXListView fx:id="calibrationNameList" layoutX="345.0" layoutY="55.0" onMouseClicked="#handleClickOnCalibrationName" prefHeight="188.0" prefWidth="248.0" />
-            <Label layoutX="359.0" layoutY="288.0" text="Calibrations parameters" textFill="#005b96" />
-            <JFXListView fx:id="calibrationParametersList" layoutX="345.0" layoutY="329.0" prefHeight="188.0" prefWidth="248.0" />
-            </children>
-        </AnchorPane>
+      <HBox layoutX="28.0" layoutY="115.0" prefHeight="499.0" prefWidth="928.0">
+         <children>
+            <TableView fx:id="chipTableView" onSort="#handleClickOnChip" prefHeight="499.0" prefWidth="438.0">
+              <columns>
+                <TableColumn fx:id="idColumn" prefWidth="210.0" text="Id Chip" />
+                <TableColumn fx:id="familyColumn" prefWidth="226.0" text="Family" />
+              </columns>
+            </TableView>
+            <StackPane prefHeight="499.0" prefWidth="98.0" />
+            <TableView fx:id="SensingElementOnPortTableView" prefHeight="499.0" prefWidth="396.0">
+              <columns>
+                <TableColumn fx:id="portColumn" prefWidth="190.0" text="Port" />
+                <TableColumn fx:id="sensingElementColumn" prefWidth="204.0" text="SensingElement" />
+              </columns>
+            </TableView>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

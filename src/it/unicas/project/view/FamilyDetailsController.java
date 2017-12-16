@@ -131,7 +131,6 @@ public class FamilyDetailsController {
     private Stage dialogStage;
     Family family;
 
-
     @FXML
     private void initialize() {
 
@@ -332,8 +331,6 @@ public class FamilyDetailsController {
         });
 
     }
-
-
 
     public void setFamily(Family family) {
         this.family = family;
@@ -717,6 +714,5 @@ public class FamilyDetailsController {
 
         return true;
     }
-
 
 }

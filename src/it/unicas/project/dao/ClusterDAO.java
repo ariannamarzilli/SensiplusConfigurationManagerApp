@@ -1,5 +1,6 @@
 package it.unicas.project.dao;
 
+<<<<<<< HEAD
 import it.unicas.project.model.Calibration;
 import it.unicas.project.model.Chip;
 import it.unicas.project.model.Cluster;
@@ -440,4 +441,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
         return chips;
     }
 
+=======
+public class ClusterDAO {
+>>>>>>> 1bba8cf022dd3829bba439921b8280859eabd3a6
 }
