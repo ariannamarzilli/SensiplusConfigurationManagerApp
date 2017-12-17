@@ -66,6 +66,21 @@ public class MainApp extends Application {
             SecondWindowController controller = loader.getController();
             controller.setMainApp(this);
 
+            showSettings();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Connection.fxml"));
+            Node settingsOverview = (Node) loader.load();
+            rootWindow.setCenter(settingsOverview);
+            ConnectionController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,7 +114,7 @@ public class MainApp extends Application {
     }
 
     public void showChipOverview() {
-        /*
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
@@ -110,7 +125,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     public void showClusterOverview() {}
@@ -185,7 +200,7 @@ public class MainApp extends Application {
     }
 
     public void showChipEditDialog(Chip chip) {
-        /*
+
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -201,7 +216,7 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
 
             ChipDetailsController controller = loader.getController();
-            controller.setSensingElementOnChip(chip);
+            controller.setChip(chip);
             controller.setDialogStage(dialogStage);
 
             dialogStage.showAndWait();
@@ -209,7 +224,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
     }
 
     public void showClusterEditDialog(Cluster cluster) { }

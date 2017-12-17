@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b3cde0#b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.SensingElementOverviewController">
+<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.SensingElementOverviewController">
    <children>
       <ScrollPane layoutX="12.0" layoutY="93.0" minHeight="499.0" minWidth="964.0" prefHeight="546.0" prefWidth="964.0">
         <content>
@@ -19,27 +19,27 @@
                <children>
                   <TableView fx:id="sensingElementTableView" editable="true" layoutX="-1.0" layoutY="-3.0" minHeight="500.0" minWidth="2000.0" onMousePressed="#handleDoubleClick" prefHeight="555.0" prefWidth="8001.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-6000.0">
                     <columns>
-                      <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id" />
-                      <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
-                        <TableColumn fx:id="measureTechniqueColumn" prefWidth="148.0" text="Measure Technique" />
-                        <TableColumn fx:id="filterColumn" prefWidth="75.0" text="Filter" />
-                        <TableColumn fx:id="conversionRateColumn" prefWidth="75.0" text="Conversion Rate" />
-                        <TableColumn fx:id="inPortADCColumn" prefWidth="75.0" text="InPort ADC" />
-                        <TableColumn fx:id="nDataColumn" prefWidth="75.0" text="NData" />
-                        <TableColumn fx:id="rangeMinColumn" prefWidth="75.0" text="Range Min" />
-                        <TableColumn fx:id="rangeMaxColumn" prefWidth="75.0" text="Range Max" />
-                        <TableColumn fx:id="defaultAlarmThresholdColumn" prefWidth="75.0" text="Default Alarm Threshold" />
-                        <TableColumn fx:id="multiplierColumn" prefWidth="75.0" text="Multiplier" />
-                        <TableColumn fx:id="measureUnitColumn" prefWidth="75.0" text="Measure Unit" />
+                      <TableColumn fx:id="idColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Id" />
+                      <TableColumn fx:id="nameColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Name" />
+                        <TableColumn fx:id="measureTechniqueColumn" prefWidth="148.0" style="-fx-text-fill: #b3cde0;" text="Measure Technique" />
+                        <TableColumn fx:id="filterColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Filter" />
+                        <TableColumn fx:id="conversionRateColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Conversion Rate" />
+                        <TableColumn fx:id="inPortADCColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="InPort ADC" />
+                        <TableColumn fx:id="nDataColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="NData" />
+                        <TableColumn fx:id="rangeMinColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Range Min" />
+                        <TableColumn fx:id="rangeMaxColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Range Max" />
+                        <TableColumn fx:id="defaultAlarmThresholdColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Default Alarm Threshold" />
+                        <TableColumn fx:id="multiplierColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Multiplier" />
+                        <TableColumn fx:id="measureUnitColumn" prefWidth="75.0" style="-fx-text-fill: #b3cde0;" text="Measure Unit" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#03396c" />
-      <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#03396c" />
-      <Pane prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
+      <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#6497b1" />
+      <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#6497b0" />
+      <Pane prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #03396c;">
          <children>
             <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="160.0" text="Sensing Elements" textFill="#b3cde0">
                <font>

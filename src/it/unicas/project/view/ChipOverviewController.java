@@ -1,9 +1,11 @@
 package it.unicas.project.view;
-/*
+
 import it.unicas.project.MainApp;
 import it.unicas.project.dao.ChipDAO;
+import it.unicas.project.dao.FamilyDAO;
 import it.unicas.project.model.Chip;
-import it.unicas.project.model.SensingElementWithCalibration;
+import it.unicas.project.model.Family;
+import it.unicas.project.model.Port;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -23,15 +24,13 @@ public class ChipOverviewController {
 
     @FXML private TableColumn<Chip, String> familyColumn;
 
-    @FXML private TableView<Chip> SensingElementOnPortTableView = new TableView<>();
+    @FXML private TableView<Port> SensingElementOnPortTableView = new TableView<>();
 
-    @FXML private TableColumn<Chip, String> portColumn;
+    @FXML private TableColumn<Port, String> portColumn;
 
-    @FXML private TableColumn<Chip, String> sensingElementColumn;
+    @FXML private TableColumn<Port, String> sensingElementColumn;
 
     private ObservableList<Chip> chipData;
-    private Chip clickedChip;
-    private SensingElementWithCalibration clickedSensingElementWithCalibrations;
     private MainApp mainApp;
 
     @FXML
@@ -53,6 +52,7 @@ public class ChipOverviewController {
         familyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFamilyName()));
 
         chipTableView.setItems(chipData);
+
 
     }
 
@@ -93,22 +93,29 @@ public class ChipOverviewController {
 
 
         if ((!chipData.isEmpty()) && chipTableView.getSelectionModel().getSelectedItem() != null) {
-            clickedChip = chipTableView.getSelectionModel().getSelectedItem();
+            Chip clickedChip = chipTableView.getSelectionModel().getSelectedItem();
 
             if (event.getClickCount() == 1) {
 
-                ObservableList<String> sensingElements = FXCollections.observableArrayList();
 
-                for (int i = 0; i < clickedChip.getSensingElementWithCalibrations().size(); i++) {
-                    sensingElements.add(clickedChip.getSensingElementWithCalibrations().get(i).getIdSensingElement());
+                List<Family> families = FamilyDAO.getInstance().fetchAll();
+                Family choosedFamily = new Family();
+
+                for (int i = 0; i < families.size(); i++) {
+                    if (families.get(i).getName().equals(clickedChip.getFamilyName())) {
+                        choosedFamily.setPorts(families.get(i).getPorts());
+                    }
                 }
 
-                if (sensingElements.size() != 0) {
-                    sensingElementList.setItems(sensingElements);
-                }
+                ObservableList<Port> ports = FXCollections.observableArrayList(choosedFamily.getPorts());
+
+                portColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+                sensingElementColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdSensingElement()));
+
+                SensingElementOnPortTableView.setItems(ports);
 
             } else if (event.getClickCount() == 2) {
-                Chip oldChip = new Chip(clickedChip);   //copia
+                Chip oldChip = new Chip(clickedChip);
                 mainApp.showChipEditDialog(clickedChip);
                 if (!clickedChip.equals(oldChip)) {
                     ChipDAO.getInstance().update(clickedChip);
@@ -126,4 +133,3 @@ public class ChipOverviewController {
         this.chipData = chipData;
     }
 }
-*/

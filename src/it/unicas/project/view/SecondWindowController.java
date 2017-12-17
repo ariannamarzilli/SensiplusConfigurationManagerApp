@@ -1,6 +1,7 @@
 package it.unicas.project.view;
 
 import it.unicas.project.MainApp;
+import javafx.fxml.FXML;
 
 public class SecondWindowController {
 
@@ -30,4 +31,8 @@ public class SecondWindowController {
         this.mainApp.showConfigurationOverview();
     }
 
+    @FXML
+    public void handleSettings() {
+        this.mainApp.showSettings();
+    }
 }

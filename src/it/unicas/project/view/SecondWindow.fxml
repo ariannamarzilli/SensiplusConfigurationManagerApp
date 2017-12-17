@@ -4,20 +4,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1700.0" maxWidth="2000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.SecondWindowController">
+<BorderPane maxHeight="1700.0" maxWidth="2000.0" minHeight="700.0" minWidth="1000.0" onMouseClicked="#handleSettings" prefHeight="700.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.SecondWindowController">
    <left>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="220.0" style="-fx-background-color: #03396c#03396c;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="108.0" onAction="#handleSensingElement" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Sensing Element" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="158.0" onAction="#handleFamily" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Family" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="208.0" onAction="#handleChip" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Chip" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="258.0" onAction="#handleCluster" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Cluster" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="308.0" onAction="#handleConfiguration" prefHeight="50.0" prefWidth="150.0" ripplerFill="#005b96" text="Configuration" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="108.0" onAction="#handleSensingElement" prefHeight="50.0" prefWidth="150.0" ripplerFill="#6497b1" text="Sensing Element" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="158.0" onAction="#handleFamily" prefHeight="50.0" prefWidth="150.0" ripplerFill="#6497b1" text="Family" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="208.0" onAction="#handleChip" prefHeight="50.0" prefWidth="150.0" ripplerFill="#6497b1" text="Chip" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="258.0" onAction="#handleCluster" prefHeight="50.0" prefWidth="150.0" ripplerFill="#6497b1" text="Cluster" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="308.0" onAction="#handleConfiguration" prefHeight="50.0" prefWidth="150.0" ripplerFill="#6497b1" text="Configuration" textAlignment="CENTER" textFill="#b3cde0" />
             <Pane prefHeight="71.0" prefWidth="220.0" style="-fx-background-color: #011f4b#011f4b;">
                <children>
                   <Label alignment="CENTER" layoutX="12.0" layoutY="7.0" prefHeight="37.0" prefWidth="196.0" text="SensiPlus Configuration" textFill="WHITE">
@@ -41,6 +43,18 @@
                   <DropShadow blurType="ONE_PASS_BOX" />
                </effect>
             </Pane>
+            <JFXButton layoutX="87.0" layoutY="623.0" onAction="#handleSettings" prefHeight="46.0" prefWidth="38.0" text="Settings" textFill="#03396c">
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/settingsIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </left>

@@ -1,5 +1,5 @@
 package it.unicas.project.dao;
-
+/*
 import it.unicas.project.model.Calibration;
 import it.unicas.project.model.Chip;
 import it.unicas.project.model.Cluster;
@@ -19,6 +19,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @return
      */
+/*
     public static ClusterDAO getInstance() {
         if (uniqueInstanceOfClusterDAO == null) {
             uniqueInstanceOfClusterDAO = new ClusterDAO();
@@ -33,6 +34,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @param chip The sensingElement to be added.
      */
+/*
     @Override
     public void create(Chip chip) {
 
@@ -167,6 +169,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @param chip The sensingElement to be deleted.
      */
+/*
     @Override
     public void delete(Chip chip) {
 
@@ -200,6 +203,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @param chip The sensingElement to be updated.
      */
+/*
     @Override
     public void update(Chip chip) {
 
@@ -312,6 +316,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @return All the sensingElements.
      */
+/*
     @Override
     public List<Chip> fetchAll() {
 
@@ -435,3 +440,4 @@ public class ClusterDAO implements CrudDAO<Cluster> {
     }
 
 }
+*/
