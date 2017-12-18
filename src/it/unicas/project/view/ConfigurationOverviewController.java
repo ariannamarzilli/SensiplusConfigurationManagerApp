@@ -42,9 +42,9 @@ public class ConfigurationOverviewController {
     private MainApp mainApp;
 
     public void initialize() {
-        ConfigurationDAO configurationDAO = new ConfigurationDAO();
-        List<Configuration> configurations = configurationDAO.fetchAll();
-        ObservableList<Configuration> configurationObservableList = FXCollections.observableList();
+
+        List<Configuration> configurations = ConfigurationDAO.getInstance().fetchAll();
+        ObservableList<Configuration> configurationObservableList = FXCollections.observableArrayList();
 
         for (int i = 0; i < configurations.size(); i++) {
             configurations.get(i).checkNullField();
@@ -60,9 +60,10 @@ public class ConfigurationOverviewController {
         mcuColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMcu()));
         protocolColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProtocol()));
         addressingTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddressingType()));
-        clusterColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCluster()));
+        clusterColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdCluster()));
 
         configurationTableView.setItems(configurationObservableList);
+
     }
 
     @FXML
@@ -109,8 +110,9 @@ public class ConfigurationOverviewController {
 
                 /*
                 Parte mancante: data la configurazione cliccata, devo prendere i chip appartenenti al cluster
+                */
 
-
+/*
                 chipListView.setItems(chips);
 
             } else if (event.getClickCount() == 2) {

@@ -78,15 +78,15 @@ public class ConfigurationDetailsController {
         } else {
             configuration.setProtocol(protocolTextField.getText());
         }
-        if (addressingTypeTextField.getText().isEmpty()) {
+        if (addressingTypeComboBox.getValue().isEmpty()) {
             configuration.setAddressingType("");
         } else {
-            configuration.setAddressingType(addressingTypeTextField.getText());
+            configuration.setAddressingType(addressingTypeComboBox.getValue());
         }
         if (clusterComboBox.getSelectionModel().getSelectedItem().isEmpty()) {
-            configuration.setCluster("");
+            configuration.setIdCluster("");
         } else {
-            configuration.setCluster(clusterComboBox.getValue());
+            configuration.setIdCluster(clusterComboBox.getValue());
         }
 
         dialogStage.close();
@@ -105,8 +105,8 @@ public class ConfigurationDetailsController {
         this.apiOwnerTextField.setText(configuration.getApiOwner());
         this.mcuTextField.setText(configuration.getMcu());
         this.protocolTextField.setText(configuration.getProtocol());
-        this.addressingTypeTextField.setText(configuration.getAddressingType());
-        this.clusterComboBox.setValue(configuration.getCluster());
+        this.addressingTypeComboBox.setValue(configuration.getAddressingType());
+        this.clusterComboBox.setValue(configuration.getIdCluster());
     }
 
     public void setDialogStage(Stage dialogStage) {

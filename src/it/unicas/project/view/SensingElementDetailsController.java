@@ -2,7 +2,6 @@ package it.unicas.project.view;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import it.unicas.project.MainApp;
 import it.unicas.project.model.SensingElement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,12 +101,7 @@ public class SensingElementDetailsController {
     private Double emptyDoubleForDirectMeasure = Double.MAX_VALUE;
     private SensingElement sensingElement;
     private Stage dialogStage;
-    private MainApp mainApp;
 
-
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -177,8 +171,28 @@ public class SensingElementDetailsController {
         rangeMaxTextField.setText(""+sensingElement.getRangeMax());
         defaultAlarmThresholdTextField.setText(""+sensingElement.getDefaultAlarmThreshold());
         multiplierTextField.setText(""+sensingElement.getMultiplier());
-        measureUnitComboBox.setValue(sensingElement.getMeasureUnit());
 
+        if (sensingElement.getMeasureUnit().equals("O")) {
+            measureUnitComboBox.setValue("O = Ohm");
+        } else if (sensingElement.getMeasureUnit().equals("F")) {
+            measureUnitComboBox.setValue("F = Farad");
+        } else if (sensingElement.getMeasureUnit().equals("H")) {
+            measureUnitComboBox.setValue("H = Henry");
+        } else if (sensingElement.getMeasureUnit().equals("C")) {
+            measureUnitComboBox.setValue("C = Celsius");
+        } else if (sensingElement.getMeasureUnit().equals("%")) {
+            measureUnitComboBox.setValue("% = relative");
+        } else if (sensingElement.getMeasureUnit().equals("V")) {
+            measureUnitComboBox.setValue("V = Voltage");
+        } else if (sensingElement.getMeasureUnit().equals("A")) {
+            measureUnitComboBox.setValue("A = Current");
+        } else if (sensingElement.getMeasureUnit().equals("L")) {
+            measureUnitComboBox.setValue("L = Lumen");
+        } else if (sensingElement.getMeasureUnit().equals("t")) {
+            measureUnitComboBox.setValue("t = time");
+        } else {
+            measureUnitComboBox.setValue(null);
+        }
 
         if (measureTechniqueComboBox.getSelectionModel().getSelectedItem().equals("DIRECT")) {
             rSenseComboBox.setDisable(true);
@@ -227,7 +241,27 @@ public class SensingElementDetailsController {
                 sensingElement.setRangeMax(Double.parseDouble(rangeMaxTextField.getText()));
                 sensingElement.setDefaultAlarmThreshold(Double.parseDouble(defaultAlarmThresholdTextField.getText()));
                 sensingElement.setMultiplier(Integer.parseInt(multiplierTextField.getText()));
-                sensingElement.setMeasureUnit(measureUnitComboBox.getValue());
+
+                if (measureUnitComboBox.getValue().startsWith("O")) {
+                    sensingElement.setMeasureUnit("O");
+                } else if (measureUnitComboBox.getValue().startsWith("F")) {
+                    sensingElement.setMeasureUnit("F");
+                } else if (measureUnitComboBox.getValue().startsWith("H")) {
+                    sensingElement.setMeasureUnit("H");
+                } else if (measureUnitComboBox.getValue().startsWith("C")) {
+                    sensingElement.setMeasureUnit("C");
+                } else if (measureUnitComboBox.getValue().startsWith("%")) {
+                    sensingElement.setMeasureUnit("%");
+                } else if (measureUnitComboBox.getValue().startsWith("V")) {
+                    sensingElement.setMeasureUnit("V");
+                } else if (measureUnitComboBox.getValue().startsWith("A")) {
+                    sensingElement.setMeasureUnit("A");
+                } else if (measureUnitComboBox.getValue().startsWith("L")) {
+                    sensingElement.setMeasureUnit("L");
+                } else {
+                    sensingElement.setMeasureUnit("");
+                }
+
             } else {
                 sensingElement.setId(idTextField.getText());
                 sensingElement.setrSense(rSenseComboBox.getValue());
@@ -252,7 +286,25 @@ public class SensingElementDetailsController {
                 sensingElement.setRangeMax(Double.parseDouble(rangeMaxTextField.getText()));
                 sensingElement.setDefaultAlarmThreshold(Double.parseDouble(defaultAlarmThresholdTextField.getText()));
                 sensingElement.setMultiplier(Integer.parseInt(multiplierTextField.getText()));
-                sensingElement.setMeasureUnit(measureUnitComboBox.getValue());
+                if (measureUnitComboBox.getValue().startsWith("O")) {
+                    sensingElement.setMeasureUnit("O");
+                } else if (measureUnitComboBox.getValue().startsWith("F")) {
+                    sensingElement.setMeasureUnit("F");
+                } else if (measureUnitComboBox.getValue().startsWith("H")) {
+                    sensingElement.setMeasureUnit("H");
+                } else if (measureUnitComboBox.getValue().startsWith("C")) {
+                    sensingElement.setMeasureUnit("C");
+                } else if (measureUnitComboBox.getValue().startsWith("%")) {
+                    sensingElement.setMeasureUnit("%");
+                } else if (measureUnitComboBox.getValue().startsWith("V")) {
+                    sensingElement.setMeasureUnit("V");
+                } else if (measureUnitComboBox.getValue().startsWith("A")) {
+                    sensingElement.setMeasureUnit("A");
+                } else if (measureUnitComboBox.getValue().startsWith("L")) {
+                    sensingElement.setMeasureUnit("L");
+                } else {
+                    sensingElement.setMeasureUnit("");
+                }
             }
 
             dialogStage.close();

@@ -18,7 +18,6 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootWindow;
-    private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
     private ObservableList<Family> familyData = FXCollections.observableArrayList();
     private ObservableList<Chip> chipData = FXCollections.observableArrayList();
     private ObservableList<Cluster> clusterData = FXCollections.observableArrayList();
@@ -71,6 +70,18 @@ public class MainApp extends Application {
         }
     }
 
+    public void showSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Connection.fxml"));
+            Node settingsOverview = (Node) loader.load();
+            rootWindow.setCenter(settingsOverview);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showSensingElementOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -99,7 +110,7 @@ public class MainApp extends Application {
     }
 
     public void showChipOverview() {
-        /*
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
@@ -110,7 +121,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     public void showClusterOverview() {}
@@ -185,7 +196,7 @@ public class MainApp extends Application {
     }
 
     public void showChipEditDialog(Chip chip) {
-        /*
+
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -201,7 +212,7 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
 
             ChipDetailsController controller = loader.getController();
-            controller.setSensingElementOnChip(chip);
+            controller.setChip(chip);
             controller.setDialogStage(dialogStage);
 
             dialogStage.showAndWait();
@@ -209,7 +220,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
     }
 
     public void showClusterEditDialog(Cluster cluster) { }
@@ -243,10 +253,6 @@ public class MainApp extends Application {
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public ObservableList<SensingElement> getSensingElementData() {
-        return sensingElementData;
     }
 
     public ObservableList<Family> getFamilyData() {

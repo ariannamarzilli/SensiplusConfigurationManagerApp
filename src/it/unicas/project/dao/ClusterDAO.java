@@ -1,6 +1,14 @@
 package it.unicas.project.dao;
+<<<<<<< HEAD
 
 import it.unicas.project.model.*;
+=======
+/*
+import it.unicas.project.model.Calibration;
+import it.unicas.project.model.Chip;
+import it.unicas.project.model.Cluster;
+import it.unicas.project.model.SensingElementWithCalibration;
+>>>>>>> 91249f6c923d3696ba3390a171d78038de281899
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
@@ -16,6 +24,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @return
      */
+/*
     public static ClusterDAO getInstance() {
         if (uniqueInstanceOfClusterDAO == null) {
             uniqueInstanceOfClusterDAO = new ClusterDAO();
@@ -30,6 +39,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @param cluster The sensingElement to be added.
      */
+/*
     @Override
     public void create(Cluster cluster) {
 
@@ -131,6 +141,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @param chip The sensingElement to be deleted.
      */
+/*
     @Override
     public void delete(Chip chip) {
 
@@ -164,6 +175,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @param chip The sensingElement to be updated.
      */
+/*
     @Override
     public void update(Chip chip) {
 
@@ -276,6 +288,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      *
      * @return All the sensingElements.
      */
+/*
     @Override
     public List<Chip> fetchAll() {
 
@@ -399,3 +412,4 @@ public class ClusterDAO implements CrudDAO<Cluster> {
     }
 
 }
+*/

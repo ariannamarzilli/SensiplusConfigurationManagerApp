@@ -12,8 +12,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import java.util.List;
 
+import java.util.List;
 
 public class SensingElementOverviewController {
 
@@ -51,9 +51,6 @@ public class SensingElementOverviewController {
         this.mainApp = mainApp;
     }
 
-    /**
-     *
-     */
     @FXML
     private void initialize() {
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
@@ -83,17 +80,7 @@ public class SensingElementOverviewController {
         multiplierColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMultiplier().toString()));
         measureUnitColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMeasureUnit()));
 
-        sensingElementTableView.setItems(sensingElementObservableList);
-
-        /*
-        sensingElementsData.addListener(new ListChangeListener<SensingElement>() {
-            @Override
-            public void onChanged(Change<? extends SensingElement> c) {
-                sensingElementTableView.setItems(sensingElementsData);
-            }
-        });
-        */
-
+        sensingElementTableView.setItems(sensingElementsData);
     }
 
     public void setSensingElementsData (ObservableList<SensingElement> sensingElementsData) {
@@ -108,7 +95,9 @@ public class SensingElementOverviewController {
 
         if (!tempSensingElement.equals(oldSensingElement)) {
             SensingElementDAO.getInstance().create(tempSensingElement);
-            mainApp.getSensingElementData().add(tempSensingElement);
+            sensingElementsData.add(tempSensingElement);
+
+            sensingElementTableView.setItems(sensingElementsData);
         }
     }
 
@@ -126,7 +115,14 @@ public class SensingElementOverviewController {
             if (alert.getResult() == ButtonType.OK) {
                 SensingElement sensingElement = sensingElementTableView.getItems().get(selectedIndex);
                 SensingElementDAO.getInstance().delete(sensingElement);
-                sensingElementTableView.getItems().remove(selectedIndex);
+
+                for (int i = 0; i < sensingElementsData.size(); i++) {
+                    if (sensingElementsData.get(i).getId().equals(sensingElement.getId())) {
+                        sensingElementsData.remove(i);
+                    }
+                }
+
+                sensingElementTableView.setItems(sensingElementsData);
             }
 
         } else {
@@ -149,7 +145,15 @@ public class SensingElementOverviewController {
             mainApp.showSensingElementEditDialog(sensingElement);
             if (!sensingElement.equals(oldSensingElement)) {
                 SensingElementDAO.getInstance().update(sensingElement);
-                mainApp.getSensingElementData().add(sensingElement);
+
+                for (int i = 0; i < sensingElementsData.size(); i++) {
+                    if (sensingElementsData.get(i).getId().equals(sensingElement.getId())) {
+                        sensingElementsData.remove(i);
+                    }
+                }
+                sensingElementsData.add(sensingElement);
+                sensingElementTableView.setItems(sensingElementsData);
+
             }
         }
     }
