@@ -162,7 +162,7 @@ public class FamilyDAO implements CrudDAO<Family> {
                     }
                 }
 
-                if(sensingElementId != "" && sensingElementId != null) {
+                if(!sensingElementId.equals("") && sensingElementId != null) {
 
                     statement5.setString(1, sensingElementId);
                     statement5.setInt(2, (int) idFamilyTemplate);
