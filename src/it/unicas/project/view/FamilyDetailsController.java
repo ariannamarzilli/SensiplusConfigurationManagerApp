@@ -478,61 +478,152 @@ public class FamilyDetailsController {
         family.getPorts().clear();
 
         if (portBox.getCheckModel().getCheckedItems().contains("PORT1")) {
-            family.getPorts().add(new Port("PORT1", sensingElementPort1Box.getValue()));
+            if (sensingElementPort1Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT1", new String()));
+            } else {
+                family.getPorts().add(new Port("PORT1", sensingElementPort1Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT2")) {
-            family.getPorts().add(new Port("PORT2", sensingElementPort2Box.getValue()));
+            if (sensingElementPort2Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT2", ""));
+            } else {
+                family.getPorts().add(new Port("PORT2", sensingElementPort2Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT3")) {
-            family.getPorts().add(new Port("PORT3", sensingElementPort3Box.getValue()));
+            if (sensingElementPort3Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT3", ""));
+            } else {
+                family.getPorts().add(new Port("PORT3", sensingElementPort3Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT4")) {
-            family.getPorts().add(new Port("PORT4", sensingElementPort4Box.getValue()));
+            if (sensingElementPort4Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT4", ""));
+            } else {
+                family.getPorts().add(new Port("PORT4", sensingElementPort4Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT5")) {
-            family.getPorts().add(new Port("PORT5", sensingElementPort5Box.getValue()));
+            if (sensingElementPort5Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT5", ""));
+            } else {
+                family.getPorts().add(new Port("PORT5", sensingElementPort5Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT6")) {
-            family.getPorts().add(new Port("PORT6", sensingElementPort6Box.getValue()));
+            if (sensingElementPort6Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT6", ""));
+            } else {
+                family.getPorts().add(new Port("PORT6", sensingElementPort6Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT7")) {
-            family.getPorts().add(new Port("PORT7", sensingElementPort7Box.getValue()));
+            if (sensingElementPort7Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT7", ""));
+            } else {
+                family.getPorts().add(new Port("PORT7", sensingElementPort7Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT8")) {
-            family.getPorts().add(new Port("PORT8", sensingElementPort8Box.getValue()));
+            if (sensingElementPort8Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT8", ""));
+            } else {
+                family.getPorts().add(new Port("PORT8", sensingElementPort8Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT9")) {
-            family.getPorts().add(new Port("PORT9", sensingElementPort9Box.getValue()));
+            if (sensingElementPort9Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT9", ""));
+            } else {
+                family.getPorts().add(new Port("PORT9", sensingElementPort9Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT10")) {
-            family.getPorts().add(new Port("PORT10", sensingElementPort10Box.getValue()));
+            if (sensingElementPort10Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT10", ""));
+            } else {
+                family.getPorts().add(new Port("PORT10", sensingElementPort10Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT11")) {
-            family.getPorts().add(new Port("PORT11", sensingElementPort11Box.getValue()));
+            if (sensingElementPort11Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT11", ""));
+            } else {
+                family.getPorts().add(new Port("PORT11", sensingElementPort11Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT12")) {
-            family.getPorts().add(new Port("PORT12", sensingElementPort12Box.getValue()));
+            if (sensingElementPort12Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT12", ""));
+            } else {
+                family.getPorts().add(new Port("PORT12", sensingElementPort12Box.getValue()));
+            }
         }
         if (portBox.getCheckModel().getCheckedItems().contains("PORT_EXT1")) {
-            family.getPorts().add(new Port("PORT_EXT1", sensingElementPortExt1Box.getValue()));
+            if (sensingElementPortExt1Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT_EXT1", ""));
+            } else {
+                family.getPorts().add(new Port("PORT_EXT1", sensingElementPortExt1Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT_EXT2")) {
-            family.getPorts().add(new Port("PORT_EXT2", sensingElementPortExt2Box.getValue()));
+            if (sensingElementPortExt2Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT_EXT2", ""));
+            } else {
+                family.getPorts().add(new Port("PORT_EXT2", sensingElementPortExt2Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT_EXT3")) {
-            family.getPorts().add(new Port("PORT_EXT3", sensingElementPortExt3Box.getValue()));
+            if (sensingElementPortExt3Box.getValue() == null) {
+                family.getPorts().add(new Port("PORT_EXT3", ""));
+            } else {
+                family.getPorts().add(new Port("PORT_EXT3", sensingElementPortExt3Box.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT_TEMPERATURE")) {
-            family.getPorts().add(new Port("PORT_TEMPERATURE", sensingElementPortTemperatureBox.getValue()));
+            if (sensingElementPortTemperatureBox.getValue() == null) {
+                family.getPorts().add(new Port("PORT_TEMPERATURE", ""));
+            } else {
+                family.getPorts().add(new Port("PORT_TEMPERATURE", sensingElementPortTemperatureBox.getValue()));
+            }
         }
         if (portBox.getCheckModel().getCheckedItems().contains("PORT_VOLTAGE")) {
-            family.getPorts().add(new Port("PORT_VOLTAGE", sensingElementPortVoltageBox.getValue()));
+            if (sensingElementPortVoltageBox.getValue() == null) {
+                family.getPorts().add(new Port("PORT_VOLTAGE", ""));
+            } else {
+                family.getPorts().add(new Port("PORT_VOLTAGE", sensingElementPortVoltageBox.getValue()));
+            }
         }
         if (portBox.getCheckModel().getCheckedItems().contains("PORT_DARK")) {
-            family.getPorts().add(new Port("PORT_DARK", sensingElementPortDarkBox.getValue()));
+            if (sensingElementPortDarkBox.getValue() == null) {
+                family.getPorts().add(new Port("PORT_DARK", ""));
+            } else {
+                family.getPorts().add(new Port("PORT_DARK", sensingElementPortDarkBox.getValue()));
+            }
         }
+
         if (portBox.getCheckModel().getCheckedItems().contains("PORT_LIGHT")) {
-            family.getPorts().add(new Port("PORT_LIGHT", sensingElementPortLightBox.getValue()));
+            if (sensingElementPortLightBox.getValue() == null) {
+                family.getPorts().add(new Port("PORT_LIGHT", ""));
+            } else {
+                family.getPorts().add(new Port("PORT_LIGHT", sensingElementPortLightBox.getValue()));
+            }
         }
     }
 
