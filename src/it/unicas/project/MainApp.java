@@ -18,7 +18,6 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootWindow;
-    private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
     private ObservableList<Family> familyData = FXCollections.observableArrayList();
     private ObservableList<Chip> chipData = FXCollections.observableArrayList();
     private ObservableList<Cluster> clusterData = FXCollections.observableArrayList();
@@ -66,8 +65,6 @@ public class MainApp extends Application {
             SecondWindowController controller = loader.getController();
             controller.setMainApp(this);
 
-            showSettings();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,8 +76,7 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/Connection.fxml"));
             Node settingsOverview = (Node) loader.load();
             rootWindow.setCenter(settingsOverview);
-            ConnectionController controller = loader.getController();
-            controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -257,10 +253,6 @@ public class MainApp extends Application {
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public ObservableList<SensingElement> getSensingElementData() {
-        return sensingElementData;
     }
 
     public ObservableList<Family> getFamilyData() {

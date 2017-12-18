@@ -7,33 +7,32 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b3cde0#b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.FamilyOverviewController">
+<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #011f4b;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.FamilyOverviewController">
     <children>
-        <ScrollPane layoutX="26.0" layoutY="109.0" minHeight="499.0" minWidth="521.0" prefHeight="530.0" prefWidth="521.0">
+        <ScrollPane layoutX="26.0" layoutY="109.0" minHeight="499.0" minWidth="521.0" prefHeight="530.0" prefWidth="521.0" stylesheets="@Theme.css">
             <content>
-                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="505.0">
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="745.0" style="-fx-background-color: #011f4b;">
                     <children>
-                        <TableView fx:id="familyTableView" editable="true" layoutX="-2.0" layoutY="-3.0" minHeight="500.0" minWidth="500.0" onMousePressed="#handleClick" prefHeight="530.0" prefWidth="6502.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-6000.0">
+                        <TableView fx:id="familyTableView" editable="true" layoutX="-2.0" layoutY="-3.0" minHeight="500.0" minWidth="745.0" onMousePressed="#handleClick" prefHeight="530.0" prefWidth="745.0" stylesheets="@Theme.css" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-6000.0">
                             <columns>
                                 <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
                                 <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id" />
-                        <TableColumn fx:id="hwVersionColumn" prefWidth="75.0" text="HwVersion" />
-                        <TableColumn fx:id="sysClockColumn" prefWidth="75.0" text="SysClock" />
-                        <TableColumn fx:id="osctrimColumn" prefWidth="75.0" text="Osctrim" />
+                        <TableColumn fx:id="hwVersionColumn" prefWidth="150.0" text="HwVersion" />
+                        <TableColumn fx:id="sysClockColumn" prefWidth="150.0" text="SysClock" />
+                        <TableColumn fx:id="osctrimColumn" prefWidth="150.0" text="Osctrim" />
                             </columns>
                         </TableView>
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#03396c" />
-        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#03396c" />
-        <Pane prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
+        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#005b96" text="New" textFill="#6497b1" />
+        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#005b96" text="Delete" textFill="#6497b1" />
+        <Pane prefHeight="71.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
             <children>
                 <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="160.0" text="Families" textFill="#b3cde0">
                     <font>
@@ -44,9 +43,6 @@
                     </effect>
                 </Label>
             </children>
-            <effect>
-                <DropShadow />
-            </effect>
         </Pane>
       <AnchorPane layoutX="562.0" layoutY="108.0" prefHeight="537.0" prefWidth="418.0">
          <children>

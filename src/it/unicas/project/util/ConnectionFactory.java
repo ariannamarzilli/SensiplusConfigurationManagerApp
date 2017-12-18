@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 /**
  * Provides the connection to the SensiPlus database.
+ *
+ * @Author Mariangela Evangelista
  */
 public final class ConnectionFactory {
 
@@ -13,7 +15,7 @@ public final class ConnectionFactory {
     private final static String USER = "root";
     private final static String PASS = ".";
 
-    static private boolean useDefaultSettings = false;
+    static private boolean areThereNewSettings;
 
     private static String url;
     private static String user;
@@ -26,7 +28,7 @@ public final class ConnectionFactory {
     public static Connection getConnection() {
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            if (useDefaultSettings) {
+            if (areThereNewSettings) {
                 return DriverManager.getConnection(url, user, pass);
             } else {
                 return DriverManager.getConnection(URL, USER, PASS);
@@ -58,11 +60,11 @@ public final class ConnectionFactory {
         ConnectionFactory.pass = newPass;
     }
 
-    public static void setUseDefaultSettings(boolean useDefaultSettings) {
-        ConnectionFactory.useDefaultSettings = useDefaultSettings;
+    public static boolean getAreThereNewSettings() {
+        return areThereNewSettings;
     }
 
-    public static boolean getUseDefaultSettings() {
-        return useDefaultSettings;
+    public static void setAreThereNewSettings(boolean areThereNewSettings) {
+        ConnectionFactory.areThereNewSettings = areThereNewSettings;
     }
 }

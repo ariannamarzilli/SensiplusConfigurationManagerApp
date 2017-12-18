@@ -5,17 +5,16 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b3cde0#b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ChipOverviewController">
+<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #011f4b;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ChipOverviewController">
     <children>
-        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#03396c" />
-        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#03396c" />
+        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#6497b1" />
+        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#6497b1" />
         <Pane prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
             <children>
                 <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="160.0" text="Chips" textFill="#b3cde0">
@@ -27,20 +26,17 @@
                     </effect>
                 </Label>
             </children>
-            <effect>
-                <DropShadow />
-            </effect>
         </Pane>
       <HBox layoutX="28.0" layoutY="115.0" prefHeight="499.0" prefWidth="928.0">
          <children>
-            <TableView fx:id="chipTableView" onSort="#handleClickOnChip" prefHeight="499.0" prefWidth="438.0">
+            <TableView fx:id="chipTableView" onSort="#handleClickOnChip" prefHeight="499.0" prefWidth="438.0" stylesheets="@Theme.css">
               <columns>
                 <TableColumn fx:id="idColumn" prefWidth="210.0" text="Id Chip" />
                 <TableColumn fx:id="familyColumn" prefWidth="226.0" text="Family" />
               </columns>
             </TableView>
             <StackPane prefHeight="499.0" prefWidth="98.0" />
-            <TableView fx:id="SensingElementOnPortTableView" prefHeight="499.0" prefWidth="396.0">
+            <TableView fx:id="SensingElementOnPortTableView" prefHeight="499.0" prefWidth="396.0" stylesheets="@Theme.css">
               <columns>
                 <TableColumn fx:id="portColumn" prefWidth="190.0" text="Port" />
                 <TableColumn fx:id="sensingElementColumn" prefWidth="204.0" text="SensingElement" />

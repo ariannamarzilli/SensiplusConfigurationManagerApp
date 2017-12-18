@@ -29,34 +29,30 @@ public class ConnectionController {
 
     @FXML private JFXPasswordField repeatPasswordField;
 
-    private MainApp mainApp;
-
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
-
     @FXML
     public void initialize() {
-        if (!ConnectionFactory.getUseDefaultSettings()) {
-            setDisableWidgets(true);
-        } else {
-            toggleButton.setDisableVisualFocus(false);
+
+        if (ConnectionFactory.getAreThereNewSettings()) {
+            toggleButton.setSelected(true);
             setDisableWidgets(false);
             urlTextField.setText(ConnectionFactory.getUrl());
             userTextField.setText(ConnectionFactory.getUser());
             passwordField.setText(ConnectionFactory.getPass());
             repeatPasswordField.setText(ConnectionFactory.getPass());
+        } else {
+            setDisableWidgets(true);
         }
     }
-
 
     @FXML
     private void handleToggleButton() {
 
         if (toggleButton.isSelected()) {
             setDisableWidgets(false);
+            ConnectionFactory.setAreThereNewSettings(true);
         } else {
             setDisableWidgets(true);
+            ConnectionFactory.setAreThereNewSettings(false);
         }
 
     }
@@ -90,7 +86,7 @@ public class ConnectionController {
             }
 
             if (!emptyField && equalPasswords) {
-                ConnectionFactory.setUseDefaultSettings(false);
+                ConnectionFactory.setAreThereNewSettings(true);
                 ConnectionFactory.setUrl(urlTextField.getText());
                 ConnectionFactory.setUser(userTextField.getText());
                 ConnectionFactory.setPass(passwordField.getText());

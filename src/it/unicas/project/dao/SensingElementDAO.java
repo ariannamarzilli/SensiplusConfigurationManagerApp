@@ -238,7 +238,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
                 statement.setNull(4, Types.VARCHAR);
             }
 
-            if (sensingElement.getFrequency() != 0.0) {
+            if (!sensingElement.getFrequency().equals(emptyDoubleForDirectMeasure)) {
                 statement.setDouble(5, sensingElement.getFrequency());
             } else {
                 statement.setNull(5, Types.DOUBLE);
@@ -250,7 +250,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
                 statement.setNull(6, Types.VARCHAR);
             }
 
-            if (sensingElement.getDcBias() != 0) {
+            if (!sensingElement.getDcBias().equals(emptyIntegerForDirectMeasure)) {
                 statement.setInt(7, sensingElement.getDcBias());
             } else {
                 statement.setNull(7, Types.INTEGER);
@@ -278,7 +278,7 @@ public class SensingElementDAO implements CrudDAO<SensingElement> {
                 statement.setNull(12, Types.VARCHAR);
             }
 
-            if (sensingElement.getPhaseShift() != 0) {
+            if (!sensingElement.getPhaseShift().equals(emptyDoubleForDirectMeasure)) {
                 statement.setDouble(13, sensingElement.getPhaseShift());
             } else {
                 statement.setNull(13, Types.DOUBLE);
