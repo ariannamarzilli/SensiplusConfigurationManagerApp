@@ -1,8 +1,6 @@
 package it.unicas.project.dao;
-<<<<<<< HEAD
 
 import it.unicas.project.model.*;
-=======
 /*
 import it.unicas.project.model.Calibration;
 import it.unicas.project.model.Chip;

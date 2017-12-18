@@ -5,52 +5,67 @@ import java.util.List;
 
 public class SensingElementWithCalibration {
 
-    private List<Calibration> calibrationList;
     private String idSensingElement;
+    private Integer m;
+    private Integer n;
 
 
-    public SensingElementWithCalibration(List<Calibration> calibrationList, String idSensingElement) {
-        this.calibrationList = calibrationList;
+    public SensingElementWithCalibration(String idSensingElement, Integer m, Integer n) {
         this.idSensingElement = idSensingElement;
+        this.n = n;
+        this.m = m;
     }
 
     public SensingElementWithCalibration() {
-        this.calibrationList = new ArrayList<>();
         this.idSensingElement = "";
+        this.m = 1;
+        this.n = 0;
     }
 
     public SensingElementWithCalibration(SensingElementWithCalibration sensingElementWithCalibration) {
-        calibrationList = new ArrayList<>();
         this.setIdSensingElement(sensingElementWithCalibration.getIdSensingElement());
-
-        for (int i = 0; i < sensingElementWithCalibration.getCalibrationList().size(); i++) {
-            this.calibrationList.add(sensingElementWithCalibration.getCalibrationList().get(i));
-        }
+        this.setM(sensingElementWithCalibration.getM());
+        this.setN(sensingElementWithCalibration.getN());
     }
 
 
-    public List<Calibration> getCalibrationList() {
-        return calibrationList;
-    }
 
-    public void setCalibrationList(List<Calibration> calibrationList) {
-        this.calibrationList = calibrationList;
-    }
 
     public String getIdSensingElement() {
         return idSensingElement;
     }
 
+
     public void setIdSensingElement(String idSensingElement) {
         this.idSensingElement = idSensingElement;
     }
 
+    public Integer getM() {
+        return m;
+    }
+
+    public void setM(Integer m) {
+        this.m = m;
+    }
+
+    public Integer getN() {
+        return n;
+    }
+
+    public void setN(Integer n) {
+        this.n = n;
+    }
+
     public void checkNullField() {
-        if (calibrationList == null) {
-            calibrationList = new ArrayList<>();
-        }
+
         if (idSensingElement == null) {
             idSensingElement = "";
+        }
+        if (n == null){
+            n = Integer.MAX_VALUE;
+        }
+        if (m == null){
+            m = Integer.MAX_VALUE;
         }
     }
 
@@ -58,10 +73,12 @@ public class SensingElementWithCalibration {
     public boolean equals(Object sensingElementWithCalibration) {
         SensingElementWithCalibration se = (SensingElementWithCalibration) sensingElementWithCalibration;
 
-        if (this.calibrationList.equals(se.getCalibrationList()) &&
-                this.idSensingElement.equals(se.getIdSensingElement())) {
+        if (se.getIdSensingElement().equals(this.idSensingElement) &&
+                se.getN() == this.n &&
+                se.getM() == this.m) {
             return true;
         }
+
         return false;
     }
 }
