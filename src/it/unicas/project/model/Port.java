@@ -4,7 +4,6 @@ public class Port {
 
     private String name;
     private String idSensingElement;
-    private String nameSensingElement;
 
     public String getName() {
         return name;
@@ -22,14 +21,6 @@ public class Port {
         this.idSensingElement = idSensingElement;
     }
 
-    public String getNameSensingElement() {
-        return nameSensingElement;
-    }
-
-    public void setNameSensingElement(String nameSensingElement) {
-        this.nameSensingElement = nameSensingElement;
-    }
-
     public Port(String name) {
         this.name = name;
         this.idSensingElement = "";
@@ -43,11 +34,9 @@ public class Port {
     public Port (String name, String idSensingElement, String nameSensingElement) {
         this.name = name;
         this.idSensingElement = idSensingElement;
-        this.nameSensingElement = nameSensingElement;
     }
 
     public Port (String namePort,  SensingElement sensingElement){
-        this.nameSensingElement = sensingElement.getName();
         this.idSensingElement = sensingElement.getId();
         this.name = namePort;
     }

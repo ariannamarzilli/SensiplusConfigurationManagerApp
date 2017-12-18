@@ -267,7 +267,7 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             String sqlIdSPMeasureTypeSelect = "SELECT idSPMeasureType FROM SPMeasureTechniques WHERE type = ?;";
 
-            String sqlDeleSPPort = "DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily = ?;";
+            String sqlDeleSPPort = "DELETE FROM SPFamilyTemplate WHERE SPPort_idSPPort = ?;";
 
             String sqlSPFamilyTemplateInsert = "INSERT INTO SPFamilyTemplate (" +
                     "SPFamily_idSPFamily, " +
@@ -287,11 +287,15 @@ public class FamilyDAO implements CrudDAO<Family> {
                             " VALUES (?, ?, ?)";
 
 
-            String sqlPort = "SELECT (SELECT name FROM SPPort WHERE idSPPort = SPPort_idSPPort), "+
-                    "SPSensingElement_idSPSensingElement, (SELECT name FROM SPSensingElement WHERE "+
-                    "idSPSensingElement = SPSensingElement_idSPSensingElement)  FROM SPFamily join SPFamilyTemplate on "+
-                    "(idSPFamily = SPFamily_idSPFamily) join SPSensingElementOnFamily on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate)" +
+            String sqlPort = "SELECT (SELECT name FROM SPPort WHERE idSPPort = SPPort_idSPPort) "+
+                    "FROM SPFamily join SPFamilyTemplate on "+
+                    "(idSPFamily = SPFamily_idSPFamily)" +
                     " WHERE idSPFamily = ?";
+
+            String sqlSensingElement = "SELECT SPSensingElement_idSPSensingElement, " +
+                    "(SELECT name FROM SPSensingElement WHERE idSPSensingElement = SPSensingElement_idSPSensingElement)" +
+                    " FROM SPFamily join SPFamilyTemplate on (SPFamily_idSPFamily = idSPFamily) join SPSensingElementOnFamily on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate)" +
+                    " WHERE SPFamily_idSPFamily = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sqlUpdateSPFamily, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement3 = connection.prepareStatement(sqlIdSPPOrtSelect, Statement.RETURN_GENERATED_KEYS);
@@ -302,6 +306,7 @@ public class FamilyDAO implements CrudDAO<Family> {
             PreparedStatement statement2 = connection.prepareStatement(sqlSPFamilyHasSPMeasureTypeInsert);
             PreparedStatement statement9 = connection.prepareStatement(sqlSPSensingElementOnFamilyInsert);
             PreparedStatement statement7 = connection.prepareStatement(sqlPort);
+            PreparedStatement statement8 = connection.prepareStatement(sqlSensingElement);
 
 
 
@@ -357,8 +362,16 @@ public class FamilyDAO implements CrudDAO<Family> {
 
             while (rs.next()){
                 portName = rs.getString(1);
-                sensId = rs.getString(2);
-                sensName = rs.getString(3);
+
+                statement8.setInt(1, idSPFamily);
+
+                ResultSet rsSensingElement = statement8.executeQuery();
+
+                while(rsSensingElement.next()){
+                    sensId = rsSensingElement.getString(1);
+                    sensName = rsSensingElement.getString(2);
+                }
+
 
                 oldPorts.add(new Port(portName, sensId, sensName));
             }
@@ -412,6 +425,27 @@ public class FamilyDAO implements CrudDAO<Family> {
 
                         statement9.execute();
                     }
+
+                }
+
+            }
+
+            for (Port temp : oldPorts){
+                if (!(newPorts.contains(temp))){
+
+                    String namePort = temp.getName();
+
+                    statement3.setString(1, namePort);
+
+                    ResultSet resultSet = statement3.executeQuery();
+
+
+                    while (resultSet.next()) {
+                        idPort = resultSet.getInt("idSPPort");
+                    }
+
+                    statement6.setInt(1, idPort);
+                    statement6.execute();
 
                 }
 
@@ -473,11 +507,14 @@ public class FamilyDAO implements CrudDAO<Family> {
             String sqlSPFamilyHasSPMeasureType = "SELECT SPMeasureType_idSPMeasureType " +
                     "FROM SPFamily_has_SPMeasureType WHERE SPFamily_idSPFamily = ?";
             String sqlSPMeasureType = "SELECT type FROM SPMeasureTechniques WHERE idSPMeasureType = ?";
-            String sqlPort = "SELECT (SELECT name FROM SPPort WHERE idSPPort = SPPort_idSPPort), "+
-                    "SPSensingElement_idSPSensingElement, (SELECT name FROM SPSensingElement WHERE "+
-                    "idSPSensingElement = SPSensingElement_idSPSensingElement)  FROM SPFamily join SPFamilyTemplate on "+
-                    "(idSPFamily = SPFamily_idSPFamily) join SPSensingElementOnFamily on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate)" +
+            String sqlPort = "SELECT (SELECT name FROM SPPort WHERE idSPPort = SPPort_idSPPort) "+
+                     "FROM SPFamily join SPFamilyTemplate on "+
+                    "(idSPFamily = SPFamily_idSPFamily)" +
                     " WHERE idSPFamily = ?";
+            String sqlSensingElement = "SELECT SPSensingElement_idSPSensingElement, " +
+                    "(SELECT name FROM SPSensingElement WHERE idSPSensingElement = SPSensingElement_idSPSensingElement)" +
+                    " FROM SPFamily join SPFamilyTemplate on (SPFamily_idSPFamily = idSPFamily) join SPSensingElementOnFamily on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate)" +
+                    " WHERE SPFamily_idSPFamily = ?;";
 
 
             Statement statement = connection.prepareStatement(sqlSPFamilySelect);
@@ -486,6 +523,7 @@ public class FamilyDAO implements CrudDAO<Family> {
             PreparedStatement statement3 = connection.prepareStatement(sqlSPFamilyHasSPMeasureType);
             PreparedStatement statement4 = connection.prepareStatement(sqlSPMeasureType);
             PreparedStatement statement1 = connection.prepareStatement(sqlPort);
+            PreparedStatement statement2 = connection.prepareStatement(sqlSensingElement);
 
 
 
@@ -515,8 +553,15 @@ public class FamilyDAO implements CrudDAO<Family> {
                 while(rsPort.next()){
 
                     portName = rsPort.getString(1);
-                    idSensingElement = rsPort.getString(2);
-                    nameSensingElement = rsPort.getString(3);
+
+                    statement2.setInt(1, idFamily);
+
+                    ResultSet rsSensingElement = statement2.executeQuery();
+
+                    while(rsSensingElement.next()){
+                        idSensingElement = rsSensingElement.getString(1);
+                        nameSensingElement = rsSensingElement.getString(2);
+                    }
 
                     ports.add(new Port (portName, idSensingElement, nameSensingElement));
                 }
