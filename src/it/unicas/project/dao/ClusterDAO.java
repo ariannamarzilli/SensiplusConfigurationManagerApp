@@ -1,9 +1,6 @@
 package it.unicas.project.dao;
 
-import it.unicas.project.model.Calibration;
-import it.unicas.project.model.Chip;
-import it.unicas.project.model.Cluster;
-import it.unicas.project.model.SensingElementWithCalibration;
+import it.unicas.project.model.*;
 import it.unicas.project.util.ConnectionFactory;
 
 import java.sql.*;
@@ -31,20 +28,15 @@ public class ClusterDAO implements CrudDAO<Cluster> {
     /**
      * Inserts in the db a sensingElement passed in.
      *
-     * @param chip The sensingElement to be added.
+     * @param cluster The sensingElement to be added.
      */
     @Override
-    public void create(Chip chip) {
+    public void create(Cluster cluster) {
 
         try {
             Connection connection = ConnectionFactory.getConnection();
 
-            String sqlSPChipInsert = "INSERT INTO SPChip (idSPChip, SPFamily_idSPFamily) VALUES (?, ?)";
-
-            String sqlSPChipSelect = "SELECT COUNT(idSPChip) FROM SPChip WHERE '" + chip.getId() + "';";
-
-
-            List<SensingElementWithCalibration> sensingElementWithCalibrations = chip.getSensingElementWithCalibrations();
+            List<ChipWithCalibration> chipWithCalibrations = cluster.getChipWithCalibrations();
 
             String sqlSPSensingElementOnChipInsert = "INSERT INTO SPSensingElementOnChip (" +
                     "SPChip_idSPChip, " +
@@ -55,57 +47,29 @@ public class ClusterDAO implements CrudDAO<Cluster> {
                     " VALUES (?, ?, ?, ?, ?)";
 
 
-            String sqlIdSPCalibrationSelect = "SELECT idSPCalibration FROM SPCalibration WHERE name = ?;";
-
             String sqlIdSensingElementOnFamilySelect = "SELECT idSPSensingElementOnFamily FROM SPSensingElementOnFamily" +
                     " WHERE SPSensingElement_idSPSensingElement = ?;";
 
             String sqlSPFamilyIDSelect = "SELECT idSPFamily FROM SPFamily WHERE name = ?;";
 
+            String sqlSPClusterInsert = "INSERT INTO SPCluster (idSPCluster) VALUES (?);";
 
-            PreparedStatement statement = connection.prepareStatement(sqlSPChipInsert, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement1 = connection.prepareStatement(sqlSPSensingElementOnChipInsert, Statement.RETURN_GENERATED_KEYS);
-            Statement statement2 = connection.prepareStatement(sqlSPChipSelect);
             PreparedStatement statement4 = connection.prepareStatement(sqlIdSensingElementOnFamilySelect);
             PreparedStatement statement5 = connection.prepareStatement(sqlSPFamilyIDSelect);
+            PreparedStatement statement = connection.prepareStatement(sqlSPClusterInsert);
 
-            ResultSet resultSet1 = statement2.executeQuery(sqlSPChipSelect);
-
-            while (resultSet1.next()) {
-
-                int count = resultSet1.getInt(1);
-
-                if (count == 0) {
-
-                    if (!chip.getId().isEmpty()) {
-                        statement.setString(1, chip.getId());
-                    } else {
-                        statement.setNull(1, Types.VARCHAR);
-                    }
-
-                    if (!chip.getFamilyName().isEmpty()) {
-                        statement5.setString(1, chip.getFamilyName());
-                        ResultSet rs = statement5.executeQuery();
-                        while (rs.next()) {
-                            statement.setInt(2, rs.getInt("idSPFamily"));
-                        }
-
-                    } else {
-                        statement.setNull(2, Types.VARCHAR);
-                    }
-
-                    statement.execute();
-                }
-            }
+            statement.setString(1, cluster.getId());
+            statement.execute();
 
 
-            for (SensingElementWithCalibration temp : sensingElementWithCalibrations) {
 
 
-                // String portName = temp.getName();
-                List<Calibration> calibrations = temp.getCalibrationList();
+            for (ChipWithCalibration temp : chipWithCalibrations) {
 
-                for (Calibration temp1 : calibrations) {
+                List<SensingElementWithCalibration> sensingElementWithCalibrations = temp.getSensingElementWithCalibrations();
+
+                for (SensingElementWithCalibration temp1 : sensingElementWithCalibrations) {
                     String sqlIdCalibrationSelect = "SELECT idSPCalibration FROM SPCalibration WHERE name = '" + temp1.getName() + "';";
                     Statement statement3 = connection.prepareStatement(sqlIdCalibrationSelect);
                     ResultSet resultSet2;
