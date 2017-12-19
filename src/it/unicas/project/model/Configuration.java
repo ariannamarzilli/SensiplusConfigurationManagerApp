@@ -20,6 +20,7 @@ public class Configuration {
         this.mcu = "";
         this.protocol = "";
         this.addressingType = "";
+        this.idCluster = "";
     }
 
     public String getDriver() {

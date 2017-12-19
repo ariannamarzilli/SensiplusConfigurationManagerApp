@@ -1,12 +1,8 @@
 package it.unicas.project.view;
 
-import com.jfoenix.controls.JFXListView;
 import it.unicas.project.MainApp;
-import it.unicas.project.dao.ClusterDAO;
 import it.unicas.project.dao.ConfigurationDAO;
-import it.unicas.project.model.Cluster;
 import it.unicas.project.model.Configuration;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,8 +18,6 @@ public class ConfigurationOverviewController {
 
     @FXML private TableView<Configuration> configurationTableView = new TableView<>();
 
-    @FXML private TableColumn<Configuration, Number> indexColumn;
-
     @FXML private TableColumn<Configuration, String> driverColumn;
 
     @FXML private TableColumn<Configuration, String> hostControllerColumn;
@@ -37,8 +31,6 @@ public class ConfigurationOverviewController {
     @FXML private TableColumn<Configuration, String> addressingTypeColumn;
 
     @FXML private TableColumn<Configuration, String> clusterColumn;
-
-    @FXML private JFXListView chipListView;
 
     ObservableList<Configuration> configurationData;
     private MainApp mainApp;
@@ -55,7 +47,6 @@ public class ConfigurationOverviewController {
 
         this.setConfigurationData(configurationObservableList);
 
-        indexColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<Number>(configurationTableView.getItems().indexOf(cellData.getValue())));
         driverColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDriver()));
         hostControllerColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHostController()));
         apiOwnerColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApiOwner()));
@@ -64,7 +55,7 @@ public class ConfigurationOverviewController {
         addressingTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddressingType()));
         clusterColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdCluster()));
 
-        configurationTableView.setItems(configurationObservableList);
+        configurationTableView.setItems(configurationData);
 
     }
 
@@ -107,24 +98,7 @@ public class ConfigurationOverviewController {
 
             Configuration configuration = configurationTableView.getSelectionModel().getSelectedItem();
 
-            if (event.getClickCount() == 1) {
-
-                chipListView.getItems().clear();
-                ObservableList<String> chips = FXCollections.observableArrayList();
-                List<Cluster> clustersList = ClusterDAO.getInstance().fetchAll();
-
-                for (int i = 0; i < clustersList.size(); i++) {
-                    if (clustersList.get(i).getId().equals(configuration.getIdCluster())) {
-
-                        for (int j = 0; i < clustersList.get(i).getChipWithCalibrations().size(); j++) {
-                            chips.add(clustersList.get(i).getChipWithCalibrations().get(j).getChip().getId());
-                        }
-                    }
-                }
-
-                chipListView.setItems(chips);
-
-            } else if (event.getClickCount() == 2) {
+            if (event.getClickCount() == 2) {
                 Configuration oldConfiguration = new Configuration(configuration);
                 mainApp.showConfigurationEditDialog(configuration);
                 if (!configuration.equals(oldConfiguration)) {

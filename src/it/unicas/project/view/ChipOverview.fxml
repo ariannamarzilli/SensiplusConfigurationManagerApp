@@ -29,7 +29,7 @@
         </Pane>
       <HBox layoutX="28.0" layoutY="115.0" prefHeight="499.0" prefWidth="928.0">
          <children>
-            <TableView fx:id="chipTableView" onSort="#handleClickOnChip" prefHeight="499.0" prefWidth="438.0" stylesheets="@Theme.css">
+            <TableView fx:id="chipTableView" onMouseClicked="#handleClickOnChip" prefHeight="499.0" prefWidth="438.0" stylesheets="@Theme.css">
               <columns>
                 <TableColumn fx:id="idColumn" prefWidth="210.0" text="Id Chip" />
                 <TableColumn fx:id="familyColumn" prefWidth="226.0" text="Family" />

@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +18,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="550.0" style="-fx-background-color: #b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ClusterDetailsController">
     <children>
-        <JFXButton buttonType="RAISED" layoutX="409.0" layoutY="599.0" minWidth="-Infinity" onAction="#handleSaveChanges" text="Save Changes" textFill="#005b96">
+        <JFXButton buttonType="RAISED" layoutX="109.0" layoutY="593.0" minWidth="-Infinity" onAction="#handleSaveChanges" text="Save Changes" textFill="#005b96">
             <ripplerFill>
                 <LinearGradient endX="1.0" endY="1.0">
                     <stops>
@@ -43,7 +42,7 @@
                 <DropShadow />
             </effect>
         </Pane>
-        <JFXButton buttonType="RAISED" layoutX="330.0" layoutY="599.0" minWidth="-Infinity" onAction="#handleCancel" text="Cancel" textFill="#005b96">
+        <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="593.0" minWidth="-Infinity" onAction="#handleCancel" text="Cancel" textFill="#005b96">
             <ripplerFill>
                 <LinearGradient endX="1.0" endY="1.0">
                     <stops>
@@ -53,13 +52,8 @@
                 </LinearGradient>
             </ripplerFill>
         </JFXButton>
-        <ScrollPane layoutX="25.0" layoutY="333.0" prefHeight="244.0" prefWidth="504.0">
-            <content>
-                <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="621.0" prefWidth="505.0" style="-fx-background-color: #b3cde0;" />
-            </content>
-        </ScrollPane>
-      <ListSelectionView fx:id="chipsListSelection" layoutX="14.0" layoutY="137.0" prefHeight="197.0" prefWidth="527.0" />
-      <Pane layoutX="14.0" layoutY="131.0" prefHeight="42.0" prefWidth="527.0" style="-fx-background-color: #b3cde0;">
+      <ListSelectionView fx:id="chipsListSelection" layoutX="14.0" layoutY="165.0" prefHeight="409.0" prefWidth="527.0" />
+      <Pane layoutX="17.0" layoutY="158.0" prefHeight="42.0" prefWidth="527.0" style="-fx-background-color: #b3cde0;">
          <children>
             <Label layoutX="22.0" layoutY="13.0" text="Chips available" textFill="#005b96" />
             <Label layoutX="282.0" layoutY="13.0" text="Chips choosed" textFill="#005b98" />

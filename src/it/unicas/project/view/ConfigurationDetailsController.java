@@ -27,7 +27,7 @@ public class ConfigurationDetailsController {
 
     @FXML private JFXTextField mcuTextField;
 
-    @FXML private JFXTextField protocolTextField;
+    @FXML private JFXComboBox<String> protocolComboBox;
 
     @FXML private JFXComboBox<String> addressingTypeComboBox;
 
@@ -72,10 +72,10 @@ public class ConfigurationDetailsController {
         } else {
             configuration.setMcu(mcuTextField.getText());
         }
-        if (protocolTextField.getText().isEmpty()) {
+        if (protocolComboBox.getSelectionModel().getSelectedItem().isEmpty()) {
             configuration.setProtocol("");
         } else {
-            configuration.setProtocol(protocolTextField.getText());
+            configuration.setProtocol(protocolComboBox.getValue());
         }
         if (addressingTypeComboBox.getValue().isEmpty()) {
             configuration.setAddressingType("");
@@ -103,7 +103,7 @@ public class ConfigurationDetailsController {
         this.hostControllerComboBox.setValue(configuration.getHostController());
         this.apiOwnerTextField.setText(configuration.getApiOwner());
         this.mcuTextField.setText(configuration.getMcu());
-        this.protocolTextField.setText(configuration.getProtocol());
+        this.protocolComboBox.setValue(configuration.getProtocol());
         this.addressingTypeComboBox.setValue(configuration.getAddressingType());
         this.clusterComboBox.setValue(configuration.getIdCluster());
     }
@@ -117,17 +117,20 @@ public class ConfigurationDetailsController {
 
         if (addressingTypeComboBox.getSelectionModel().getSelectedItem().equals("No-Address")) {
             ObservableList<String> protocolsNoAddress = FXCollections.observableArrayList("SPI", "SENSIBUS");
+            protocolComboBox.setItems(protocolsNoAddress);
         } else if (addressingTypeComboBox.getSelectionModel().getSelectedItem().equals("Full-Address")) {
             ObservableList<String> protocolsFullAddress = FXCollections.observableArrayList("SENSIBUS");
+            protocolComboBox.setItems(protocolsFullAddress);
         } else if (addressingTypeComboBox.getSelectionModel().getSelectedItem().equals("Short-Address")) {
             ObservableList<String> protocolsShortAddress = FXCollections.observableArrayList("SENSIBUS", "I2C");
+            protocolComboBox.setItems(protocolsShortAddress);
         }
     }
 
     @FXML
     private void handleProtocol() {
 
-        if (addressingTypeComboBox.getSelectionModel().getSelectedItem().isEmpty()) {
+        if (protocolComboBox.getItems().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Attention");
             alert.setHeaderText("Choose first the Addressing Type");

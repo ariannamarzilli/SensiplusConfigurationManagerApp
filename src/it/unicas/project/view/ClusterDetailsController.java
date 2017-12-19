@@ -2,7 +2,10 @@ package it.unicas.project.view;
 /*
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import it.unicas.project.dao.ChipDAO;
+import it.unicas.project.dao.ClusterDAO;
 import it.unicas.project.dao.FamilyDAO;
+import it.unicas.project.model.Chip;
 import it.unicas.project.model.Cluster;
 import it.unicas.project.model.Family;
 import javafx.collections.FXCollections;
@@ -13,13 +16,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.ListSelectionView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClusterDetailsController {
 
     @FXML private JFXTextField idTextField;
 
-    @FXML private JFXComboBox familyComboBox;
+    @FXML private JFXComboBox<String> familyComboBox;
 
     @FXML private ListSelectionView<String> chipsListSelection;
 
@@ -53,6 +57,8 @@ public class ClusterDetailsController {
 
         if (cluster.getChipWithCalibrations().size() != 0) {
 
+            familyComboBox.setValue(cluster.getChipWithCalibrations().get(0).getChip().getFamilyName());
+
             ObservableList<String> chipTargetList = FXCollections.observableArrayList();
 
             for (int i = 0; i < cluster.getChipWithCalibrations().size(); i++) {
@@ -61,11 +67,34 @@ public class ClusterDetailsController {
 
             chipsListSelection.setTargetItems(chipTargetList);
 
+            List<Chip> chips = ChipDAO.getInstance().fetchAll();
+            List<Chip> chipsAlreadyUsed = new ArrayList<>();
+            List<Cluster> allClusters = ClusterDAO.getInstance().fetchAll();
+
+            for (int i = 0; i < allClusters.size(); i++) {
+                for (int j = 0; j < chips.size(); j++) {
+                    if (allClusters.get(i).getChipWithCalibrations().contains(chips.get(j))) {
+                        chipsAlreadyUsed.add(allClusters.get(i).getChipWithCalibrations().get(j).getChip());
+                    }
+                }
+            }
+
+            for (int i = 0; i < chipsAlreadyUsed.size(); i++) {
+                if (chips.contains(chipsAlreadyUsed.get(i))) {
+                    chips.remove(chipsAlreadyUsed.get(i));
+                }
+            }
+
+            ObservableList<String> chipSource = FXCollections.observableArrayList();
+
+            for (int i = 0; i < chips.size(); i++) {
+
+            }
 
         } else {
 
-        }
 
+        }
     }
 
     @FXML
