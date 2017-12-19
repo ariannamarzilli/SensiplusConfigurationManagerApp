@@ -8,6 +8,7 @@ public class SensingElementWithCalibration {
     private String idSensingElement;
     private Integer m;
     private Integer n;
+    private String portName;
 
 
     public SensingElementWithCalibration(String idSensingElement, Integer m, Integer n) {
@@ -29,7 +30,12 @@ public class SensingElementWithCalibration {
     }
 
 
-
+    public SensingElementWithCalibration(String idSensingElement, Integer m, Integer n, String portName) {
+        this.idSensingElement = idSensingElement;
+        this.m = m;
+        this.n = n;
+        this.portName = portName;
+    }
 
     public String getIdSensingElement() {
         return idSensingElement;
@@ -69,13 +75,22 @@ public class SensingElementWithCalibration {
         }
     }
 
+    public String getPortName() {
+        return portName;
+    }
+
+    public void setPortName(String portName) {
+        this.portName = portName;
+    }
+
     @Override
     public boolean equals(Object sensingElementWithCalibration) {
         SensingElementWithCalibration se = (SensingElementWithCalibration) sensingElementWithCalibration;
 
         if (se.getIdSensingElement().equals(this.idSensingElement) &&
                 se.getN() == this.n &&
-                se.getM() == this.m) {
+                se.getM() == this.m &&
+                se.getPortName().equals(this.portName)) {
             return true;
         }
 

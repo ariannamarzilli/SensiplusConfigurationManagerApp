@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ClusterDAO implements CrudDAO<Cluster> {
 
-    private static ChipDAO uniqueInstanceOfClusterDAO = null;
+    private static ClusterDAO uniqueInstanceOfClusterDAO = null;
 
     /**
      * Returns the unique instance of clusterDAO.
@@ -20,14 +20,14 @@ public class ClusterDAO implements CrudDAO<Cluster> {
      * @return
      */
 
-    /*public static ClusterDAO getInstance() {
+    public static ClusterDAO getInstance() {
         if (uniqueInstanceOfClusterDAO == null) {
             uniqueInstanceOfClusterDAO = new ClusterDAO();
             return uniqueInstanceOfClusterDAO;
         } else {
             return uniqueInstanceOfClusterDAO;
         }
-    }*/
+    }
 
     /**
      * Inserts in the db a sensingElement passed in.
@@ -243,121 +243,114 @@ public class ClusterDAO implements CrudDAO<Cluster> {
     @Override
     public List<Cluster> fetchAll() {
 
-        List<Cluster> chips = new ArrayList<>();
+        List<Cluster> clusters = new ArrayList<>();
 
-        /*try {
+        try {
             Connection connection = ConnectionFactory.getConnection();
 
+
+            List<ChipWithCalibration> chipWithCalibrations = new ArrayList<>();
+
             String sqlSPClusterSelect = "SELECT * FROM SPCluster";
+
             String sqlSPChipOnClusterSelect = "SELECT (SPChip_idSPChip)" +
                     " FROM SPSensingElementOnChip WHERE SPCluster_idSPCluster = ?";
-            String sqlSPSensingElementOnChipSelect = "SELECT (SPSensingElementOnFamily_idSPSensingElementOnFamily)" +
-                    " FROM SPSensingElementOnChip WHERE SPCluster_idSPCluster = ? join SPChip_idSPChip = ?;";
-            String sqlSPCalibrationsSelect = "SELECT SPChip_idSPChip, n, m FROM SPSensingElementOnChip WHERE SPCluster_idSPCluster = ?";
-            String sqlSPSensingElementIDSelect = "SELECT SPSensingElement_idSPSensingElement FROM SPSensingElementOnFamily WHERE idSPSensingElementOnFamily = ?";
-            String sqlSPCalibrationNameSelect = "SELECT name FROM SPCalibration WHERE idSPCalibration = ?";
-            String sqlSPFamilyNameSelect = "SELECT name FROM SPFamily WHERE idSPFamily = ?";
+
+            String sqlSPSensingElementOnChipSelect = "SELECT (SPSensingElementOnFamily_idSPSensingElementOnFamily, m, n)" +
+                    " FROM SPSensingElementOnChip WHERE SPCluster_idSPCluster = ? and SPChip_idSPChip = ?;";
+
+
+            String sqlPortSelect = "select (select name from SPPort where idSPPort = SPPort_idSPPort) from SPSensingElementOnFamily join " +
+                    "SPFamilyTemplate on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate) " +
+                    "where SPSensingElement_idSPSensingElement = ? and name = ?;";
+
+            String sqlFamilySelect = "select SPFamily_idSPFamily, (select name from SPFamily where idSPFamily = SPFamily_idSPFamily) from SPChip where idSPChip = ?;";
+
 
 
             Statement statement = connection.prepareStatement(sqlSPClusterSelect);
             ResultSet resultSet = statement.executeQuery(sqlSPClusterSelect);
 
             PreparedStatement statement1 = connection.prepareStatement(sqlSPChipOnClusterSelect);
-            PreparedStatement statement2 = connection.prepareStatement(sqlSPSensingElementIDSelect);
-            PreparedStatement statement3 = connection.prepareStatement(sqlSPCalibrationNameSelect);
-            PreparedStatement statement4 = connection.prepareStatement(sqlSPFamilyNameSelect);
-            PreparedStatement statement5 = connection.prepareStatement(sqlSPCalibrationsSelect);
+            PreparedStatement statement6 = connection.prepareStatement(sqlSPSensingElementOnChipSelect);
+            PreparedStatement statement7 = connection.prepareStatement(sqlPortSelect);
+            PreparedStatement statement8 = connection.prepareStatement(sqlFamilySelect);
 
 
             while (resultSet.next()) {
                 String clusterId = resultSet.getString("idSPCluster");
-                /*int familyId = resultSet.getInt("SPFamily_idSPFamily");
 
-                statement4.setInt(1, familyId);
+                statement1.setString(1, clusterId);
 
-                ResultSet rsFamily = statement4.executeQuery();
+                ResultSet rsChipOnCluster = statement1.executeQuery();
+                String idChip = "", nameFamily = "";
+                int m = 0;
+                int n = 0;
+                int idFamily = 0;
 
-                String familyName = "";
+                while (rsChipOnCluster.next()){
 
-                while (rsFamily.next()) {
+                    idChip = rsChipOnCluster.getString(1);
 
-                    familyName = rsFamily.getString("name");*/
+                    statement8.setString(1, idChip);
 
-               /* statement1.setString(1, clusterId);
+                    ResultSet rsFamilyID = statement8.executeQuery();
 
-                ResultSet rsChOnCl = statement1.executeQuery();
+                    while (rsFamilyID.next()){
 
-                List<ChipWithCalibration> chipWithCalibrations = new ArrayList<>();
+                        idFamily = rsFamilyID.getInt(1);
+                        nameFamily = rsFamilyID.getString(2);
 
-
-                int n = 0, m = 0, chipId = 0, calibrationId = 0;
-
-                while (rsChOnCl.next()) {
-
-                    chipId = rsChOnCl.getInt("SPChip_idSPChip");
-
-                    statement2.setInt(1, chipId);
-
-                    ResultSet rsSensingElement = statement2.executeQuery();
-
-                    String sensingElementId = "";
-
-                    while (rsSensingElement.next()) {
-                        sensingElementId = rsSensingElement.getString("SPSensingElement_idSPSensingElement");
                     }
 
-                    List
+                    statement6.setString(1, clusterId);
+                    statement6.setString(2, idChip);
 
-                    ResultSet rsCalibrations = statement5.executeQuery();
+                    ResultSet rsSensingElementOnChip = statement6.executeQuery();
+                    String idSensingElement = "", portName = "";
 
-                    while (rsCalibrations.next()) {
+                    List<SensingElementWithCalibration> sensingElementWithCalibrations = new ArrayList<>();
 
-                        statement3.setInt(1, rsCalibrations.getInt("SPCalibration_idSPCalibration"));
+                    while (rsSensingElementOnChip.next()){
+                        idSensingElement = rsSensingElementOnChip.getString(1);
+                        m = rsSensingElementOnChip.getInt(2);
+                        n = rsSensingElementOnChip.getInt(3);
 
-                        ResultSet rsCalibration = statement3.executeQuery();
+                        statement7.setString(1, idSensingElement);
+                        statement7.setInt(2, idFamily);
 
-                        String calibrationName = "";
+                        ResultSet rsPortName = statement7.executeQuery();
 
-                        n = rsCalibrations.getInt("n");
-                        m = rsCalibrations.getInt("m");
-
-                        while (rsCalibration.next()) {
-                            calibrationName = rsCalibration.getString("name");
+                        while (rsPortName.next()){
+                            portName = rsPortName.getString(1);
                         }
 
-                        Calibration calibration = new Calibration(calibrationName, n, m);
-                        calibrations.add(calibration);
+                        sensingElementWithCalibrations.add(new SensingElementWithCalibration(idSensingElement, m, n, portName));
+
                     }
 
-                    SensingElementWithCalibration sensingElementWithCalibration = new SensingElementWithCalibration(calibrations, sensingElementId);
+                    Chip chip = new Chip(nameFamily, idChip);
 
-                    if (!(sensingElementWithCalibrations.contains(sensingElementWithCalibration))) {
+                    chipWithCalibrations.add(new ChipWithCalibration(chip, sensingElementWithCalibrations));
 
-                        sensingElementWithCalibrations.add(sensingElementWithCalibration);
-                    }
                 }
+
+                clusters.add(new Cluster(clusterId,chipWithCalibrations));
             }
-
-
-                Chip chip = new Chip(familyName, chipId, sensingElementWithCalibrations);
-
-
-                chips.add(chip);
 
             statement.close();
             statement1.close();
-            statement3.close();
-            statement4.close();
-            statement5.close();
-            statement2.close();
+            statement6.close();
+            statement7.close();
+            statement8.close();
 
             connection.close();
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        return chips;
+        return clusters;
     }
 
 }
