@@ -256,13 +256,15 @@ public class ClusterDAO implements CrudDAO<Cluster> {
             String sqlSPChipOnClusterSelect = "SELECT (SPChip_idSPChip)" +
                     " FROM SPSensingElementOnChip WHERE SPCluster_idSPCluster = ?";
 
-            String sqlSPSensingElementOnChipSelect = "SELECT (SPSensingElementOnFamily_idSPSensingElementOnFamily, m, n)" +
-                    " FROM SPSensingElementOnChip WHERE SPCluster_idSPCluster = ? and SPChip_idSPChip = ?;";
+            String sqlSPSensingElementOnChipSelect = "SELECT SPSensingElement_idSPSensingElement, m, n" +
+                    " FROM SPSensingElementOnChip join SPSensingElementOnFamily on" +
+                    " (idSPSensingElementOnFamily = SPSensingElementOnFamily_idSPSensingElementOnFamily)" +
+                    " WHERE SPCluster_idSPCluster = ? and SPChip_idSPChip = ?;";
 
 
             String sqlPortSelect = "select (select name from SPPort where idSPPort = SPPort_idSPPort) from SPSensingElementOnFamily join " +
                     "SPFamilyTemplate on (idSPFamilyTemplate = SPFamilyTemplate_idSPFamilyTemplate) " +
-                    "where SPSensingElement_idSPSensingElement = ? and name = ?;";
+                    "where SPSensingElement_idSPSensingElement = ? and SPFamily_idSPFamily = ?;";
 
             String sqlFamilySelect = "select SPFamily_idSPFamily, (select name from SPFamily where idSPFamily = SPFamily_idSPFamily) from SPChip where idSPChip = ?;";
 
@@ -278,7 +280,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
 
 
             while (resultSet.next()) {
-                String clusterId = resultSet.getString("idSPCluster");
+                String clusterId = resultSet.getString("idCluster");
 
                 statement1.setString(1, clusterId);
 
@@ -345,7 +347,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
             statement8.close();
 
             connection.close();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
