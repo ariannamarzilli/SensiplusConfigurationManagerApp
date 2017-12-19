@@ -24,7 +24,9 @@ public class SecondWindowController {
     }
 
     public void handleCluster() {
+        /*
         this.mainApp.showClusterOverview();
+        */
     }
 
     public void handleConfiguration() {

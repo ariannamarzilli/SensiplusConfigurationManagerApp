@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.unicas.project.view.ClusterOverviewController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #011f4b;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ClusterOverviewController">
+    <children>
+        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#6497b1" />
+        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#6497b1" />
+        <Pane prefHeight="71.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
+            <children>
+                <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="160.0" text="Clusters" textFill="#b3cde0">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <effect>
+                        <Bloom />
+                    </effect>
+                </Label>
+            </children>
+        </Pane>
+        <HBox layoutX="28.0" layoutY="115.0" prefHeight="499.0" prefWidth="928.0">
+            <children>
+                <TableView fx:id="idClusterTableView" onMouseClicked="#handleClickOnIdCluster" prefHeight="499.0" prefWidth="220.0" stylesheets="@Theme.css">
+                    <columns>
+                        <TableColumn fx:id="idClusterColumn" prefWidth="256.0" text="Id Cluster" />
+                    </columns>
+                </TableView>
+            <StackPane prefHeight="499.0" prefWidth="29.0" />
+            <TableView fx:id="chipTableView" onMouseClicked="#handleClickOnChip" prefHeight="200.0" prefWidth="200.0" stylesheets="@Theme.css">
+              <columns>
+                <TableColumn fx:id="idChipColumn" prefWidth="199.0" text="Id Chip" />
+              </columns>
+            </TableView>
+            <StackPane prefHeight="499.0" prefWidth="29.0" />
+            <TableView fx:id="calibrationTableView" prefHeight="499.0" prefWidth="450.0" stylesheets="@Theme.css">
+              <columns>
+                <TableColumn prefWidth="128.0" text="Port" />
+                  <TableColumn prefWidth="199.0" text="Id Sensing Element" />
+                  <TableColumn prefWidth="60.0" text="M" />
+                <TableColumn prefWidth="60.0" text="N" />
+              </columns>
+            </TableView>
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>

@@ -120,7 +120,7 @@ public class MainApp extends Application {
     }
 
     public void showClusterOverview() {
-
+        /*
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ClusterOverview.fxml"));
@@ -131,10 +131,11 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     public void showConfigurationOverview() {
-        /*
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ConfigurationOverview.fxml"));
@@ -145,7 +146,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     public void showSensingElementEditDialog(SensingElement sensingElement, boolean isAnUpdate) {
@@ -233,6 +234,7 @@ public class MainApp extends Application {
     }
 
     public void showClusterEditDialog(Cluster cluster, boolean isAnUpdate) {
+        /*
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -257,6 +259,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     public void showConfigurationEditDialog(Configuration configuration) {
@@ -277,7 +280,6 @@ public class MainApp extends Application {
             ConfigurationDetailsController controller = loader.getController();
             controller.setConfiguration(configuration);
             controller.setDialogStage(dialogStage);
-            controller.setAnUpdate(isAnUpdate);
 
             dialogStage.showAndWait();
 
