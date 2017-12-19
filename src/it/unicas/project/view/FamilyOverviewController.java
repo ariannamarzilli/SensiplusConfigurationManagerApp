@@ -82,10 +82,11 @@ public class FamilyOverviewController {
     public void handleNew() {
         Family tempFamily = new Family();
         Family oldFamily = new Family();
-        mainApp.showFamilyEditDialog(tempFamily);
+        mainApp.showFamilyEditDialog(tempFamily, false);
         if (!tempFamily.equals(oldFamily)) {
             FamilyDAO.getInstance().create(tempFamily);
-            mainApp.getFamilyData().add(tempFamily);
+            familyData.add(tempFamily);
+            familyTableView.setItems(familyData);
         }
     }
 
@@ -107,7 +108,6 @@ public class FamilyOverviewController {
             }
         }
     }
-
 
     @FXML
     public void handleClick(MouseEvent event) {
@@ -135,14 +135,21 @@ public class FamilyOverviewController {
 
             } else if (event.getClickCount() == 2) {
                 Family oldFamily = new Family(family);
-                mainApp.showFamilyEditDialog(family);
+                mainApp.showFamilyEditDialog(family, true);
                 if (!family.equals(oldFamily)) {
                     FamilyDAO.getInstance().update(family);
-                    mainApp.getFamilyData().add(family);
+
+                    for (int i = 0; i < familyData.size(); i++) {
+                        if (familyData.get(i).getName().equals(family.getName())){
+                            familyData.remove(i);
+                        }
+                    }
+
+                    familyData.add(family);
+                    familyTableView.setItems(familyData);
                 }
             }
         }
     }
-
 
 }

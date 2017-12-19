@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Bloom?>
@@ -14,10 +15,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b3cde0#b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ConfigurationOverviewController">
+<AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #011f4b;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ConfigurationOverviewController">
     <children>
-        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#03396c" />
-        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#03396c" />
+        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#6497b1" />
+        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#6497b1" />
         <Pane prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
             <children>
                 <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="160.0" text="Configurations" textFill="#b3cde0">
@@ -35,22 +36,30 @@
         </Pane>
       <HBox layoutX="35.0" layoutY="113.0" prefHeight="511.0" prefWidth="920.0">
          <children>
-            <TableView fx:id="configurationTable" onMouseClicked="#handleClick" prefHeight="511.0" prefWidth="478.0">
-              <columns>
-                <TableColumn fx:id="indexColumn" prefWidth="32.0" text="#" />
-                <TableColumn fx:id="driverColumn" prefWidth="91.0" text="Driver" />
-                  <TableColumn fx:id="hostControllerColumn" prefWidth="142.0" text="Host Controller" />
-                  <TableColumn fx:id="apiOwnerColumn" prefWidth="75.0" text="API Owner" />
-                  <TableColumn fx:id="mcuColumn" prefWidth="91.0" text="MCU" />
-                  <TableColumn fx:id="protocolColumn" prefWidth="90.0" text="Protocol" />
-                  <TableColumn fx:id="addressingTypeColumn" prefWidth="205.0" text="Addressing Type" />
-                  <TableColumn fx:id="clusterColumn" prefWidth="193.0" text="Cluster" />
-              </columns>
-            </TableView>
+            <ScrollPane prefHeight="523.0" prefWidth="475.0" stylesheets="@Theme.css">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="609.0">
+                     <children>
+                        <TableView fx:id="configurationTable" onMouseClicked="#handleClick" prefHeight="511.0" prefWidth="478.0" stylesheets="@Theme.css">
+                          <columns>
+                            <TableColumn fx:id="indexColumn" prefWidth="32.0" text="#" />
+                            <TableColumn fx:id="driverColumn" prefWidth="91.0" text="Driver" />
+                              <TableColumn fx:id="hostControllerColumn" prefWidth="200.0" text="Host Controller" />
+                              <TableColumn fx:id="apiOwnerColumn" prefWidth="150.0" text="API Owner" />
+                              <TableColumn fx:id="mcuColumn" prefWidth="91.0" text="MCU" />
+                              <TableColumn fx:id="protocolColumn" prefWidth="90.0" text="Protocol" />
+                              <TableColumn fx:id="addressingTypeColumn" prefWidth="205.0" text="Addressing Type" />
+                              <TableColumn fx:id="clusterColumn" prefWidth="193.0" text="Cluster" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
             <StackPane prefHeight="511.0" prefWidth="53.0" />
             <VBox prefHeight="511.0" prefWidth="363.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="212.0" text="Chip" />
+                  <Label prefHeight="27.0" prefWidth="212.0" text="Chip" textFill="#6497b1" />
                   <JFXListView fx:id="chipListView" prefHeight="487.0" prefWidth="386.0" />
                </children>
             </VBox>

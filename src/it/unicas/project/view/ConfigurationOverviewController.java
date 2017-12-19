@@ -1,8 +1,10 @@
 package it.unicas.project.view;
-/*
+
 import com.jfoenix.controls.JFXListView;
 import it.unicas.project.MainApp;
+import it.unicas.project.dao.ClusterDAO;
 import it.unicas.project.dao.ConfigurationDAO;
+import it.unicas.project.model.Cluster;
 import it.unicas.project.model.Configuration;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -73,7 +75,9 @@ public class ConfigurationOverviewController {
         mainApp.showConfigurationEditDialog(configuration);
         if (!configuration.equals(oldConfiguration)) {
             ConfigurationDAO.getInstance().create(configuration);
-            mainApp.getConfigurationData().add(configuration);
+            configurationData.add(configuration);
+
+            configurationTableView.setItems(configurationData);
         }
     }
 
@@ -107,12 +111,17 @@ public class ConfigurationOverviewController {
 
                 chipListView.getItems().clear();
                 ObservableList<String> chips = FXCollections.observableArrayList();
+                List<Cluster> clustersList = ClusterDAO.getInstance().fetchAll();
 
-                /*
-                Parte mancante: data la configurazione cliccata, devo prendere i chip appartenenti al cluster
-                */
+                for (int i = 0; i < clustersList.size(); i++) {
+                    if (clustersList.get(i).getId().equals(configuration.getIdCluster())) {
 
-/*
+                        for (int j = 0; i < clustersList.get(i).getChipWithCalibrations().size(); j++) {
+                            chips.add(clustersList.get(i).getChipWithCalibrations().get(j).getChip().getId());
+                        }
+                    }
+                }
+
                 chipListView.setItems(chips);
 
             } else if (event.getClickCount() == 2) {
@@ -120,7 +129,9 @@ public class ConfigurationOverviewController {
                 mainApp.showConfigurationEditDialog(configuration);
                 if (!configuration.equals(oldConfiguration)) {
                     ConfigurationDAO.getInstance().update(configuration);
-                    mainApp.getConfigurationData().add(configuration);
+                    configurationData.remove(oldConfiguration);
+                    configurationData.add(configuration);
+                    configurationTableView.setItems(configurationData);
                 }
             }
         }
@@ -135,4 +146,3 @@ public class ConfigurationOverviewController {
         this.configurationData = configurationData;
     }
 }
-*/

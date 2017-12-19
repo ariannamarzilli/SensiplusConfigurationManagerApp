@@ -60,10 +60,11 @@ public class ChipOverviewController {
     private void handleNew() {
         Chip tempChip = new Chip();
         Chip oldChip = new Chip(tempChip);
-        mainApp.showChipEditDialog(tempChip);
+        mainApp.showChipEditDialog(tempChip, false);
         if (!tempChip.equals(oldChip)) {
             ChipDAO.getInstance().create(tempChip);
-            mainApp.getChipData().add(tempChip);
+            this.chipData.add(tempChip);
+            chipTableView.setItems(chipData);
         }
     }
 
@@ -97,7 +98,6 @@ public class ChipOverviewController {
 
             if (event.getClickCount() == 1) {
 
-
                 List<Family> families = FamilyDAO.getInstance().fetchAll();
                 Family choosedFamily = new Family();
 
@@ -116,10 +116,17 @@ public class ChipOverviewController {
 
             } else if (event.getClickCount() == 2) {
                 Chip oldChip = new Chip(clickedChip);
-                mainApp.showChipEditDialog(clickedChip);
+                mainApp.showChipEditDialog(clickedChip, true);
                 if (!clickedChip.equals(oldChip)) {
                     ChipDAO.getInstance().update(clickedChip);
-                    mainApp.getChipData().add(clickedChip);
+
+                    for (int i = 0; i < chipData.size(); i++) {
+                        if (chipData.get(i).getId().equals(clickedChip.getId())) {
+                            chipData.remove(i);
+                        }
+                    }
+                    this.chipData.add(clickedChip);
+                    chipTableView.setItems(chipData);
                 }
             }
         }
@@ -132,4 +139,5 @@ public class ChipOverviewController {
     public void setChipData(ObservableList<Chip> chipData) {
         this.chipData = chipData;
     }
+
 }

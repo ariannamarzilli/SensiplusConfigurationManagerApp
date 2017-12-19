@@ -101,6 +101,7 @@ public class SensingElementDetailsController {
     private Double emptyDoubleForDirectMeasure = Double.MAX_VALUE;
     private SensingElement sensingElement;
     private Stage dialogStage;
+    private boolean isAnUpdate;
 
 
     /**
@@ -123,7 +124,6 @@ public class SensingElementDetailsController {
         inPortADCComboBox.setItems(inPortADCList);
         measureUnitComboBox.setItems(measureUniteList);
     }
-
 
     // Funzione chiamata per mostrare o parametri di default sull'edit dialogue oppure per mostrare i valori che un sensing
     // element su cui fare update ha
@@ -419,6 +419,19 @@ public class SensingElementDetailsController {
             phaseShiftTextField.setDisable(false);
             iqComboBox.setDisable(false);
         }
+    }
+
+    public void setAnUpdate(boolean isAnUpdate) {
+        this.isAnUpdate = isAnUpdate;
+        handleIdTextField(isAnUpdate);
+    }
+
+    public boolean isAnUpdate() {
+        return isAnUpdate;
+    }
+
+    private void handleIdTextField(boolean isAnUpdate) {
+        idTextField.setDisable(isAnUpdate);
     }
 
 }

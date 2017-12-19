@@ -22,6 +22,7 @@ public class ChipDetailsController {
 
     private Stage dialogStage;
     private Chip chip;
+    private boolean isAnUpdate;
 
     @FXML
     private void initialize() {
@@ -73,4 +74,12 @@ public class ChipDetailsController {
         return false;
     }
 
+    public void setAnUpdate(boolean isAnUpdate) {
+        this.isAnUpdate = isAnUpdate;
+        handleIdTextField(isAnUpdate);
+    }
+
+    private void handleIdTextField(boolean isAnUpdate) {
+        idChipTextField.setDisable(isAnUpdate);
+    }
 }

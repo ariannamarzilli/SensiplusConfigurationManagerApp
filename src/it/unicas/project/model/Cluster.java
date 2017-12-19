@@ -19,12 +19,9 @@ public class Cluster {
         this.id = id;
     }
 
-    public List<ChipWithCalibration> getChipWithCalibrations() {
-        return chipWithCalibrations;
-    }
-
-    public void setChipWithCalibrations(List<ChipWithCalibration> chipWithCalibrations) {
-        this.chipWithCalibrations = chipWithCalibrations;
+    public Cluster() {
+        this.id = "";
+        this.chipWithCalibrations = new ArrayList<>();
     }
 
     public Cluster(String id, List<ChipWithCalibration> chipWithCalibrations) {
@@ -32,8 +29,26 @@ public class Cluster {
         this.chipWithCalibrations = chipWithCalibrations;
     }
 
+    public Cluster(Cluster cluster) {
+        this.chipWithCalibrations = new ArrayList<>();
+
+        this.setId(cluster.getId());
+
+        for (int i = 0; i < cluster.chipWithCalibrations.size(); i++) {
+            this.getChipWithCalibrations().add(cluster.getChipWithCalibrations().get(i));
+        }
+    }
+
     public Cluster(String id) {
         this.id = id;
+    }
+
+    public List<ChipWithCalibration> getChipWithCalibrations() {
+        return chipWithCalibrations;
+    }
+
+    public void setChipWithCalibrations(List<ChipWithCalibration> chipWithCalibrations) {
+        this.chipWithCalibrations = chipWithCalibrations;
     }
 
     public boolean equals(Cluster cluster) {

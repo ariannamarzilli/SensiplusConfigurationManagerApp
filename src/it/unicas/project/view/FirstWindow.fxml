@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="307.0" fitWidth="386.0" layoutX="7.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/image.jpg" />
+            <Image url="@../../../../../images/image.jpg" />
          </image>
       </ImageView>
       <Label layoutX="27.0" layoutY="181.0" prefHeight="36.0" prefWidth="349.0" text="SensiPlus Configuration Manager" textAlignment="CENTER" textFill="#acb5b0">

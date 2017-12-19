@@ -18,10 +18,6 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootWindow;
-    private ObservableList<Family> familyData = FXCollections.observableArrayList();
-    private ObservableList<Chip> chipData = FXCollections.observableArrayList();
-    private ObservableList<Cluster> clusterData = FXCollections.observableArrayList();
-    private ObservableList<Configuration> configurationData = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -110,7 +106,6 @@ public class MainApp extends Application {
     }
 
     public void showChipOverview() {
-
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
@@ -124,7 +119,19 @@ public class MainApp extends Application {
 
     }
 
-    public void showClusterOverview() {}
+    public void showClusterOverview() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ClusterOverview.fxml"));
+            Node clusterOverview = (Node) loader.load();
+            rootWindow.setCenter(clusterOverview);
+            ClusterOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void showConfigurationOverview() {
         /*
@@ -141,7 +148,7 @@ public class MainApp extends Application {
         */
     }
 
-    public void showSensingElementEditDialog(SensingElement sensingElement) {
+    public void showSensingElementEditDialog(SensingElement sensingElement, boolean isAnUpdate) {
         try{
 
             FXMLLoader loader = new FXMLLoader();
@@ -160,6 +167,7 @@ public class MainApp extends Application {
             SensingElementDetailsController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setSensingElement(sensingElement);
+            controller.setAnUpdate(isAnUpdate);
 
             dialogStage.showAndWait();
 
@@ -168,7 +176,7 @@ public class MainApp extends Application {
         }
     }
 
-    public void showFamilyEditDialog(Family family) {
+    public void showFamilyEditDialog(Family family, boolean isAnUpdate) {
 
         try {
 
@@ -187,6 +195,7 @@ public class MainApp extends Application {
             FamilyDetailsController controller = loader.getController();
             controller.setFamily(family);
             controller.setDialogStage(dialogStage);
+            controller.setAnUpdate(isAnUpdate);
 
             dialogStage.showAndWait();
 
@@ -195,7 +204,7 @@ public class MainApp extends Application {
         }
     }
 
-    public void showChipEditDialog(Chip chip) {
+    public void showChipEditDialog(Chip chip, boolean isAnUpdate) {
 
         try {
 
@@ -214,6 +223,7 @@ public class MainApp extends Application {
             ChipDetailsController controller = loader.getController();
             controller.setChip(chip);
             controller.setDialogStage(dialogStage);
+            controller.setAnUpdate(isAnUpdate);
 
             dialogStage.showAndWait();
 
@@ -222,10 +232,35 @@ public class MainApp extends Application {
         }
     }
 
-    public void showClusterEditDialog(Cluster cluster) { }
+    public void showClusterEditDialog(Cluster cluster, boolean isAnUpdate) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ClusterDetails.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            //dialog stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Show Clusters");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ClusterDetailsController controller = loader.getController();
+            controller.setCluster(cluster);
+            controller.setDialogStage(dialogStage);
+            controller.setAnUpdate(isAnUpdate);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void showConfigurationEditDialog(Configuration configuration) {
-        /*
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ConfigurationDetails.fxml"));
@@ -242,33 +277,18 @@ public class MainApp extends Application {
             ConfigurationDetailsController controller = loader.getController();
             controller.setConfiguration(configuration);
             controller.setDialogStage(dialogStage);
+            controller.setAnUpdate(isAnUpdate);
 
             dialogStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public ObservableList<Family> getFamilyData() {
-        return familyData;
-    }
-
-    public ObservableList<Chip> getChipData() {
-        return chipData;
-    }
-
-    public ObservableList<Cluster> getClusterData() {
-        return clusterData;
-    }
-
-    public ObservableList<Configuration> getConfigurationData() {
-        return configurationData;
     }
 
     public static void main(String[] args) {

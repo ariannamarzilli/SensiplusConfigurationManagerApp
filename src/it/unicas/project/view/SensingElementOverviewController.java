@@ -91,7 +91,7 @@ public class SensingElementOverviewController {
     public void handleNew() {
         SensingElement tempSensingElement = new SensingElement();
         SensingElement oldSensingElement = new SensingElement();
-        mainApp.showSensingElementEditDialog(tempSensingElement);
+        mainApp.showSensingElementEditDialog(tempSensingElement, false);
 
         if (!tempSensingElement.equals(oldSensingElement)) {
             SensingElementDAO.getInstance().create(tempSensingElement);
@@ -142,7 +142,7 @@ public class SensingElementOverviewController {
         if (event.getClickCount() == 2 && (!sensingElementsData.isEmpty()) && sensingElementTableView.getSelectionModel().getSelectedItem() != null) {
             SensingElement sensingElement = sensingElementTableView.getSelectionModel().getSelectedItem();
             SensingElement oldSensingElement = new SensingElement(sensingElement);
-            mainApp.showSensingElementEditDialog(sensingElement);
+            mainApp.showSensingElementEditDialog(sensingElement, true);
             if (!sensingElement.equals(oldSensingElement)) {
                 SensingElementDAO.getInstance().update(sensingElement);
 
@@ -153,7 +153,6 @@ public class SensingElementOverviewController {
                 }
                 sensingElementsData.add(sensingElement);
                 sensingElementTableView.setItems(sensingElementsData);
-
             }
         }
     }

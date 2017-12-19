@@ -19,8 +19,8 @@
                     <children>
                         <TableView fx:id="familyTableView" editable="true" layoutX="-2.0" layoutY="-3.0" minHeight="500.0" minWidth="745.0" onMousePressed="#handleClick" prefHeight="530.0" prefWidth="745.0" stylesheets="@Theme.css" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-6000.0">
                             <columns>
-                                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
-                                <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id" />
+                                <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
+                                <TableColumn fx:id="idColumn" minWidth="5.0" prefWidth="100.0" text="Id" />
                         <TableColumn fx:id="hwVersionColumn" prefWidth="150.0" text="HwVersion" />
                         <TableColumn fx:id="sysClockColumn" prefWidth="150.0" text="SysClock" />
                         <TableColumn fx:id="osctrimColumn" prefWidth="150.0" text="Osctrim" />
