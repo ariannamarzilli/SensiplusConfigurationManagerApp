@@ -139,14 +139,8 @@ public class FamilyOverviewController {
                 if (!family.equals(oldFamily)) {
                     FamilyDAO.getInstance().update(family);
 
-                    for (int i = 0; i < familyData.size(); i++) {
-                        if (familyData.get(i).getName().equals(family.getName())){
-                            familyData.remove(i);
-                        }
-                    }
-
-                    familyData.add(family);
                     familyTableView.setItems(familyData);
+                    familyTableView.refresh();
                 }
             }
         }

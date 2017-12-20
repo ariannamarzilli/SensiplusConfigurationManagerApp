@@ -34,7 +34,7 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
                     "mcu, " +
                     "protocol, " +
                     "addressingType, " +
-                    "idCluster, " +
+                    "idCluster " +
                     ")" +
                     " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -97,7 +97,7 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
 
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String sql = "DELETE FROM SPConfiguraion WHERE idSPConfiguraion = '" + configuration.getId() + "';";
+            String sql = "DELETE FROM SPConfiguration WHERE idSPConfiguration = '" + configuration.getId() + "';";
             Statement statement = connection.prepareStatement(sql);
             statement.executeUpdate(sql);
 
@@ -114,15 +114,23 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
 
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String sql = "UPDATE SPConfiguration SET " +
-                    "driver = ?, " +
-                    "hostController = ?, " +
-                    "apiOwner = ?, " +
-                    "mcu = ?, " +
-                    "protocol = ?, " +
-                    "addressingType = ?, " +
-                    "idCluster = ? " +
-                    " WHERE idSPConfiguration = ? ;";
+
+            String sql = "INSERT INTO SPConfiguration (" +
+                    "driver, " +
+                    "hostController, " +
+                    "apiOwner, " +
+                    "mcu, " +
+                    "protocol, " +
+                    "addressingType, " +
+                    "idCluster " +
+                    ")" +
+                    " VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            String sql1 = "DELETE FROM SPConfiguration WHERE idSPConfiguration = '" + configuration.getId() + "';";
+            Statement statement1 = connection.prepareStatement(sql1);
+            statement1.executeUpdate(sql1);
+
+            statement1.close();
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -151,7 +159,7 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
                 statement.setNull(4, Types.VARCHAR);
             }
 
-            if (configuration.getProtocol().isEmpty()) {
+            if (!configuration.getProtocol().isEmpty()) {
                 statement.setString(5, configuration.getProtocol());
             } else {
                 statement.setNull(5, Types.DOUBLE);
@@ -164,6 +172,7 @@ public class ConfigurationDAO implements CrudDAO<Configuration> {
             }
 
             statement.setString(7, configuration.getIdCluster());
+
             statement.executeUpdate();
             statement.close();
             connection.close();

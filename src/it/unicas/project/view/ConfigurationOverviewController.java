@@ -103,9 +103,8 @@ public class ConfigurationOverviewController {
                 mainApp.showConfigurationEditDialog(configuration);
                 if (!configuration.equals(oldConfiguration)) {
                     ConfigurationDAO.getInstance().update(configuration);
-                    configurationData.remove(oldConfiguration);
-                    configurationData.add(configuration);
                     configurationTableView.setItems(configurationData);
+                    configurationTableView.refresh();
                 }
             }
         }

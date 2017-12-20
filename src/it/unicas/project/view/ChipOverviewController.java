@@ -119,14 +119,8 @@ public class ChipOverviewController {
                 mainApp.showChipEditDialog(clickedChip, true);
                 if (!clickedChip.equals(oldChip)) {
                     ChipDAO.getInstance().update(clickedChip);
-
-                    for (int i = 0; i < chipData.size(); i++) {
-                        if (chipData.get(i).getId().equals(clickedChip.getId())) {
-                            chipData.remove(i);
-                        }
-                    }
-                    this.chipData.add(clickedChip);
                     chipTableView.setItems(chipData);
+                    chipTableView.refresh();
                 }
             }
         }

@@ -146,13 +146,8 @@ public class SensingElementOverviewController {
             if (!sensingElement.equals(oldSensingElement)) {
                 SensingElementDAO.getInstance().update(sensingElement);
 
-                for (int i = 0; i < sensingElementsData.size(); i++) {
-                    if (sensingElementsData.get(i).getId().equals(sensingElement.getId())) {
-                        sensingElementsData.remove(i);
-                    }
-                }
-                sensingElementsData.add(sensingElement);
                 sensingElementTableView.setItems(sensingElementsData);
+                sensingElementTableView.refresh();
             }
         }
     }

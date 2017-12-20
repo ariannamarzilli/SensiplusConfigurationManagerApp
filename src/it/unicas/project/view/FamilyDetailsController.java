@@ -142,9 +142,8 @@ public class FamilyDetailsController {
                 "PORT_VOLTAGE", "PORT_LIGHT", "PORT_DARK");
 
 
-        SensingElementDAO sensingElementDAO = new SensingElementDAO();
         //devo usare una funzione che restituisce sensing element mai montati
-        List<SensingElement> sensingElements = sensingElementDAO.fetchAll();
+        List<SensingElement> sensingElements = SensingElementDAO.getInstance().fetchAll();
 
         sensingElementId = FXCollections.observableArrayList();
         sensingElements.stream().forEach(sensingElement -> sensingElementId.add(sensingElement.getId()));

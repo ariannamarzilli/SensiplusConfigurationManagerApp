@@ -105,6 +105,17 @@ public class ConfigurationDetailsController {
         this.mcuTextField.setText(configuration.getMcu());
         this.protocolComboBox.setValue(configuration.getProtocol());
         this.addressingTypeComboBox.setValue(configuration.getAddressingType());
+
+        if (configuration.getAddressingType().equals("No-Address")) {
+            ObservableList<String> protocolsNoAddress = FXCollections.observableArrayList("SPI", "SENSIBUS");
+            protocolComboBox.setItems(protocolsNoAddress);
+        } else if (configuration.getAddressingType().equals("Full-Address")) {
+            ObservableList<String> protocolsFullAddress = FXCollections.observableArrayList("SENSIBUS");
+            protocolComboBox.setItems(protocolsFullAddress);
+        } else if (configuration.getAddressingType().equals("Short-Address")) {
+            ObservableList<String> protocolsShortAddress = FXCollections.observableArrayList("SENSIBUS", "I2C");
+            protocolComboBox.setItems(protocolsShortAddress);
+        }
         this.clusterComboBox.setValue(configuration.getIdCluster());
     }
 

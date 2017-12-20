@@ -130,11 +130,11 @@ public class ChipDAO implements CrudDAO<Chip> {
                 statement5.setString(1, chip.getFamilyName());
                 ResultSet rs = statement5.executeQuery();
                 while (rs.next()) {
-                    statement.setInt(2, rs.getInt("idSPFamily"));
+                    statement.setInt(1, rs.getInt("idSPFamily"));
                 }
 
             } else {
-                statement.setNull(2, Types.VARCHAR);
+                statement.setNull(1, Types.VARCHAR);
             }
 
 
