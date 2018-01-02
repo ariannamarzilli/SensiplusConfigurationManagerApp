@@ -40,12 +40,12 @@
                   </Label>
                </children>
             </Pane>
-            <JFXButton layoutX="87.0" layoutY="616.0" onAction="#handleSettings" prefHeight="46.0" prefWidth="38.0" text="Settings" textFill="#03396c">
+            <JFXButton layoutX="136.0" layoutY="625.0" onAction="#handleSettings" prefHeight="46.0" prefWidth="38.0" text="Settings" textFill="#03396c">
                <font>
                   <Font size="1.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="81.0" layoutY="529.0" textFill="#03396c">
+            <JFXButton layoutX="32.0" layoutY="624.0" prefHeight="49.0" prefWidth="47.0" text="xml" textFill="#03396c">
                <font>
                   <Font size="1.0" />
                </font>

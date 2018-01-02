@@ -11,22 +11,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ListSelectionView?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="550.0" style="-fx-background-color: #b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ClusterDetailsController">
     <children>
-        <JFXButton buttonType="RAISED" layoutX="109.0" layoutY="593.0" minWidth="-Infinity" onAction="#handleSaveChanges" text="Save Changes" textFill="#005b96">
-            <ripplerFill>
-                <LinearGradient endX="1.0" endY="1.0">
-                    <stops>
-                        <Stop color="BLACK" />
-                        <Stop color="WHITE" offset="1.0" />
-                    </stops>
-                </LinearGradient>
-            </ripplerFill></JFXButton>
         <Pane prefHeight="35.0" prefWidth="550.0" style="-fx-background-color: #011f4b;">
             <children>
                 <Label layoutX="14.0" layoutY="8.0" prefHeight="17.0" prefWidth="76.0" text="Details" textFill="#b3cde0">
@@ -42,17 +31,8 @@
                 <DropShadow />
             </effect>
         </Pane>
-        <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="593.0" minWidth="-Infinity" onAction="#handleCancel" text="Cancel" textFill="#005b96">
-            <ripplerFill>
-                <LinearGradient endX="1.0" endY="1.0">
-                    <stops>
-                        <Stop color="BLACK" />
-                        <Stop color="WHITE" offset="1.0" />
-                    </stops>
-                </LinearGradient>
-            </ripplerFill>
-        </JFXButton>
-      <ListSelectionView fx:id="chipsListSelection" layoutX="14.0" layoutY="165.0" prefHeight="409.0" prefWidth="527.0" />
+        <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="607.0" minWidth="-Infinity" onAction="#handleCancel" ripplerFill="#03396b" text="Cancel" textFill="#005b96" />
+      <ListSelectionView fx:id="chipsListSelection" layoutX="14.0" layoutY="165.0" prefHeight="409.0" prefWidth="519.0" />
       <Pane layoutX="17.0" layoutY="158.0" prefHeight="42.0" prefWidth="527.0" style="-fx-background-color: #b3cde0;">
          <children>
             <Label layoutX="22.0" layoutY="13.0" text="Chips available" textFill="#005b96" />
@@ -73,8 +53,9 @@
                 <Label text="Id" textFill="#005b96" />
                 <JFXTextField fx:id="idTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="166.0" unFocusColor="#03396c" GridPane.rowIndex="1" />
             <Label text="Family" textFill="#005b96" GridPane.columnIndex="1" />
-            <JFXComboBox fx:id="familyComboBox" prefHeight="27.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXComboBox fx:id="familyComboBox" onAction="#handleFamilyComboBox" prefHeight="27.0" prefWidth="166.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <JFXButton buttonType="RAISED" layoutX="482.0" layoutY="607.0" minWidth="-Infinity" onAction="#handleNext" ripplerFill="#03396b" text="Next" textFill="#005b96" />
     </children>
 </AnchorPane>

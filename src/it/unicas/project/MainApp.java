@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +19,7 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootWindow;
+    private Stage clusterStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -32,6 +34,7 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/FirstWindow.fxml"));
             AnchorPane firstWindow = (AnchorPane) loader.load();
+
             Scene scene = new Scene(firstWindow);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
@@ -120,7 +123,7 @@ public class MainApp extends Application {
     }
 
     public void showClusterOverview() {
-        /*
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ClusterOverview.fxml"));
@@ -131,7 +134,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     public void showConfigurationOverview() {
@@ -234,7 +237,7 @@ public class MainApp extends Application {
     }
 
     public void showClusterEditDialog(Cluster cluster, boolean isAnUpdate) {
-        /*
+
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -243,6 +246,7 @@ public class MainApp extends Application {
 
             //dialog stage
             Stage dialogStage = new Stage();
+            this.setClusterStage(dialogStage);
             dialogStage.setTitle("Show Clusters");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
@@ -253,13 +257,37 @@ public class MainApp extends Application {
             controller.setCluster(cluster);
             controller.setDialogStage(dialogStage);
             controller.setAnUpdate(isAnUpdate);
+            controller.setMainApp(this);
 
             dialogStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+    }
+
+    public void showClusterCalibrationsEditDialog(Cluster cluster) {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ClusterCalibrationsDetails.fxml"));
+            Parent page = loader.load();
+
+            Stage dialogStage = getClusterStage();
+            dialogStage.setTitle("Show Cluster Calibrations");
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ClusterCalibrationsDetailsController controller = loader.getController();
+            controller.setCluster(cluster);
+            controller.setDialogStage(dialogStage);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void showConfigurationEditDialog(Configuration configuration) {
@@ -291,6 +319,14 @@ public class MainApp extends Application {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public Stage getClusterStage() {
+        return clusterStage;
+    }
+
+    public void setClusterStage(Stage clusterStage) {
+        this.clusterStage = clusterStage;
     }
 
     public static void main(String[] args) {

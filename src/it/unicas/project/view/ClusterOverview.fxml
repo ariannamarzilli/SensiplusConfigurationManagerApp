@@ -43,10 +43,10 @@
             <StackPane prefHeight="499.0" prefWidth="29.0" />
             <TableView fx:id="calibrationTableView" prefHeight="499.0" prefWidth="450.0" stylesheets="@Theme.css">
               <columns>
-                <TableColumn prefWidth="128.0" text="Port" />
-                  <TableColumn prefWidth="199.0" text="Id Sensing Element" />
-                  <TableColumn prefWidth="60.0" text="M" />
-                <TableColumn prefWidth="60.0" text="N" />
+                <TableColumn fx:id="portColumn" prefWidth="128.0" text="Port" />
+                  <TableColumn fx:id="idSensingElementColumn" prefWidth="199.0" text="Id Sensing Element" />
+                  <TableColumn fx:id="mColumn" prefWidth="60.0" text="M" />
+                <TableColumn fx:id="nColumn" prefWidth="60.0" text="N" />
               </columns>
             </TableView>
             </children>

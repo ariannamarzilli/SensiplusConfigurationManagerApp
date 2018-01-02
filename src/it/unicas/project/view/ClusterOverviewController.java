@@ -1,11 +1,12 @@
 package it.unicas.project.view;
-/*
+
 import it.unicas.project.MainApp;
 import it.unicas.project.dao.ClusterDAO;
 import it.unicas.project.model.Chip;
 import it.unicas.project.model.ChipWithCalibration;
 import it.unicas.project.model.Cluster;
 
+import it.unicas.project.model.SensingElementWithCalibration;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,10 +25,14 @@ public class ClusterOverviewController {
     @FXML private TableView<Cluster> idClusterTableView;
     @FXML private TableColumn<Cluster, String> idClusterColumn;
 
-    @FXML private TableView<Chip> chipTableView;
+    @FXML private TableView<ChipWithCalibration> chipTableView;
     @FXML private TableColumn<Chip, String> idChipColumn;
 
-    @FXML private TableView<ChipWithCalibration> calibrationTableView;
+    @FXML private TableView<SensingElementWithCalibration> calibrationTableView;
+    @FXML private TableColumn<SensingElementWithCalibration, String> portColumn;
+    @FXML private TableColumn<SensingElementWithCalibration, String> idSensingElementColumn;
+    @FXML private TableColumn<SensingElementWithCalibration, String> mColumn;
+    @FXML private TableColumn<SensingElementWithCalibration, String> nColumn;
 
     ObservableList<Cluster> clusterData;
     private MainApp mainApp;
@@ -112,9 +117,9 @@ public class ClusterOverviewController {
                 calibrationTableView.getItems().clear();
                 chipTableView.getItems().clear();
 
-                ObservableList<Chip> chips = FXCollections.observableArrayList();
+                ObservableList<ChipWithCalibration> chips = FXCollections.observableArrayList();
                 for (int i = 0; i < cluster.getChipWithCalibrations().size(); i++) {
-                    chips.add(cluster.getChipWithCalibrations().get(i).getChip());
+                    chips.add(cluster.getChipWithCalibrations().get(i));
                 }
 
                 idChipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
@@ -128,7 +133,7 @@ public class ClusterOverviewController {
                     ClusterDAO.getInstance().update(cluster);
 
                     for (int i = 0; i < clusterData.size(); i++) {
-                        if (clusterData.get(i).getId().equals(cluster.getId()))){
+                        if (clusterData.get(i).getId().equals(cluster.getId())){
                             clusterData.remove(i);
                         }
                     }
@@ -141,8 +146,25 @@ public class ClusterOverviewController {
     }
 
     @FXML
-    private void handleClickOnChip(MouseEvent event) {
+    private void handleClickOnChip() {
 
+        if (chipTableView.getSelectionModel().getSelectedItem() != null) {
+
+            ChipWithCalibration chipWithCalibration = chipTableView.getSelectionModel().getSelectedItem();
+
+            calibrationTableView.getItems().clear();
+
+            ObservableList<SensingElementWithCalibration> sensingElementWithCalibrations = FXCollections.observableArrayList();
+            for (int i = 0; i < chipWithCalibration.getSensingElementWithCalibrations().size(); i++) {
+                sensingElementWithCalibrations.add(chipWithCalibration.getSensingElementWithCalibrations().get(i));
+            }
+
+            portColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPortName()));
+            idSensingElementColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdSensingElement()));
+            mColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getM().toString()));
+            nColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getN().toString()));
+            calibrationTableView.setItems(sensingElementWithCalibrations);
+        }
 
     }
 
@@ -154,4 +176,3 @@ public class ClusterOverviewController {
         this.clusterData = clusterData;
     }
 }
-*/
