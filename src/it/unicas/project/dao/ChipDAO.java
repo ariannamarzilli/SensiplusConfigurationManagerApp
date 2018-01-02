@@ -215,6 +215,77 @@ public class ChipDAO implements CrudDAO<Chip> {
         return chips;
     }
 
+    public ChipWithCalibration fetchCalibration (Chip chip){
+
+        List<SensingElementWithCalibration> sensingElementWithCalibrations = new ArrayList<>();
+
+        ChipWithCalibration chipWithCalibration = new ChipWithCalibration();
+
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+
+            String sqlSPSensOnChipSelect = "SELECT n, m, SPSensingElementOnFamily_idSPSensingElementOnFamily FROM SPSensingElementOnChip WHERE SPChip_idSPChip = '"+ chip.getId() + "';";
+
+            String sqlSelectIdSensingElement = "SELECT SPSensingElement_idSPSensingElement FROM SPSensingElementOnFamily " +
+                    "WHERE idSPSensingElementOnFamily = ?";
+
+
+
+
+            Statement statement = connection.prepareStatement(sqlSPSensOnChipSelect);
+            ResultSet resultSet = statement.executeQuery(sqlSPSensOnChipSelect);
+
+            PreparedStatement statement1 = connection.prepareStatement(sqlSelectIdSensingElement);
+
+            int n=0, m=0, idSensElOnFamily =0;
+
+
+            while (resultSet.next()){
+
+                n = resultSet.getInt(1);
+                m = resultSet.getInt(2);
+                idSensElOnFamily = resultSet.getInt(3);
+
+                statement1.setInt(1, idSensElOnFamily);
+
+                ResultSet resultSet1 = statement1.executeQuery();
+
+                String idSensingElement = "";
+
+                while (resultSet1.next()){
+
+                    idSensingElement = resultSet1.getString(1);
+                }
+
+                sensingElementWithCalibrations.add(new SensingElementWithCalibration(idSensingElement, n, m));
+
+
+            }
+
+
+            chipWithCalibration.setChip(chip);
+            chipWithCalibration.setSensingElementWithCalibrations(sensingElementWithCalibrations);
+
+
+
+
+
+            statement.close();
+            statement1.close();
+
+
+
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return chipWithCalibration;
+    }
+
 
 
 
