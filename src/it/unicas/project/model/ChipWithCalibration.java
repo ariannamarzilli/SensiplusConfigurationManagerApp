@@ -24,6 +24,9 @@ public class ChipWithCalibration {
         this.sensingElementWithCalibrations = sensingElementWithCalibrations;
     }
 
+    public ChipWithCalibration() {
+    }
+
     public ChipWithCalibration(Chip chip, List<SensingElementWithCalibration> sensingElementWithCalibrations) {
         this.chip = chip;
         this.sensingElementWithCalibrations = sensingElementWithCalibrations;
