@@ -1,5 +1,6 @@
 package it.unicas.project;
 
+import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.model.*;
 import it.unicas.project.view.*;
 import javafx.application.Application;
@@ -330,7 +331,16 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        Chip chip = new Chip("f1", "ch1");
+
+        ChipDAO chipDAO = ChipDAO.getInstance();
+
+        ChipWithCalibration chipWithCalibration = new ChipWithCalibration();
+
+        chipWithCalibration = chipDAO.fetchCalibration(chip);
+
+        Family family;
+
     }
 
 }
