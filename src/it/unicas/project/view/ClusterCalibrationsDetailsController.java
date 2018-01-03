@@ -27,6 +27,7 @@ public class ClusterCalibrationsDetailsController {
     @FXML
     private void initialize() {
 
+        chipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChip().getId()));
         sensingElementColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdSensingElement()));
         mColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getM().toString()));
         nColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getN().toString()));
@@ -79,6 +80,5 @@ public class ClusterCalibrationsDetailsController {
 
     @FXML
     private void handleSave() {
-        
     }
 }

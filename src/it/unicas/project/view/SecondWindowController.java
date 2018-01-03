@@ -35,4 +35,7 @@ public class SecondWindowController {
     public void handleSettings() {
         this.mainApp.showSettings();
     }
+
+    @FXML
+    public void handleXml() { }
 }

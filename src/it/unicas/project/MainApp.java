@@ -242,7 +242,7 @@ public class MainApp extends Application {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ClusterDetails.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            Parent page = loader.load();
 
             //dialog stage
             Stage dialogStage = new Stage();
