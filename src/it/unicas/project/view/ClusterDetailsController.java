@@ -7,6 +7,7 @@ import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.dao.ClusterDAO;
 import it.unicas.project.dao.FamilyDAO;
 import it.unicas.project.model.Chip;
+import it.unicas.project.model.ChipWithCalibration;
 import it.unicas.project.model.Cluster;
 import it.unicas.project.model.Family;
 import javafx.collections.FXCollections;
@@ -129,8 +130,9 @@ public class ClusterDetailsController {
                 }
 
                 if (!isChipAlreadyPresent) {
-                    // ho bisogno di una funzione che dato l'id di un chip, mi restituisca un ChipWithCalibration
-                    //cluster.getChipWithCalibrations().add();
+
+                    ChipWithCalibration chipWithCalibration = ChipDAO.getInstance().fetchCalibration(chip);
+                    cluster.getChipWithCalibrations().add(chipWithCalibration);
                 }
             }
 

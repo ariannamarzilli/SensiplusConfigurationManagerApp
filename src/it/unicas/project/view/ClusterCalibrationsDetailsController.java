@@ -18,7 +18,7 @@ public class ClusterCalibrationsDetailsController {
     private Stage dialogStage;
     private Cluster cluster;
 
-    @FXML private TableView<SensingElementWithCalibration> parameterTableView = new TableView<>();
+    @FXML private TableView<ChipWithCalibration> parameterTableView = new TableView<>();
     @FXML private TableColumn<ChipWithCalibration, String> chipColumn;
     @FXML private TableColumn<SensingElementWithCalibration, String> sensingElementColumn;
     @FXML private TableColumn<SensingElementWithCalibration, String> mColumn;
@@ -62,9 +62,10 @@ public class ClusterCalibrationsDetailsController {
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
-        ObservableList<SensingElementWithCalibration> sensingElementWithCalibrations = FXCollections.observableArrayList();
-        this.cluster.getChipWithCalibrations().forEach( c -> c.getSensingElementWithCalibrations().forEach( s -> sensingElementWithCalibrations.add(s)));
-        parameterTableView.setItems(sensingElementWithCalibrations);
+        //ObservableList<SensingElementWithCalibration> sensingElementWithCalibrations = FXCollections.observableArrayList();
+        ObservableList<ChipWithCalibration> chipWithCalibrations = FXCollections.observableArrayList(this.cluster.getChipWithCalibrations());
+        //this.cluster.getChipWithCalibrations().forEach( c -> c.getSensingElementWithCalibrations().forEach( s -> sensingElementWithCalibrations.add(s)));
+        parameterTableView.setItems(chipWithCalibrations);
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -78,6 +79,6 @@ public class ClusterCalibrationsDetailsController {
 
     @FXML
     private void handleSave() {
-
+        
     }
 }
