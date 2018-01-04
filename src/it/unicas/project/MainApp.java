@@ -331,16 +331,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        Chip chip = new Chip("f1", "ch1");
-
-        ChipDAO chipDAO = ChipDAO.getInstance();
-
-        ChipWithCalibration chipWithCalibration = new ChipWithCalibration();
-
-        chipWithCalibration = chipDAO.fetchCalibration(chip);
-
-        Family family;
-
+        launch(args);
     }
 
 }

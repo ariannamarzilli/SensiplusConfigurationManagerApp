@@ -25,6 +25,8 @@ public class ChipWithCalibration {
     }
 
     public ChipWithCalibration() {
+        chip = new Chip();
+        sensingElementWithCalibrations = new ArrayList<>();
     }
 
     public ChipWithCalibration(Chip chip, List<SensingElementWithCalibration> sensingElementWithCalibrations) {
@@ -34,9 +36,13 @@ public class ChipWithCalibration {
 
     public ChipWithCalibration(Chip chip) {
         this.chip = chip;
+        sensingElementWithCalibrations = new ArrayList<>();
     }
 
-    public boolean equals(ChipWithCalibration chipWithCalibration) {
+    @Override
+    public boolean equals(Object c) {
+        ChipWithCalibration chipWithCalibration = (ChipWithCalibration) c;
+
         if (this.chip.equals(chipWithCalibration.getChip()) &&
                 this.sensingElementWithCalibrations.equals(chipWithCalibration.getSensingElementWithCalibrations())){
             return true;

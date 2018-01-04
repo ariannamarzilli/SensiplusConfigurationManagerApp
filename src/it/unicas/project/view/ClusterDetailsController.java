@@ -6,10 +6,7 @@ import it.unicas.project.MainApp;
 import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.dao.ClusterDAO;
 import it.unicas.project.dao.FamilyDAO;
-import it.unicas.project.model.Chip;
-import it.unicas.project.model.ChipWithCalibration;
-import it.unicas.project.model.Cluster;
-import it.unicas.project.model.Family;
+import it.unicas.project.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,6 +31,7 @@ public class ClusterDetailsController {
     private MainApp mainApp;
     private boolean isAnUpdate;
 
+
     @FXML
     private void initialize() {
 
@@ -54,7 +52,7 @@ public class ClusterDetailsController {
 
         idTextField.setText(cluster.getId());
 
-        if (cluster.getChipWithCalibrations().size() != 0) {
+        if (!cluster.getChipWithCalibrations().isEmpty()) {
 
             familyComboBox.setValue(cluster.getChipWithCalibrations().get(0).getChip().getFamilyName());
 
@@ -71,10 +69,9 @@ public class ClusterDetailsController {
             List<Cluster> allClusters = ClusterDAO.getInstance().fetchAll();
 
             for (int i = 0; i < allClusters.size(); i++) {
-                for (int j = 0; j < chips.size(); j++) {
-                    if (allClusters.get(i).getChipWithCalibrations().contains(chips.get(j))) {
-                        chipsAlreadyUsed.add(allClusters.get(i).getChipWithCalibrations().get(j).getChip());
-                    }
+                for (int j = 0; j < allClusters.get(i).getChipWithCalibrations().size(); j++) {
+                    Chip chip = allClusters.get(i).getChipWithCalibrations().get(j).getChip();
+                    chipsAlreadyUsed.add(chip);
                 }
             }
 
@@ -119,6 +116,8 @@ public class ClusterDetailsController {
             // 3. chip non presenti in cluster e contenuti in target -> da aggiungere
 
             // 3
+            List<ChipWithCalibration> chipWithCalibrationList = new ArrayList<>();
+
             for (int i = 0; i < chipsListSelection.getTargetItems().size(); i++) {
                 Chip chip = new Chip(familyComboBox.getValue(), chipsListSelection.getTargetItems().get(i));
                 boolean isChipAlreadyPresent = false;
@@ -131,10 +130,25 @@ public class ClusterDetailsController {
 
                 if (!isChipAlreadyPresent) {
 
-                    ChipWithCalibration chipWithCalibration = ChipDAO.getInstance().fetchCalibration(chip);
-                    cluster.getChipWithCalibrations().add(chipWithCalibration);
+                    List<Family> families = FamilyDAO.getInstance().fetchAll();
+
+                    ChipWithCalibration chipWithCalibration = new ChipWithCalibration(chip);
+                    for (int h = 0; h < families.size(); h++) {
+                        if (families.get(h).getName().equals(chip.getFamilyName())) {
+                            for (int k = 0; k < families.get(h).getPorts().size(); k++) {
+                                SensingElementWithCalibration sensingElementWithCalibration = new SensingElementWithCalibration();
+                                sensingElementWithCalibration.setIdSensingElement(families.get(h).getPorts().get(k).getIdSensingElement());
+                                sensingElementWithCalibration.setPortName(families.get(h).getPorts().get(k).getName());
+                                chipWithCalibration.getSensingElementWithCalibrations().add(sensingElementWithCalibration);
+                            }
+                        }
+                    }
+
+                    chipWithCalibrationList.add(chipWithCalibration);
                 }
             }
+            chipWithCalibrationList.stream().forEach(chipWithCalibration -> cluster.getChipWithCalibrations().add(chipWithCalibration));
+
 
             // 1
             for (int i = 0; i < cluster.getChipWithCalibrations().size(); i++) {
@@ -157,9 +171,19 @@ public class ClusterDetailsController {
         }
     }
 
+
+    /**
+     * When a family is selected, all available chips belonging to that family are
+     * shown in the list "chipsListSelection"
+     */
     @FXML
     private void handleFamilyComboBox() {
-
+        /*
+        Prima vengono svuotate sia la target che la source list del widget ListSelectionView
+        Dati tutti i cluster già esistenti, vengono memorizzati nella lista "chipsAlreadyUsed" tutti i chip che sono stati selezionati
+        Dalla lista "chips" contenente tutti i chip esistenti nel database vengono eliminati i chip contenuti in chipsAlreadyUsed.
+        Viene creata una lista osservabile chipSourceList contenente tutti i chip in "chips" che verranno visualizzati nella lista sorgente del widget
+         */
         chipsListSelection.getSourceItems().clear();
         chipsListSelection.getTargetItems().clear();
 
@@ -168,10 +192,9 @@ public class ClusterDetailsController {
         List<Cluster> allClusters = ClusterDAO.getInstance().fetchAll();
 
         for (int i = 0; i < allClusters.size(); i++) {
-            for (int j = 0; j < chips.size(); j++) {
-                if (allClusters.get(i).getChipWithCalibrations().contains(chips.get(j))) {
-                    chipsAlreadyUsed.add(allClusters.get(i).getChipWithCalibrations().get(j).getChip());
-                }
+            for (int j = 0; j < allClusters.get(i).getChipWithCalibrations().size(); j++) {
+                Chip chip = allClusters.get(i).getChipWithCalibrations().get(j).getChip();
+                chipsAlreadyUsed.add(chip);
             }
         }
 
@@ -202,6 +225,10 @@ public class ClusterDetailsController {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Verify that all fields entered are correct (in this case they must be not null)
+     * @return true if all the fields entered are correct, false otherwise.
+     */
     private boolean isInputValid() {
 
         String errorMessage = new String();

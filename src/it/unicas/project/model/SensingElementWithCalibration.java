@@ -15,18 +15,21 @@ public class SensingElementWithCalibration {
         this.idSensingElement = idSensingElement;
         this.n = n;
         this.m = m;
+        this.portName = "";
     }
 
     public SensingElementWithCalibration() {
         this.idSensingElement = "";
         this.m = 1;
         this.n = 0;
+        this.portName = "";
     }
 
     public SensingElementWithCalibration(SensingElementWithCalibration sensingElementWithCalibration) {
         this.setIdSensingElement(sensingElementWithCalibration.getIdSensingElement());
         this.setM(sensingElementWithCalibration.getM());
         this.setN(sensingElementWithCalibration.getN());
+        this.setPortName(sensingElementWithCalibration.getPortName());
     }
 
 

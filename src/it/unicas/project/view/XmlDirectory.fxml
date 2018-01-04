@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +11,7 @@
     <children>
         <Pane prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
             <children>
-                <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="178.0" text="Database Connection" textFill="#b3cde0">
+                <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="178.0" text="XML" textFill="#b3cde0">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -24,19 +21,7 @@
                 </Label>
             </children>
         </Pane>
-        <JFXToggleButton fx:id="toggleButton" layoutX="31.0" layoutY="107.0" onAction="#handleToggleButton" text="Use new Settings" textFill="#b3cde0" toggleColor="#005b96" toggleLineColor="#6497b1" />
-        <AnchorPane layoutX="46.0" layoutY="187.0" prefHeight="421.0" prefWidth="902.0" style="-fx-background-color: #001b43#001b43;">
-            <children>
-                <Label fx:id="urlLabel" layoutX="62.0" layoutY="58.0" text="URL" textFill="#6497b1" />
-                <Label fx:id="userLabel" layoutX="62.0" layoutY="145.0" text="USER" textFill="#6497b1" />
-                <Label fx:id="passwordLabel" layoutX="62.0" layoutY="229.0" text="Password" textFill="#6497b1" />
-                <Label fx:id="repeatPasswordLabel" layoutX="62.0" layoutY="316.0" text="Repeat Password" textFill="#6497b1" />
-                <JFXTextField fx:id="urlTextField" focusColor="#b3cde0" layoutX="470.0" layoutY="53.0" prefHeight="27.0" prefWidth="330.0" style="-fx-text-fill: #b3cde0;" unFocusColor="#6497b1" />
-                <JFXTextField fx:id="userTextField" focusColor="#b3cde0" layoutX="470.0" layoutY="140.0" prefHeight="27.0" prefWidth="330.0" style="-fx-text-fill: #b3cde0;" unFocusColor="#6497b1" />
-                <JFXPasswordField fx:id="passwordField" focusColor="#b3cde0" layoutX="470.0" layoutY="224.0" prefHeight="27.0" prefWidth="330.0" style="-fx-text-fill: #b3cde0;" unFocusColor="#6497b1" />
-                <JFXPasswordField fx:id="repeatPasswordField" focusColor="#b3cde0" layoutX="470.0" layoutY="311.0" prefHeight="27.0" prefWidth="330.0" style="-fx-text-fill: #b3cde0;" unFocusColor="#6497b1" />
-            </children>
-        </AnchorPane>
         <JFXButton buttonType="RAISED" layoutX="892.0" layoutY="642.0" onAction="#handleSave" ripplerFill="#6497b1" text="Save" textFill="#6497b1" />
+      <Label layoutX="84.0" layoutY="129.0" text="Choose a directory" />
     </children>
 </AnchorPane>

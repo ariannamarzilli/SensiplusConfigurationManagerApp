@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1700.0" maxWidth="2000.0" minHeight="700.0" minWidth="1000.0" onMouseClicked="#handleSettings" prefHeight="700.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.SecondWindowController">
+<BorderPane maxHeight="1700.0" maxWidth="2000.0" minHeight="700.0" minWidth="1000.0" onMouseClicked="#handleSettings" prefHeight="700.0" prefWidth="1220.0" style="-fx-background-color: #b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.SecondWindowController">
    <left>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="220.0" style="-fx-background-color: #03396c#03396c;" BorderPane.alignment="CENTER">
          <children>
