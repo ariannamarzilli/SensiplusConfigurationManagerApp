@@ -40,8 +40,10 @@ public class ClusterDetailsController {
         ObservableList<String> familyObservableList = FXCollections.observableArrayList();
 
         for (int i = 0; i < families.size(); i++) {
-            if (!families.get(i).getPorts().get(0).getIdSensingElement().isEmpty()) {
-                familyObservableList.add(families.get(i).getName());
+            if (families.get(i).getPorts().size() != 0) {
+                if (!families.get(i).getPorts().get(0).getIdSensingElement().isEmpty()) {
+                    familyObservableList.add(families.get(i).getName());
+                }
             }
         }
 
