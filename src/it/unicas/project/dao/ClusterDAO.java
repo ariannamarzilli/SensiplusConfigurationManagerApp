@@ -56,7 +56,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
                     " WHERE SPSensingElement_idSPSensingElement = ?;";
 
 
-            String sqlSPClusterInsert = "INSERT INTO SPCluster (idSPCluster) VALUES (?);";
+            String sqlSPClusterInsert = "INSERT INTO SPCluster (idCluster) VALUES (?);";
 
             PreparedStatement statement1 = connection.prepareStatement(sqlSPSensingElementOnChipInsert, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement statement4 = connection.prepareStatement(sqlIdSensingElementOnFamilySelect);
@@ -128,7 +128,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
             Connection connection = ConnectionFactory.getConnection();
 
 
-            String sqlSPChipDelete = "DELETE FROM SPCluster WHERE idSPCluster ='" + cluster.getId() + "';";
+            String sqlSPChipDelete = "DELETE FROM SPCluster WHERE idCluster ='" + cluster.getId() + "';";
 
 
             Statement statement1 = connection.prepareStatement(sqlSPChipDelete);
@@ -170,7 +170,7 @@ public class ClusterDAO implements CrudDAO<Cluster> {
                             "m, " +
                             "n, " +
                             "SPSensingElementOnFamily_idSPSensingElementOnFamily, " +
-                            "SPCalibration_idSPCalibration)" +
+                            "SPCluster_idSPCluster)" +
                             " VALUES (?, ?, ?, ?, ?)";
 
             String sqlIdSensingElementOnFamilySelect = "SELECT idSPSensingElementOnFamily FROM SPSensingElementOnFamily" +

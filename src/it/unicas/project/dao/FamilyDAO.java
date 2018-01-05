@@ -67,7 +67,7 @@ public class FamilyDAO implements CrudDAO<Family> {
                     "VALUES (?, ?)";
 
             String sqlSPAnalyte_SPSensingElementInsert = "INSERT INTO SPAnalyte_SPSensingElementOnFamily " +
-                    "(idSPAnalyte_idSPSensingElementOnFamily, SPAnalyte_idSPAnalyte) " +
+                    "(idSPAnalyte_SPSensingElementOnFamily, SPAnalyte_idSPAnalyte) " +
                     "VALUES (?, ?)";
 
             String sqlIdAnalyte = "SELECT idSPAnalyte FROM SPAnalyte WHERE name = ?";
