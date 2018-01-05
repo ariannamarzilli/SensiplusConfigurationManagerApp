@@ -26,7 +26,7 @@ public class ClusterOverviewController {
     @FXML private TableColumn<Cluster, String> idClusterColumn;
 
     @FXML private TableView<ChipWithCalibration> chipTableView;
-    @FXML private TableColumn<Chip, String> idChipColumn;
+    @FXML private TableColumn<ChipWithCalibration, String> idChipColumn;
 
     @FXML private TableView<SensingElementWithCalibration> calibrationTableView;
     @FXML private TableColumn<SensingElementWithCalibration, String> portColumn;
@@ -124,7 +124,7 @@ public class ClusterOverviewController {
                     chips.add(cluster.getChipWithCalibrations().get(i));
                 }
 
-                idChipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+                idChipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChip().getId()));
                 chipTableView.setItems(chips);
 
             } else if (event.getClickCount() == 2) {
