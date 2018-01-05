@@ -53,7 +53,7 @@ public class ChipOverviewController {
 
         chipTableView.setItems(chipData);
 
-        mainApp.setChipData(chipData);
+        //mainApp.setChipData(chipData);
 
     }
 

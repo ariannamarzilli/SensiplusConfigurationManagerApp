@@ -65,7 +65,7 @@ public class SensingElementOverviewController {
         }
 
         this.setSensingElementsData(sensingElementObservableList);
-        mainApp.setSensingElementData(sensingElementsData);
+        //mainApp.setSensingElementData(sensingElementsData);
 
         // Associating the data with the table columns
         idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));

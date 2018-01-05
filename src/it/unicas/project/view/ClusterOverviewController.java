@@ -54,7 +54,7 @@ public class ClusterOverviewController {
 
         idClusterTableView.setItems(clusterData);
 
-        mainApp.setClusterData(clusterData);
+        //mainApp.setClusterData(clusterData);
     }
 
     @FXML

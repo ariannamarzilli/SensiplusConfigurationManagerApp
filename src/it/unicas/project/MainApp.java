@@ -83,7 +83,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/Connection.fxml"));
-            Node settingsOverview = (Node) loader.load();
+            AnchorPane settingsOverview = (AnchorPane) loader.load();
             rootWindow.setCenter(settingsOverview);
 
         } catch (IOException e) {
@@ -95,7 +95,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/SensingElementOverview.fxml"));
-            Node sensingElementOverview = (Node) loader.load();
+            AnchorPane sensingElementOverview = (AnchorPane) loader.load();
             rootWindow.setCenter(sensingElementOverview);
             SensingElementOverviewController controller = loader.getController();
             controller.setMainApp(this);
@@ -109,7 +109,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/FamilyOverview.fxml"));
-            Node familyOverview = (Node) loader.load();
+            AnchorPane familyOverview = (AnchorPane) loader.load();
             rootWindow.setCenter(familyOverview);
             FamilyOverviewController controller = loader.getController();
             controller.setMainApp(this);
@@ -122,7 +122,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
-            Node chipOverview = (Node) loader.load();
+            AnchorPane chipOverview = (AnchorPane) loader.load();
             rootWindow.setCenter(chipOverview);
             ChipOverviewController controller = loader.getController();
             controller.setMainApp(this);
@@ -137,7 +137,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ClusterOverview.fxml"));
-            Node clusterOverview = (Node) loader.load();
+            AnchorPane clusterOverview = (AnchorPane) loader.load();
             rootWindow.setCenter(clusterOverview);
             ClusterOverviewController controller = loader.getController();
             controller.setMainApp(this);
@@ -152,7 +152,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ConfigurationOverview.fxml"));
-            Node configurationOverview = (Node) loader.load();
+            AnchorPane configurationOverview = (AnchorPane) loader.load();
             rootWindow.setCenter(configurationOverview);
             ConfigurationOverviewController controller = loader.getController();
             controller.setMainApp(this);
@@ -252,7 +252,7 @@ public class MainApp extends Application {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ClusterDetails.fxml"));
-            Parent page = loader.load();
+            AnchorPane page = (AnchorPane) loader.load();
 
             //dialog stage
             Stage dialogStage = new Stage();
@@ -282,7 +282,7 @@ public class MainApp extends Application {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ClusterCalibrationsDetails.fxml"));
-            Parent page = loader.load();
+            AnchorPane page = (AnchorPane) loader.load();
 
             Stage dialogStage = getClusterStage();
             dialogStage.setTitle("Show Cluster Calibrations");
