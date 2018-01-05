@@ -76,6 +76,7 @@ public class FamilyOverviewController {
 
         familyTableView.setItems(familyObservableList);
 
+        mainApp.setFamilyData(familyData);
     }
 
     @FXML

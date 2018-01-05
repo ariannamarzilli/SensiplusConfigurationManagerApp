@@ -57,6 +57,7 @@ public class ConfigurationOverviewController {
 
         configurationTableView.setItems(configurationData);
 
+        mainApp.setConfigurationData(configurationData);
     }
 
     @FXML

@@ -53,6 +53,8 @@ public class ClusterOverviewController {
         idClusterColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
 
         idClusterTableView.setItems(clusterData);
+
+        mainApp.setClusterData(clusterData);
     }
 
     @FXML

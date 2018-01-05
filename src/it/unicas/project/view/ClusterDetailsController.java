@@ -46,6 +46,7 @@ public class ClusterDetailsController {
         }
 
         familyComboBox.setItems(familyObservableList);
+
     }
 
     public void setCluster(Cluster cluster) {

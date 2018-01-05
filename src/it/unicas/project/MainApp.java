@@ -1,6 +1,5 @@
 package it.unicas.project;
 
-import it.unicas.project.dao.ChipDAO;
 import it.unicas.project.model.*;
 import it.unicas.project.view.*;
 import javafx.application.Application;
@@ -25,6 +24,12 @@ public class MainApp extends Application {
     private BorderPane rootWindow;
     private Stage clusterStage;
     private boolean isCancelPressed;
+
+    private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
+    private ObservableList<Family> familyData = FXCollections.observableArrayList();
+    private ObservableList<Chip> chipData = FXCollections.observableArrayList();
+    private ObservableList<Cluster> clusterData = FXCollections.observableArrayList();
+    private ObservableList<Configuration> configurationData = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -342,8 +347,28 @@ public class MainApp extends Application {
         isCancelPressed = cancelPressed;
     }
 
+    public void setSensingElementData(ObservableList<SensingElement> sensingElementData) {
+        this.sensingElementData = sensingElementData;
+    }
+
+    public void setFamilyData(ObservableList<Family> familyData) {
+        this.familyData = familyData;
+    }
+
+    public void setChipData(ObservableList<Chip> chipData) {
+        this.chipData = chipData;
+    }
+
+    public void setClusterData(ObservableList<Cluster> clusterData) {
+        this.clusterData = clusterData;
+    }
+
+    public void setConfigurationData(ObservableList<Configuration> configurationData) {
+        this.configurationData = configurationData;
+    }
+
     /**
-     * Returns the person file preference, i.e. the file that was last opened.
+     * Returns the file preference, i.e. the file that was last opened.
      * The preference is read from the OS specific registry. If no such
      * preference can be found, null is returned.
      *
