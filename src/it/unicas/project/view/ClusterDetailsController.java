@@ -96,6 +96,16 @@ public class ClusterDetailsController {
             chipsListSelection.setSourceItems(chipSourceList);
 
         }
+
+        if (isAnUpdate) {
+
+            for (int i = 0; i < chipsListSelection.getTargetItems().size(); i++) {
+                if (chipsListSelection.getSourceItems().contains(chipsListSelection.getTargetItems().get(i))) {
+                    chipsListSelection.getSourceItems().remove(chipsListSelection.getTargetItems().get(i));
+                }
+            }
+
+        }
     }
 
     @FXML

@@ -264,9 +264,9 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
 
             ClusterDetailsController controller = loader.getController();
+            controller.setAnUpdate(isAnUpdate);
             controller.setCluster(cluster);
             controller.setDialogStage(dialogStage);
-            controller.setAnUpdate(isAnUpdate);
             controller.setMainApp(this);
 
             dialogStage.showAndWait();
