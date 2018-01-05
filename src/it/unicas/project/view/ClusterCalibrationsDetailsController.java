@@ -1,22 +1,23 @@
 package it.unicas.project.view;
 
+import it.unicas.project.MainApp;
 import it.unicas.project.model.*;
 import it.unicas.project.util.CSMN;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class ClusterCalibrationsDetailsController {
 
+    private MainApp mainApp;
     private Stage dialogStage;
     private Cluster cluster;
+    private boolean isAnUpdate;
     private ObservableList<CSMN> csmnObservableList = FXCollections.observableArrayList();
 
     @FXML private TableView<CSMN> parameterTableView = new TableView<>();
@@ -28,14 +29,9 @@ public class ClusterCalibrationsDetailsController {
     @FXML
     private void initialize() {
 
-        parameterTableView.setEditable(true);
 
-        Callback<TableColumn<CSMN, String>, TableCell<CSMN, String>> cellFactory =
-                new Callback<TableColumn<CSMN, String>, TableCell<CSMN, String>>() {
-                    public TableCell call(TableColumn<CSMN, String> p) {
-                        return new EditingCell();
-                    }
-                };
+        parameterTableView.setFixedCellSize(35);
+        parameterTableView.setEditable(true);
 
         chipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChip().getId()));
         sensingElementColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdSensingElement()));
@@ -45,7 +41,7 @@ public class ClusterCalibrationsDetailsController {
         parameterTableView.getSelectionModel().cellSelectionEnabledProperty().setValue(true);
 
         mColumn.setEditable(true);
-        mColumn.setCellFactory(cellFactory);
+        mColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         mColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CSMN, String>>() {
                     @Override
                     public void handle(TableColumn.CellEditEvent<CSMN, String> event) {
@@ -55,7 +51,7 @@ public class ClusterCalibrationsDetailsController {
         );
 
         nColumn.setEditable(true);
-        nColumn.setCellFactory(cellFactory);
+        nColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CSMN, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<CSMN, String> event) {
@@ -89,11 +85,13 @@ public class ClusterCalibrationsDetailsController {
     @FXML
     private void handleCancel() {
         dialogStage.close();
+        mainApp.setCancelPressed(true);
     }
 
     @FXML
     private void handleSave() {
 
+        mainApp.setCancelPressed(false);
         for (int i = 0; i < csmnObservableList.size(); i++) {
 
             for (int j = 0; j < cluster.getChipWithCalibrations().size(); j++) {
@@ -107,74 +105,13 @@ public class ClusterCalibrationsDetailsController {
                 }
             }
         }
+
+        dialogStage.close();
     }
 
-}
-
-class EditingCell extends TableCell<CSMN, String> {
-
-    private TextField textField;
-
-    public EditingCell() {
-
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 
-    @Override
-    public void startEdit() {
-        if (!isEmpty()) {
-            super.startEdit();
-            createTextField();
-            setText(null);
-            setGraphic(textField);
-            textField.selectAll();
-        }
-    }
-
-    @Override
-    public void cancelEdit() {
-        super.cancelEdit();
-
-        setText((String) getItem());
-        setGraphic(null);
-    }
-
-    @Override
-    public void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
-
-        if (empty) {
-            setText(null);
-            setGraphic(null);
-        } else {
-            if (isEditing()) {
-                if (textField != null) {
-                    textField.setText(getString());
-                }
-                setText(null);
-                setGraphic(textField);
-            } else {
-                setText(getString());
-                setGraphic(null);
-            }
-        }
-    }
-
-    private void createTextField() {
-        textField = new TextField(getString());
-        textField.setMinWidth(this.getMinWidth() - this.getGraphicTextGap()* 2);
-        textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0,
-                                Boolean arg1, Boolean arg2) {
-                if (!arg2) {
-                    commitEdit(textField.getText());
-                }
-            }
-        });
-    }
-
-    private String getString() {
-        return getItem() == null ? "" : getItem().toString();
-    }
 }
 

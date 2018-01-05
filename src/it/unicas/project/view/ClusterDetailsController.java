@@ -29,7 +29,8 @@ public class ClusterDetailsController {
     private Stage dialogStage;
     private Cluster cluster;
     private MainApp mainApp;
-    private boolean isAnUpdate;
+    private static boolean isAnUpdate;
+
 
 
     @FXML
@@ -49,6 +50,7 @@ public class ClusterDetailsController {
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
+
 
         idTextField.setText(cluster.getId());
 
@@ -95,11 +97,15 @@ public class ClusterDetailsController {
 
     @FXML
     private void handleCancel() {
+
         this.dialogStage.close();
+        mainApp.setCancelPressed(true);
     }
 
     @FXML
     private void handleNext() {
+        mainApp.setCancelPressed(false);
+
         if (isInputValid()) {
             cluster.setId(idTextField.getText());
 
@@ -221,6 +227,10 @@ public class ClusterDetailsController {
         idTextField.setDisable(anUpdate);
     }
 
+    public static boolean getIsAnUpdate() {
+        return isAnUpdate;
+    }
+
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
@@ -260,4 +270,5 @@ public class ClusterDetailsController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
+
 }

@@ -28,11 +28,11 @@
                 <DropShadow />
             </effect>
         </Pane>
-        <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="607.0" minWidth="-Infinity" onAction="#handleCancel" ripplerFill="#03396b" text="Cancel" textFill="#005b96" />
+        <JFXButton buttonType="RAISED" layoutX="341.0" layoutY="607.0" minWidth="-Infinity" onAction="#handleCancel" ripplerFill="#03396b" text="Cancel" textFill="#005b96" />
         <JFXButton buttonType="RAISED" layoutX="419.0" layoutY="607.0" minWidth="-Infinity" onAction="#handleSave" ripplerFill="#03396b" text="Save Changes" textFill="#005b96" />
       <HBox layoutX="17.0" layoutY="57.0" prefHeight="535.0" prefWidth="518.0">
          <children>
-            <TableView fx:id="parameterTableView" prefHeight="535.0" prefWidth="518.0">
+            <TableView fx:id="parameterTableView" prefHeight="535.0" prefWidth="518.0" style="-fx-cell-size: 30px;">
               <columns>
                   <TableColumn fx:id="chipColumn" prefWidth="155.0" text="Chip" />
                 <TableColumn fx:id="sensingElementColumn" prefWidth="187.0" text="Sensing Element Id" />

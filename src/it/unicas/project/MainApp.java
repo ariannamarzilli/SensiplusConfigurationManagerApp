@@ -14,13 +14,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootWindow;
     private Stage clusterStage;
+    private boolean isCancelPressed;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -283,7 +287,7 @@ public class MainApp extends Application {
             ClusterCalibrationsDetailsController controller = loader.getController();
             controller.setCluster(cluster);
             controller.setDialogStage(dialogStage);
-
+            controller.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -328,6 +332,52 @@ public class MainApp extends Application {
 
     public void setClusterStage(Stage clusterStage) {
         this.clusterStage = clusterStage;
+    }
+
+    public boolean isCancelPressed() {
+        return isCancelPressed;
+    }
+
+    public void setCancelPressed(boolean cancelPressed) {
+        isCancelPressed = cancelPressed;
+    }
+
+    /**
+     * Returns the person file preference, i.e. the file that was last opened.
+     * The preference is read from the OS specific registry. If no such
+     * preference can be found, null is returned.
+     *
+     * @return
+     */
+    public File getFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        String filePath = prefs.get("filePath", null);
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Sets the file path of the currently loaded file. The path is persisted in
+     * the OS specific registry.
+     *
+     * @param file the file or null to remove the path
+     */
+    public void setFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+
+            // Update the stage title.
+            primaryStage.setTitle("AddressApp - " + file.getName());
+        } else {
+            prefs.remove("filePath");
+
+            // Update the stage title.
+            primaryStage.setTitle("AddressApp");
+        }
     }
 
     public static void main(String[] args) {

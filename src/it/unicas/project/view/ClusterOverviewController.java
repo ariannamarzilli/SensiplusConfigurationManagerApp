@@ -34,7 +34,7 @@ public class ClusterOverviewController {
     @FXML private TableColumn<SensingElementWithCalibration, String> mColumn;
     @FXML private TableColumn<SensingElementWithCalibration, String> nColumn;
 
-    ObservableList<Cluster> clusterData;
+    private ObservableList<Cluster> clusterData;
     private MainApp mainApp;
 
     @FXML
@@ -61,7 +61,7 @@ public class ClusterOverviewController {
         Cluster oldCluster = new Cluster();
         mainApp.showClusterEditDialog(clusterToModify, false);
 
-        if (!clusterToModify.equals(oldCluster)) {
+        if (!clusterToModify.equals(oldCluster) && !mainApp.isCancelPressed()) {
             ClusterDAO.getInstance().create(clusterToModify);
             clusterData.add(clusterToModify);
 
@@ -129,7 +129,7 @@ public class ClusterOverviewController {
 
                 Cluster oldCluster = new Cluster(cluster);
                 mainApp.showClusterEditDialog(cluster, true);
-                if (!cluster.equals(oldCluster)) {
+                if (!cluster.equals(oldCluster) && !mainApp.isCancelPressed()) {
                     ClusterDAO.getInstance().update(cluster);
 
                     for (int i = 0; i < clusterData.size(); i++) {

@@ -17,9 +17,9 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="550.0" style="-fx-background-color: #b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.FamilyDetailsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: #b3cde0;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.FamilyDetailsController">
     <children>
-        <JFXButton buttonType="RAISED" layoutX="409.0" layoutY="599.0" minWidth="-Infinity" onAction="#handleSaveChanges" text="Save Changes" textFill="#005b96">
+        <JFXButton buttonType="RAISED" layoutX="694.0" layoutY="599.0" minWidth="-Infinity" onAction="#handleSaveChanges" prefHeight="27.0" prefWidth="144.0" text="Save Changes" textFill="#005b96">
             <ripplerFill>
                 <LinearGradient endX="1.0" endY="1.0">
                     <stops>
@@ -28,7 +28,7 @@
                     </stops>
                 </LinearGradient>
             </ripplerFill></JFXButton>
-        <Pane prefHeight="35.0" prefWidth="550.0" style="-fx-background-color: #011f4b;">
+        <Pane prefHeight="35.0" prefWidth="850.0" style="-fx-background-color: #011f4b;">
             <children>
                 <Label layoutX="14.0" layoutY="8.0" prefHeight="17.0" prefWidth="76.0" text="Details" textFill="#b3cde0">
                     <font>
@@ -43,11 +43,10 @@
                 <DropShadow />
             </effect>
         </Pane>
-      <GridPane layoutX="25.0" layoutY="61.0" prefHeight="205.0" prefWidth="515.0">
+      <GridPane layoutX="25.0" layoutY="57.0" prefHeight="529.0" prefWidth="331.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="175.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="169.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="171.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -60,25 +59,28 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Name" textFill="#005b96" />
-            <Label text="Id" textFill="#005b96" GridPane.columnIndex="1" />
-            <Label text="HwVersion" textFill="#005b96" GridPane.columnIndex="2" />
-            <Label text="SysClock" textFill="#005b96" GridPane.rowIndex="3" />
-            <Label text="OscTrim" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="MeasureTechnique" textFill="#005b96" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <JFXTextField fx:id="nameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="idTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="hwVersionTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="sysClockTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="5" />
-            <JFXTextField fx:id="oscTrimTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <CheckComboBox fx:id="measureTechniqueBox" prefHeight="27.0" prefWidth="154.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label text="Ports" textFill="#005b96" GridPane.rowIndex="7" />
-            <CheckComboBox fx:id="portBox" prefHeight="27.0" prefWidth="154.0" GridPane.rowIndex="9" />
+            <Label text="Id" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="HwVersion" textFill="#005b96" GridPane.rowIndex="3" />
+            <Label text="SysClock" textFill="#005b96" GridPane.rowIndex="7" />
+            <Label text="OscTrim" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="MeasureTechnique" textFill="#005b96" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <JFXTextField fx:id="nameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="331.0" unFocusColor="#03396c" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="idTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="hwVersionTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="sysClockTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.rowIndex="8" />
+            <JFXTextField fx:id="oscTrimTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" unFocusColor="#03396c" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <CheckComboBox fx:id="measureTechniqueBox" prefHeight="27.0" prefWidth="154.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <Label text="Ports" textFill="#005b96" GridPane.rowIndex="11" />
+            <CheckComboBox fx:id="portBox" prefHeight="27.0" prefWidth="154.0" GridPane.rowIndex="12" />
          </children>
       </GridPane>
-      <JFXButton buttonType="RAISED" layoutX="330.0" layoutY="599.0" minWidth="-Infinity" onAction="#handleCancel" text="Cancel" textFill="#005b96">
+      <JFXButton buttonType="RAISED" layoutX="25.0" layoutY="599.0" minWidth="-Infinity" onAction="#handleCancel" text="Cancel" textFill="#005b96">
          <ripplerFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -88,15 +90,15 @@
             </LinearGradient>
          </ripplerFill>
       </JFXButton>
-      <ScrollPane layoutX="25.0" layoutY="334.0" prefHeight="243.0" prefWidth="515.0">
+      <ScrollPane layoutX="397.0" layoutY="97.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="444.0" style="-fx-background-color: #b3cde0;">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="703.0" prefWidth="505.0" style="-fx-background-color: #b3cde0;">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="703.0" prefWidth="440.0" style="-fx-background-color: #b3cde0;">
                <children>
-                  <GridPane fx:id="gridPane" layoutY="4.0" prefHeight="696.0" prefWidth="479.0">
+                  <GridPane fx:id="gridPane" layoutY="5.0" prefHeight="695.0" prefWidth="428.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="90.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="188.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="205.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="86.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="184.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="175.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -120,25 +122,25 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="port1Label" text="Port1" />
-                        <Label fx:id="port2Label" text="Port2" GridPane.rowIndex="1" />
-                        <Label fx:id="port3Label" text="Port3" GridPane.rowIndex="2" />
-                        <Label fx:id="port4Label" text="Port4" GridPane.rowIndex="3" />
-                        <Label fx:id="port5Label" text="Port5" GridPane.rowIndex="4" />
-                        <Label fx:id="port6Label" text="Port6" GridPane.rowIndex="5" />
-                        <Label fx:id="port7Label" text="Port7" GridPane.rowIndex="6" />
-                        <Label fx:id="port8Label" text="Port8" GridPane.rowIndex="7" />
-                        <Label fx:id="port9Label" text="Port9" GridPane.rowIndex="8" />
-                        <Label fx:id="port10Label" text="Port10" GridPane.rowIndex="9" />
-                        <Label fx:id="port11Label" text="Port11" GridPane.rowIndex="10" />
-                        <Label fx:id="port12Label" text="Port12" GridPane.rowIndex="11" />
-                        <Label fx:id="portVoltageLabel" text="Port Voltage" GridPane.rowIndex="12" />
-                        <Label fx:id="portTemperatureLabel" text="Port temperature" GridPane.rowIndex="13" />
-                        <Label fx:id="portLightLabel" text="Port Light" GridPane.rowIndex="14" />
-                        <Label fx:id="portDarkLabel" text="Port Dark" GridPane.rowIndex="15" />
-                        <Label fx:id="portExt1Label" text="Port Ext1" GridPane.rowIndex="16" />
-                        <Label fx:id="portExt2Label" text="Port Ext2" GridPane.rowIndex="17" />
-                        <Label fx:id="portExt3Label" text="Port Ext3" GridPane.rowIndex="18" />
+                        <Label fx:id="port1Label" text="Port1" textFill="#005b96" />
+                        <Label fx:id="port2Label" text="Port2" textFill="#005b96" GridPane.rowIndex="1" />
+                        <Label fx:id="port3Label" text="Port3" textFill="#005b96" GridPane.rowIndex="2" />
+                        <Label fx:id="port4Label" text="Port4" textFill="#005b96" GridPane.rowIndex="3" />
+                        <Label fx:id="port5Label" text="Port5" textFill="#005b96" GridPane.rowIndex="4" />
+                        <Label fx:id="port6Label" text="Port6" textFill="#005b96" GridPane.rowIndex="5" />
+                        <Label fx:id="port7Label" text="Port7" textFill="#005b96" GridPane.rowIndex="6" />
+                        <Label fx:id="port8Label" text="Port8" textFill="#005b96" GridPane.rowIndex="7" />
+                        <Label fx:id="port9Label" text="Port9" textFill="#005b96" GridPane.rowIndex="8" />
+                        <Label fx:id="port10Label" text="Port10" textFill="#005b96" GridPane.rowIndex="9" />
+                        <Label fx:id="port11Label" text="Port11" textFill="#005b96" GridPane.rowIndex="10" />
+                        <Label fx:id="port12Label" text="Port12" textFill="#005b96" GridPane.rowIndex="11" />
+                        <Label fx:id="portVoltageLabel" text="Port Voltage" textFill="#005b96" GridPane.rowIndex="12" />
+                        <Label fx:id="portTemperatureLabel" text="Port temperature" textFill="#005b96" GridPane.rowIndex="13" />
+                        <Label fx:id="portLightLabel" text="Port Light" textFill="#005b96" GridPane.rowIndex="14" />
+                        <Label fx:id="portDarkLabel" text="Port Dark" textFill="#005b96" GridPane.rowIndex="15" />
+                        <Label fx:id="portExt1Label" text="Port Ext1" textFill="#005b96" GridPane.rowIndex="16" />
+                        <Label fx:id="portExt2Label" text="Port Ext2" textFill="#005b96" GridPane.rowIndex="17" />
+                        <Label fx:id="portExt3Label" text="Port Ext3" textFill="#005b96" GridPane.rowIndex="18" />
                         <JFXComboBox fx:id="sensingElementPort1Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" />
                         <JFXComboBox fx:id="sensingElementPort2Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <JFXComboBox fx:id="sensingElementPort3Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -158,30 +160,32 @@
                         <JFXComboBox fx:id="sensingElementPortExt1Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                         <JFXComboBox fx:id="sensingElementPortExt2Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="17" />
                         <JFXComboBox fx:id="sensingElementPortExt3Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="18" />
-                        <CheckComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="13" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="15" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="14" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="16" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="17" />
-                        <CheckComboBox prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="18" />
+                        <CheckComboBox fx:id="analytePort1Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" />
+                        <CheckComboBox fx:id="analytePort2Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <CheckComboBox fx:id="analytePort3Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <CheckComboBox fx:id="analytePort4Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <CheckComboBox fx:id="analytePort5Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <CheckComboBox fx:id="analytePort6Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <CheckComboBox fx:id="analytePort7Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <CheckComboBox fx:id="analytePort8Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                        <CheckComboBox fx:id="analytePort9Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <CheckComboBox fx:id="analytePort10Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                        <CheckComboBox fx:id="analytePort11Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                        <CheckComboBox fx:id="analytePort12Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <CheckComboBox fx:id="analytePortVoltageBox" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                        <CheckComboBox fx:id="analytePortTemperatureBox" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                        <CheckComboBox fx:id="analytePortLightBox" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+                        <CheckComboBox fx:id="analytePortDarkBox" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="15" />
+                        <CheckComboBox fx:id="analytePortExt1Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="16" />
+                        <CheckComboBox fx:id="analytePortExt2Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="17" />
+                        <CheckComboBox fx:id="analytePortExt3Box" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="2" GridPane.rowIndex="18" />
                      </children>
                   </GridPane>
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
+      <Label layoutX="497.0" layoutY="66.0" text="Sensing Element" textFill="#005b96" />
+      <Label layoutX="709.0" layoutY="66.0" text="Analyte" textFill="#005b96" />
     </children>
 </AnchorPane>
