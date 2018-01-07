@@ -25,7 +25,8 @@ public class Analyte {
         this.name = analyte.getName();
     }
 
-
+    public Analyte() {
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -2,6 +2,7 @@ package it.unicas.project.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "SENSING_ELEMENT_ONFAMILY")
@@ -36,6 +37,12 @@ public class Port {
     @XmlElement(name = "ANALYTE_LIST")
     public void setAnalytes(List<Analyte> analytes) {
         this.analytes = analytes;
+    }
+
+    public Port() {
+        name = "";
+        idSensingElement = "";
+        analytes = new ArrayList<>();
     }
 
     public Port(String name) {

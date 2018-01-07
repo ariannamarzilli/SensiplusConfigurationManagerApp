@@ -3,8 +3,7 @@ package it.unicas.project;
 import it.unicas.project.dao.*;
 import it.unicas.project.model.*;
 import it.unicas.project.view.*;
-import it.unicas.project.xml.FamilyListWrapper;
-import it.unicas.project.xml.SensingElementListWrapper;
+import it.unicas.project.xml.Sensichips;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,12 +17,8 @@ import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.channels.Channels;
-import java.nio.channels.WritableByteChannel;
 import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
@@ -377,12 +372,11 @@ public class MainApp extends Application {
      */
     public void saveDataToFile(File file) {
         try {
-            JAXBContext context = JAXBContext.newInstance(SensingElementListWrapper.class);
+            JAXBContext context = JAXBContext.newInstance(Sensichips.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            SensingElementListWrapper sensingElementListWrapper = new SensingElementListWrapper();
-            FamilyListWrapper familyListWrapper = new FamilyListWrapper();
+            Sensichips sensichips = new Sensichips();
 
             ObservableList<SensingElement> sensingElementData = FXCollections.observableList(SensingElementDAO.getInstance().fetchAll());
             ObservableList<Family> familyData = FXCollections.observableList(FamilyDAO.getInstance().fetchAll());
@@ -390,11 +384,14 @@ public class MainApp extends Application {
             ObservableList<Cluster> clusterData = FXCollections.observableList(ClusterDAO.getInstance().fetchAll());
             ObservableList<Configuration> configurationData = FXCollections.observableList(ConfigurationDAO.getInstance().fetchAll());
 
-            sensingElementListWrapper.setSensingElements(sensingElementData);
-            familyListWrapper.setFamilies(familyData);
+            sensichips.setSensingElements(sensingElementData);
+            sensichips.setFamilies(familyData);
+            sensichips.setChips(chipData);
+            sensichips.setClusters(clusterData);
+            sensichips.setConfigurations(configurationData);
 
             // Marshalling and saving XML to the file.
-            m.marshal(sensingElementListWrapper, file);
+            m.marshal(sensichips, file);
 
             // Save the file path to the registry.
             setFilePath(file);
