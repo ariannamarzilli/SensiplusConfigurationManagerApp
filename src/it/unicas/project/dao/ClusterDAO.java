@@ -249,7 +249,6 @@ public class ClusterDAO implements CrudDAO<Cluster> {
             Connection connection = ConnectionFactory.getConnection();
 
 
-            List<ChipWithCalibration> chipWithCalibrations = new ArrayList<>();
 
             String sqlSPClusterSelect = "SELECT * FROM SPCluster";
 
@@ -289,6 +288,9 @@ public class ClusterDAO implements CrudDAO<Cluster> {
                 int m = 0;
                 int n = 0;
                 int idFamily = 0;
+
+                List<ChipWithCalibration> chipWithCalibrations = new ArrayList<>();
+
 
                 while (rsChipOnCluster.next()){
 
