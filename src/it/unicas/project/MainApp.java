@@ -18,9 +18,12 @@ import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.nio.channels.Channels;
+import java.nio.channels.WritableByteChannel;
 import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
@@ -374,20 +377,24 @@ public class MainApp extends Application {
      */
     public void saveDataToFile(File file) {
         try {
-            JAXBContext context = JAXBContext.newInstance(FamilyListWrapper.class);
+            JAXBContext context = JAXBContext.newInstance(SensingElementListWrapper.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            SensingElementListWrapper wrapper = new SensingElementListWrapper();
+            SensingElementListWrapper sensingElementListWrapper = new SensingElementListWrapper();
+            FamilyListWrapper familyListWrapper = new FamilyListWrapper();
+
             ObservableList<SensingElement> sensingElementData = FXCollections.observableList(SensingElementDAO.getInstance().fetchAll());
             ObservableList<Family> familyData = FXCollections.observableList(FamilyDAO.getInstance().fetchAll());
             ObservableList<Chip> chipData = FXCollections.observableList(ChipDAO.getInstance().fetchAll());
             ObservableList<Cluster> clusterData = FXCollections.observableList(ClusterDAO.getInstance().fetchAll());
             ObservableList<Configuration> configurationData = FXCollections.observableList(ConfigurationDAO.getInstance().fetchAll());
-            wrapper.setSensingElemens(sensingElementData);
+
+            sensingElementListWrapper.setSensingElements(sensingElementData);
+            familyListWrapper.setFamilies(familyData);
 
             // Marshalling and saving XML to the file.
-            m.marshal(wrapper, file);
+            m.marshal(sensingElementListWrapper, file);
 
             // Save the file path to the registry.
             setFilePath(file);
@@ -399,11 +406,12 @@ public class MainApp extends Application {
             alert.setContentText("Could not save data to file:\n" + file.getPath());
 
             alert.showAndWait();
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-
+        launch(args);
     }
 
 }

@@ -1,5 +1,9 @@
 package it.unicas.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "CONFIGURATION")
 public class Configuration {
 
     private String driver;
@@ -27,6 +31,7 @@ public class Configuration {
         return driver;
     }
 
+    @XmlElement(name = "DRIVER")
     public void setDriver(String driver) {
         this.driver = driver;
     }
@@ -35,6 +40,7 @@ public class Configuration {
         return hostController;
     }
 
+    @XmlElement(name = "HOST_CONTROLLER")
     public void setHostController(String hostController) {
         this.hostController = hostController;
     }
@@ -43,6 +49,7 @@ public class Configuration {
         return apiOwner;
     }
 
+    @XmlElement(name = "API_OWNER")
     public void setApiOwner(String apiOwner) {
         this.apiOwner = apiOwner;
     }
@@ -51,6 +58,7 @@ public class Configuration {
         return mcu;
     }
 
+    @XmlElement(name = "MCU")
     public void setMcu(String mcu) {
         this.mcu = mcu;
     }
@@ -59,6 +67,7 @@ public class Configuration {
         return protocol;
     }
 
+    @XmlElement(name = "PROTOCOL")
     public void setProtocol(String protocol) {
         this.protocol = protocol;
     }
@@ -67,6 +76,7 @@ public class Configuration {
         return addressingType;
     }
 
+    @XmlElement(name = "ADDRESSING_TYPE")
     public void setAddressingType(String addressingType) {
         this.addressingType = addressingType;
     }
@@ -75,6 +85,7 @@ public class Configuration {
         return idCluster;
     }
 
+    @XmlElement(name = "CLUSTER_ID")
     public void setIdCluster(String idCluster) {
         this.idCluster = idCluster;
     }

@@ -20,7 +20,7 @@ public class SensingElementListWrapper {
         return sensingElements;
     }
 
-    public void setSensingElemens(List<SensingElement> sensingElements) {
+    public void setSensingElements(List<SensingElement> sensingElements) {
         this.sensingElements = sensingElements;
     }
 }
