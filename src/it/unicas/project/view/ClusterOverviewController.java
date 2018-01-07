@@ -116,8 +116,8 @@ public class ClusterOverviewController {
 
             if (event.getClickCount() == 1) {
 
-                calibrationTableView.getItems().clear();
                 chipTableView.getItems().clear();
+                calibrationTableView.getItems().clear();
 
                 ObservableList<ChipWithCalibration> chips = FXCollections.observableArrayList();
                 for (int i = 0; i < cluster.getChipWithCalibrations().size(); i++) {

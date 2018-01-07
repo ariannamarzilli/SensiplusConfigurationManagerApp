@@ -1,5 +1,9 @@
 package it.unicas.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "ANALYTE")
 public class Analyte {
 
     private String name;
@@ -8,6 +12,7 @@ public class Analyte {
         return name;
     }
 
+    @XmlElement(name = "ANALYTE_NAME")
     public void setName(String name) {
         this.name = name;
     }
@@ -20,7 +25,8 @@ public class Analyte {
         this.name = analyte.getName();
     }
 
-
+    public Analyte() {
+    }
 
     @Override
     public boolean equals(Object o) {

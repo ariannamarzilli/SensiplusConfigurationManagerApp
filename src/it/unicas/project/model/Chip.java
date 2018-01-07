@@ -1,8 +1,10 @@
 package it.unicas.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
-
+@XmlRootElement(name = "CHIP")
 public class Chip {
 
     String familyName;
@@ -41,6 +43,7 @@ public class Chip {
         return id;
     }
 
+    @XmlElement(name = "FAMILY_ID")
     public void setId(String id) {
         this.id = id;
     }

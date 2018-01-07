@@ -1,19 +1,22 @@
 package it.unicas.project;
 
+import it.unicas.project.dao.*;
 import it.unicas.project.model.*;
 import it.unicas.project.view.*;
+import it.unicas.project.xml.Sensichips;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -25,7 +28,6 @@ public class MainApp extends Application {
     private Stage clusterStage;
     private boolean isCancelPressed;
 
-    private ObservableList<SensingElement> sensingElementData = FXCollections.observableArrayList();
     private ObservableList<Family> familyData = FXCollections.observableArrayList();
     private ObservableList<Chip> chipData = FXCollections.observableArrayList();
     private ObservableList<Cluster> clusterData = FXCollections.observableArrayList();
@@ -347,43 +349,6 @@ public class MainApp extends Application {
         isCancelPressed = cancelPressed;
     }
 
-    public void setSensingElementData(ObservableList<SensingElement> sensingElementData) {
-        this.sensingElementData = sensingElementData;
-    }
-
-    public void setFamilyData(ObservableList<Family> familyData) {
-        this.familyData = familyData;
-    }
-
-    public void setChipData(ObservableList<Chip> chipData) {
-        this.chipData = chipData;
-    }
-
-    public void setClusterData(ObservableList<Cluster> clusterData) {
-        this.clusterData = clusterData;
-    }
-
-    public void setConfigurationData(ObservableList<Configuration> configurationData) {
-        this.configurationData = configurationData;
-    }
-
-    /**
-     * Returns the file preference, i.e. the file that was last opened.
-     * The preference is read from the OS specific registry. If no such
-     * preference can be found, null is returned.
-     *
-     * @return
-     */
-    public File getFilePath() {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        String filePath = prefs.get("filePath", null);
-        if (filePath != null) {
-            return new File(filePath);
-        } else {
-            return null;
-        }
-    }
-
     /**
      * Sets the file path of the currently loaded file. The path is persisted in
      * the OS specific registry.
@@ -395,13 +360,50 @@ public class MainApp extends Application {
         if (file != null) {
             prefs.put("filePath", file.getPath());
 
-            // Update the stage title.
-            primaryStage.setTitle("AddressApp - " + file.getName());
         } else {
             prefs.remove("filePath");
+        }
+    }
 
-            // Update the stage title.
-            primaryStage.setTitle("AddressApp");
+    /**
+     * Saves the current data to the specified file.
+     *
+     * @param file
+     */
+    public void saveDataToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext.newInstance(Sensichips.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            Sensichips sensichips = new Sensichips();
+
+            ObservableList<SensingElement> sensingElementData = FXCollections.observableList(SensingElementDAO.getInstance().fetchAll());
+            ObservableList<Family> familyData = FXCollections.observableList(FamilyDAO.getInstance().fetchAll());
+            ObservableList<Chip> chipData = FXCollections.observableList(ChipDAO.getInstance().fetchAll());
+            ObservableList<Cluster> clusterData = FXCollections.observableList(ClusterDAO.getInstance().fetchAll());
+            ObservableList<Configuration> configurationData = FXCollections.observableList(ConfigurationDAO.getInstance().fetchAll());
+
+            sensichips.setSensingElements(sensingElementData);
+            sensichips.setFamilies(familyData);
+            sensichips.setChips(chipData);
+            sensichips.setClusters(clusterData);
+            sensichips.setConfigurations(configurationData);
+
+            // Marshalling and saving XML to the file.
+            m.marshal(sensichips, file);
+
+            // Save the file path to the registry.
+            setFilePath(file);
+
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not save data");
+            alert.setContentText("Could not save data to file:\n" + file.getPath());
+
+            alert.showAndWait();
+            e.printStackTrace();
         }
     }
 

@@ -15,11 +15,11 @@
    <left>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="220.0" style="-fx-background-color: #03396c#03396c;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="108.0" onAction="#handleSensingElement" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Sensing Element" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="158.0" onAction="#handleFamily" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Family" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="208.0" onAction="#handleChip" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Chip" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="258.0" onAction="#handleCluster" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Cluster" textAlignment="CENTER" textFill="#b3cde0" />
-            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="308.0" onAction="#handleConfiguration" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Configuration" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="35.0" layoutY="108.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSensingElement" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Sensing Element" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="35.0" layoutY="158.0" onAction="#handleFamily" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Family" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="35.0" layoutY="208.0" onAction="#handleChip" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Chip" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="35.0" layoutY="258.0" onAction="#handleCluster" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Cluster" textAlignment="CENTER" textFill="#b3cde0" />
+            <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="35.0" layoutY="308.0" onAction="#handleConfiguration" prefHeight="50.0" prefWidth="150.0" ripplerFill="#011f4b" text="Configuration" textAlignment="CENTER" textFill="#b3cde0" />
             <Pane prefHeight="71.0" prefWidth="220.0" style="-fx-background-color: #011f4b#011f4b;">
                <children>
                   <Label alignment="CENTER" layoutX="12.0" layoutY="7.0" prefHeight="37.0" prefWidth="196.0" text="SensiPlus Configuration" textFill="WHITE">
@@ -40,24 +40,16 @@
                   </Label>
                </children>
             </Pane>
-            <JFXButton layoutX="132.0" layoutY="625.0" onAction="#handleSettings" prefHeight="46.0" prefWidth="47.0" text="Settings" textFill="#03396c">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="32.0" layoutY="624.0" onAction="#handleXml" prefHeight="49.0" prefWidth="47.0" text="xml" textFill="#03396c">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </JFXButton>
-            <ImageView fitHeight="42.0" fitWidth="40.0" layoutX="35.0" layoutY="628.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/xmlIcon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="42.0" fitWidth="40.0" layoutX="135.0" layoutY="628.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="46.0" layoutY="588.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/settingsIcon.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="CENTER_RIGHT" layoutX="35.0" layoutY="516.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleXml" prefHeight="50.0" prefWidth="150.0" text="New XML file" textFill="#b3cde0" />
+            <JFXButton alignment="CENTER_RIGHT" layoutX="35.0" layoutY="583.0" onAction="#handleSettings" prefHeight="50.0" prefWidth="150.0" text="Settings" textFill="#b3cde0" />
+            <ImageView fitHeight="62.0" fitWidth="41.0" layoutX="43.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/xmlIcon.png" />
                </image>
             </ImageView>
          </children>

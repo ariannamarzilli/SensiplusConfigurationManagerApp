@@ -5,6 +5,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +16,11 @@ import java.util.List;
  *
  * Uses the DTO pattern.
  */
+@XmlRootElement(name = "SENSING_ELEMENT")
 public final class SensingElement {
 
     private String id;
+    private String name;
     private String rSense;
     private String inGain;
     private String outGain;
@@ -33,7 +38,6 @@ public final class SensingElement {
     private Double conversionRate;
     private String inPortADC;
     private Integer nData;
-    private String name;
     private Double rangeMin;
     private Double rangeMax;
     private Double defaultAlarmThreshold;
@@ -172,6 +176,7 @@ public final class SensingElement {
         return rSense;
     }
 
+    @XmlElement(name = "RSense")
     public void setrSense(String rSense) {
         this.rSense = rSense;
     }
@@ -180,6 +185,7 @@ public final class SensingElement {
         return inGain;
     }
 
+    @XmlElement(name = "InGain")
     public void setInGain(String inGain) {
         this.inGain = inGain;
     }
@@ -188,6 +194,7 @@ public final class SensingElement {
         return outGain;
     }
 
+    @XmlElement(name = "OutGain")
     public void setOutGain(String outGain) {
         this.outGain = outGain;
     }
@@ -196,6 +203,7 @@ public final class SensingElement {
         return contacts;
     }
 
+    @XmlElement(name = "Contacts")
     public void setContacts(String contacts) {
         this.contacts = contacts;
     }
@@ -204,6 +212,7 @@ public final class SensingElement {
         return frequency;
     }
 
+    @XmlElement(name = "Frequency")
     public void setFrequency(Double frequency) {
         this.frequency = frequency;
     }
@@ -212,6 +221,7 @@ public final class SensingElement {
         return harmonic;
     }
 
+    @XmlElement(name = "Harmonic")
     public void setHarmonic(String harmonic) {
         this.harmonic = harmonic;
     }
@@ -220,6 +230,7 @@ public final class SensingElement {
         return dcBias;
     }
 
+    @XmlElement(name = "DCBias")
     public void setDcBias(Integer dcBias) {
         this.dcBias = dcBias;
     }
@@ -228,6 +239,7 @@ public final class SensingElement {
         return modeVI;
     }
 
+    @XmlElement(name = "ModeVI")
     public void setModeVI(String modeVI) {
         this.modeVI = modeVI;
     }
@@ -236,6 +248,7 @@ public final class SensingElement {
         return measureTechnique;
     }
 
+    @XmlElement(name = "MeasureTechnique")
     public void setMeasureTechnique(String measureTechnique) {
         this.measureTechnique = measureTechnique;
     }
@@ -244,6 +257,7 @@ public final class SensingElement {
         return measureType;
     }
 
+    @XmlElement(name = "MeasureType")
     public void setMeasureType(String measureType) {
         this.measureType = measureType;
     }
@@ -252,6 +266,7 @@ public final class SensingElement {
         return filter;
     }
 
+    @XmlElement(name = "Filter")
     public void setFilter(Integer filter) {
         this.filter = filter;
     }
@@ -260,6 +275,7 @@ public final class SensingElement {
         return phaseShiftMode;
     }
 
+    @XmlElement(name = "PhaseShiftMode")
     public void setPhaseShiftMode(String phaseShiftMode) {
         this.phaseShiftMode = phaseShiftMode;
     }
@@ -268,6 +284,7 @@ public final class SensingElement {
         return phaseShift;
     }
 
+    @XmlElement(name = "PhaseShift")
     public void setPhaseShift(Double phaseShift) {
         this.phaseShift = phaseShift;
     }
@@ -276,6 +293,7 @@ public final class SensingElement {
         return iq;
     }
 
+    @XmlElement(name = "IQ")
     public void setIq(String iq) {
         this.iq = iq;
     }
@@ -284,6 +302,7 @@ public final class SensingElement {
         return conversionRate;
     }
 
+    @XmlElement(name = "ConversionRate")
     public void setConversionRate(Double conversionRate) {
         this.conversionRate = conversionRate;
     }
@@ -292,6 +311,7 @@ public final class SensingElement {
         return inPortADC;
     }
 
+    @XmlElement(name = "InPortADC")
     public void setInPortADC(String inPortADC) {
         this.inPortADC = inPortADC;
     }
@@ -300,6 +320,7 @@ public final class SensingElement {
         return nData;
     }
 
+    @XmlElement(name = "NData")
     public void setnData(Integer nData) {
         this.nData = nData;
     }
@@ -308,6 +329,7 @@ public final class SensingElement {
         return name;
     }
 
+    @XmlElement(name = "NAME")
     public void setName(String name) {
         this.name = name;
     }
@@ -316,6 +338,7 @@ public final class SensingElement {
         return rangeMin;
     }
 
+    @XmlElement(name = "RANGE_MIN")
     public void setRangeMin(Double rangeMin) {
         this.rangeMin = rangeMin;
     }
@@ -324,6 +347,7 @@ public final class SensingElement {
         return rangeMax;
     }
 
+    @XmlElement(name = "RANGE_MAX")
     public void setRangeMax(Double rangeMax) {
         this.rangeMax = rangeMax;
     }
@@ -332,6 +356,7 @@ public final class SensingElement {
         return defaultAlarmThreshold;
     }
 
+    @XmlElement(name = "DEFAULT_ALARM_THRESHOLD")
     public void setDefaultAlarmThreshold(Double defaultAlarmThreshold) {
         this.defaultAlarmThreshold = defaultAlarmThreshold;
     }
@@ -340,6 +365,7 @@ public final class SensingElement {
         return multiplier;
     }
 
+    @XmlElement(name = "MULTIPLIER")
     public void setMultiplier(Integer multiplier) {
         this.multiplier = multiplier;
     }
@@ -348,6 +374,7 @@ public final class SensingElement {
         return measureUnit;
     }
 
+    @XmlElement(name = "MEASURE_UNIT")
     public void setMeasureUnit(String measureUnit) {
         this.measureUnit = measureUnit;
     }
