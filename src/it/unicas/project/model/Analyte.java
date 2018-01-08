@@ -30,10 +30,20 @@ public class Analyte {
 
     @Override
     public boolean equals(Object o) {
-        Analyte analyte = (Analyte) o;
-        if (this.name.equals(analyte.getName())) {
-            return true;
+
+        try {
+            String analyte = (String) o;
+            if (this.name.equals(analyte)) {
+                return true;
+            }
+            return false;
+        } catch (ClassCastException e) {
+            Analyte analyte = (Analyte) o;
+            if (this.name.equals(analyte)) {
+                return true;
+            }
+            return false;
         }
-        return false;
     }
+
 }

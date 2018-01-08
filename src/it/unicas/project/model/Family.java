@@ -2,10 +2,10 @@ package it.unicas.project.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name = "FAMILY")
 public class Family {
 
     private String id;
@@ -75,7 +75,6 @@ public class Family {
         return id;
     }
 
-    @XmlElement(name = "FAMILY_ID")
     public void setId(String id) {
         this.id = id;
     }
@@ -84,7 +83,6 @@ public class Family {
         return name;
     }
 
-    @XmlElement(name = "FAMILY_NAME")
     public void setName(String name) {
         this.name = name;
     }
@@ -93,7 +91,6 @@ public class Family {
         return hwVersion;
     }
 
-    @XmlElement(name = "HW_VERSION")
     public void setHwVersion(String hwVersion) {
         this.hwVersion = hwVersion;
     }
@@ -102,7 +99,6 @@ public class Family {
         return sysclock;
     }
 
-    @XmlElement(name = "SYS_CLOCK")
     public void setSysclock(String sysclock) {
         this.sysclock = sysclock;
     }
@@ -111,7 +107,6 @@ public class Family {
         return osctrim;
     }
 
-    @XmlElement(name = "OSC_TRIM")
     public void setOsctrim(String osctrim) {
         this.osctrim = osctrim;
     }
@@ -120,7 +115,6 @@ public class Family {
         return ports;
     }
 
-    @XmlElement(name = "SENSING_ELEMENT_ONFAMILY")
     public void setPorts(List<Port> portName) {
         this.ports = portName;
     }
@@ -129,7 +123,6 @@ public class Family {
         return measureType;
     }
 
-    @XmlElement(name = "MEASURE_TYPE")
     public void setMeasureType(List<String> measureType) {
         this.measureType = measureType;
     }

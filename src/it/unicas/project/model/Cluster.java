@@ -1,5 +1,6 @@
 package it.unicas.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,4 +65,5 @@ public class Cluster {
             chipWithCalibrations = new ArrayList<>();
         }
     }
+
 }

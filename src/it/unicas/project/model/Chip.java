@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
-@XmlRootElement(name = "CHIP")
+
 public class Chip {
 
     String familyName;
@@ -34,6 +34,7 @@ public class Chip {
     public String getFamilyName() {
         return familyName;
     }
+
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;

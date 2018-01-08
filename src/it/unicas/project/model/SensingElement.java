@@ -5,9 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,9 @@ import java.util.List;
  *
  * Uses the DTO pattern.
  */
+
 @XmlRootElement(name = "SENSING_ELEMENT")
+@XmlType(propOrder = {"name", "rSense", "inGain", "outGain", "contacts", "frequency", "harmonic", "dcBias", "modeVI", "measureTechnique", "measureType", "filter", "phaseShiftMode", "phaseShift", "iq", "conversionRate", "inPortADC", "nData", "rangeMin", "rangeMax", "defaultAlarmThreshold", "multiplier", "measureUnit" })
 public final class SensingElement {
 
     private String id;
@@ -168,6 +168,7 @@ public final class SensingElement {
         return id;
     }
 
+    @XmlTransient()
     public void setId(String id) {
         this.id = id;
     }

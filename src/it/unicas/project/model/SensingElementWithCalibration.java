@@ -1,7 +1,6 @@
 package it.unicas.project.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.xml.bind.annotation.*;
 
 public class SensingElementWithCalibration {
 
@@ -44,7 +43,6 @@ public class SensingElementWithCalibration {
         return idSensingElement;
     }
 
-
     public void setIdSensingElement(String idSensingElement) {
         this.idSensingElement = idSensingElement;
     }
@@ -82,6 +80,7 @@ public class SensingElementWithCalibration {
         return portName;
     }
 
+    @XmlTransient
     public void setPortName(String portName) {
         this.portName = portName;
     }

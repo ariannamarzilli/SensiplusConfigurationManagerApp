@@ -1,8 +1,12 @@
 package it.unicas.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name = "CHIP")
 public class ChipWithCalibration {
 
     private Chip chip;
@@ -16,10 +20,12 @@ public class ChipWithCalibration {
         this.chip = chip;
     }
 
+    @XmlElementWrapper(name = "SENSING_ELEMENT_ONCHIP")
     public List<SensingElementWithCalibration> getSensingElementWithCalibrations() {
         return sensingElementWithCalibrations;
     }
 
+    @XmlElement(name = "SENSING_ELEMENT_ONCHIP")
     public void setSensingElementWithCalibrations(List<SensingElementWithCalibration> sensingElementWithCalibrations) {
         this.sensingElementWithCalibrations = sensingElementWithCalibrations;
     }

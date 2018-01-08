@@ -2,8 +2,11 @@ package it.unicas.project.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "CONFIGURATION")
+@XmlType(propOrder = {"driver", "hostController", "apiOwner", "mcu", "protocol", "addressingType", "idCluster"})
 public class Configuration {
 
     private String driver;
@@ -94,6 +97,7 @@ public class Configuration {
         return id;
     }
 
+    @XmlTransient()
     public void setId(int id) {
         this.id = id;
     }

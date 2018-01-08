@@ -3,6 +3,8 @@ package it.unicas.project;
 import it.unicas.project.dao.*;
 import it.unicas.project.model.*;
 import it.unicas.project.view.*;
+import it.unicas.project.xml.ClusterWrapper;
+import it.unicas.project.xml.FamilyWrapper;
 import it.unicas.project.xml.Sensichips;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -19,6 +21,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
@@ -379,14 +383,52 @@ public class MainApp extends Application {
             Sensichips sensichips = new Sensichips();
 
             ObservableList<SensingElement> sensingElementData = FXCollections.observableList(SensingElementDAO.getInstance().fetchAll());
-            ObservableList<Family> familyData = FXCollections.observableList(FamilyDAO.getInstance().fetchAll());
-            ObservableList<Chip> chipData = FXCollections.observableList(ChipDAO.getInstance().fetchAll());
-            ObservableList<Cluster> clusterData = FXCollections.observableList(ClusterDAO.getInstance().fetchAll());
+
+            for (int i = 0; i < sensingElementData.size(); i++) {
+                if (sensingElementData.get(i).getMeasureTechnique().equals("DIRECT")) {
+                    sensingElementData.get(i).setrSense(null);
+                    sensingElementData.get(i).setInGain(null);
+                    sensingElementData.get(i).setOutGain(null);
+                    sensingElementData.get(i).setContacts(null);
+                    sensingElementData.get(i).setFrequency(null);
+                    sensingElementData.get(i).setHarmonic(null);
+                    sensingElementData.get(i).setDcBias(null);
+                    sensingElementData.get(i).setModeVI(null);
+                    sensingElementData.get(i).setMeasureType(null);
+                    sensingElementData.get(i).setPhaseShiftMode(null);
+                    sensingElementData.get(i).setPhaseShift(null);
+                    sensingElementData.get(i).setIq(null);
+                }
+            }
+
+            List<Family> families = FamilyDAO.getInstance().fetchAll();
+            List<FamilyWrapper> familyWrappers = new ArrayList<>();
+
+            for (int i = 0; i < families.size(); i++) {
+                FamilyWrapper familyWrapper = new FamilyWrapper(families.get(i));
+                familyWrappers.add(familyWrapper);
+            }
+
+            ObservableList<FamilyWrapper> familyData = FXCollections.observableList(familyWrappers);
+            List<Cluster> clusters = ClusterDAO.getInstance().fetchAll();
+            List<ClusterWrapper> clusterXmlList = new ArrayList<>();
+
+            for (int i = 0; i < clusters.size(); i++) {
+                ClusterWrapper clusterXml = new ClusterWrapper(clusters.get(i), FamilyDAO.getInstance().fetchAll());
+                clusterXmlList.add(clusterXml);
+            }
+
+            ObservableList<ClusterWrapper> clusterData = FXCollections.observableList(clusterXmlList);
             ObservableList<Configuration> configurationData = FXCollections.observableList(ConfigurationDAO.getInstance().fetchAll());
+
+            // DA GESTIRE ANCORA
+            //date le configurazioni, mostro solamente i cluster appartenenti alle configurazioni
+            //date le configurazioni, devo mostrare solamente i chip montati
+            //dati i chip, mostro solamente le famiglie appartenenti
+            
 
             sensichips.setSensingElements(sensingElementData);
             sensichips.setFamilies(familyData);
-            sensichips.setChips(chipData);
             sensichips.setClusters(clusterData);
             sensichips.setConfigurations(configurationData);
 
