@@ -170,6 +170,28 @@ public class ClusterOverviewController {
 
     }
 
+    @FXML
+    private void handleUpdate() {
+        if (idClusterTableView.getSelectionModel().getSelectedItem() != null) {
+            Cluster cluster = idClusterTableView.getSelectionModel().getSelectedItem();
+
+            Cluster oldCluster = new Cluster(cluster);
+            mainApp.showClusterEditDialog(cluster, true);
+            if (!cluster.equals(oldCluster) && !mainApp.isCancelPressed()) {
+                ClusterDAO.getInstance().update(cluster);
+
+                for (int i = 0; i < clusterData.size(); i++) {
+                    if (clusterData.get(i).getId().equals(cluster.getId())){
+                        clusterData.remove(i);
+                    }
+                }
+
+                clusterData.add(cluster);
+                idClusterTableView.setItems(clusterData);
+            }
+        }
+    }
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }

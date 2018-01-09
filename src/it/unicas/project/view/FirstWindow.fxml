@@ -5,18 +5,13 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.MotionBlur?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="470.0" maxWidth="400.0" minHeight="470.0" minWidth="400.0" prefHeight="470.0" prefWidth="400.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.FirstWindowController">
    <children>
-      <ImageView fitHeight="307.0" fitWidth="386.0" layoutX="7.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../images/image.jpg" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="imageView" fitHeight="307.0" fitWidth="386.0" layoutX="7.0" opacity="0.64" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="27.0" layoutY="181.0" prefHeight="36.0" prefWidth="349.0" text="SensiPlus Configuration Manager" textAlignment="CENTER" textFill="#acb5b0">
          <font>
             <Font size="22.0" />
@@ -33,11 +28,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="386.0" layoutX="8.0" layoutY="334.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:/Users/Mariangela/SensiplusConfigurationManagerApp/images/imagerev.jpg" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="imageViewReverse" fitHeight="150.0" fitWidth="386.0" layoutX="8.0" layoutY="334.0" opacity="0.35" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="getStartedButtongetStartedButton" layoutX="154.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleGetStarted" style="-fx-background-color: #353434;" text="Get Started!" textFill="#ffffff90" />
    </children>
    <effect>

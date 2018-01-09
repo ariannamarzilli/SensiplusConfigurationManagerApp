@@ -127,6 +127,20 @@ public class ChipOverviewController {
         }
     }
 
+    @FXML
+    private void handleUpdate() {
+        if (chipTableView.getSelectionModel().getSelectedItem() != null) {
+            Chip clickedChip = chipTableView.getSelectionModel().getSelectedItem();
+            Chip oldChip = new Chip(clickedChip);
+            mainApp.showChipEditDialog(clickedChip, true);
+            if (!clickedChip.equals(oldChip)) {
+                ChipDAO.getInstance().update(clickedChip);
+                chipTableView.setItems(chipData);
+                chipTableView.refresh();
+            }
+        }
+    }
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }

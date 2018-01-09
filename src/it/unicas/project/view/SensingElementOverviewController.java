@@ -153,4 +153,19 @@ public class SensingElementOverviewController {
         }
     }
 
+
+    @FXML
+    public void handleUpdate() {
+        if (sensingElementTableView.getSelectionModel().getSelectedItem() != null) {
+            SensingElement sensingElement = sensingElementTableView.getSelectionModel().getSelectedItem();
+            SensingElement oldSensingElement = new SensingElement(sensingElement);
+            mainApp.showSensingElementEditDialog(sensingElement, true);
+            if (!sensingElement.equals(oldSensingElement)) {
+                SensingElementDAO.getInstance().update(sensingElement);
+
+                sensingElementTableView.setItems(sensingElementsData);
+                sensingElementTableView.refresh();
+            }
+        }
+    }
 }

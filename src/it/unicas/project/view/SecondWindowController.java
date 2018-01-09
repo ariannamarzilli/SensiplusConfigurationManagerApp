@@ -2,6 +2,8 @@ package it.unicas.project.view;
 
 import it.unicas.project.MainApp;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -9,6 +11,20 @@ import java.io.File;
 public class SecondWindowController {
 
     private MainApp mainApp;
+
+    @FXML
+    private ImageView settingsImageView;
+
+    @FXML
+    private ImageView xmlImageView;
+
+    @FXML
+    public void initialize() {
+
+        ClassLoader loader = getClass().getClassLoader();
+        settingsImageView.setImage(new Image(loader.getResourceAsStream("images/settingsIcon.png")));
+        xmlImageView.setImage(new Image(loader.getResourceAsStream("images/xmlIcon.png")));
+    }
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

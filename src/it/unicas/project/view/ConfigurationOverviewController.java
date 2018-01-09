@@ -112,6 +112,21 @@ public class ConfigurationOverviewController {
 
     }
 
+    @FXML
+    private void handleUpdate() {
+
+        if ((!configurationData.isEmpty()) && configurationTableView.getSelectionModel().getSelectedItem() != null) {
+            Configuration configuration = configurationTableView.getSelectionModel().getSelectedItem();
+            Configuration oldConfiguration = new Configuration(configuration);
+            mainApp.showConfigurationEditDialog(configuration);
+            if (!configuration.equals(oldConfiguration)) {
+                ConfigurationDAO.getInstance().update(configuration);
+                configurationTableView.setItems(configurationData);
+                configurationTableView.refresh();
+            }
+        }
+    }
+    
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }

@@ -13,8 +13,8 @@
 
 <AnchorPane minHeight="700.0" minWidth="1000.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #011f4b;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.project.view.ChipOverviewController">
     <children>
-        <JFXButton buttonType="RAISED" layoutX="834.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#6497b1" />
-        <JFXButton buttonType="RAISED" layoutX="889.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#6497b1" />
+        <JFXButton buttonType="RAISED" layoutX="762.0" layoutY="653.0" onAction="#handleNew" ripplerFill="#6497b1" text="New" textFill="#6497b1" />
+        <JFXButton buttonType="RAISED" layoutX="829.0" layoutY="653.0" onAction="#handleDelete" ripplerFill="#6497b0" text="Delete" textFill="#6497b1" />
         <Pane prefHeight="71.0" prefWidth="1000.0" style="-fx-background-color: #03396c#03396c;">
             <children>
                 <Label layoutX="31.0" layoutY="14.0" prefHeight="23.0" prefWidth="160.0" text="Chips" textFill="#b3cde0">
@@ -44,5 +44,6 @@
             </TableView>
          </children>
       </HBox>
+      <JFXButton buttonType="RAISED" layoutX="908.0" layoutY="653.0" onAction="#handleUpdate" ripplerFill="#6497b0" text="Update" textFill="#6497b1" />
     </children>
 </AnchorPane>

@@ -147,4 +147,19 @@ public class FamilyOverviewController {
         }
     }
 
+    @FXML
+    private void handleUpdate() {
+        if (familyTableView.getSelectionModel().getSelectedItem() != null) {
+            Family family = familyTableView.getSelectionModel().getSelectedItem();
+            Family oldFamily = new Family(family);
+            mainApp.showFamilyEditDialog(family, true);
+            if (!family.equals(oldFamily)) {
+                FamilyDAO.getInstance().update(family);
+
+                familyTableView.setItems(familyData);
+                familyTableView.refresh();
+            }
+        }
+    }
+
 }
