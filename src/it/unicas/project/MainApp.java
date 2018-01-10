@@ -382,8 +382,40 @@ public class MainApp extends Application {
 
             Sensichips sensichips = new Sensichips();
 
-            ObservableList<SensingElement> sensingElementData = FXCollections.observableList(SensingElementDAO.getInstance().fetchAll());
 
+            // configuration
+            ObservableList<Configuration> configurationData = FXCollections.observableList(ConfigurationDAO.getInstance().fetchAll());
+
+
+            //cluster
+            List<Cluster> clusters = ClusterDAO.getInstance().fetchAll();
+            clusters = handleClusterData(configurationData, clusters);
+            List<ClusterWrapper> clusterXmlList = new ArrayList<>();
+            for (int i = 0; i < clusters.size(); i++) {
+                ClusterWrapper clusterXml = new ClusterWrapper(clusters.get(i), FamilyDAO.getInstance().fetchAll());
+                clusterXmlList.add(clusterXml);
+            }
+            ObservableList<ClusterWrapper> clusterData = FXCollections.observableList(clusterXmlList);
+
+
+            //family
+            List<Family> families = FamilyDAO.getInstance().fetchAll();
+            families = handleFamilyData(clusters, families);
+            List<FamilyWrapper> familyWrappers = new ArrayList<>();
+
+            for (int i = 0; i < families.size(); i++) {
+                FamilyWrapper familyWrapper = new FamilyWrapper(families.get(i));
+                familyWrappers.add(familyWrapper);
+            }
+            ObservableList<FamilyWrapper> familyData = FXCollections.observableList(familyWrappers);
+
+
+            // sensing element
+            List<SensingElement> sensingElements = SensingElementDAO.getInstance().fetchAll();
+            sensingElements = handleSensingElementData(families, sensingElements);
+            ObservableList<SensingElement> sensingElementData = FXCollections.observableList(sensingElements);
+
+            //se un sensing element effettua misure dirette, gli attributi settati a null non devono essere visualizzati nell'xml
             for (int i = 0; i < sensingElementData.size(); i++) {
                 if (sensingElementData.get(i).getMeasureTechnique().equals("DIRECT")) {
                     sensingElementData.get(i).setrSense(null);
@@ -401,31 +433,6 @@ public class MainApp extends Application {
                 }
             }
 
-            List<Family> families = FamilyDAO.getInstance().fetchAll();
-            List<FamilyWrapper> familyWrappers = new ArrayList<>();
-
-            for (int i = 0; i < families.size(); i++) {
-                FamilyWrapper familyWrapper = new FamilyWrapper(families.get(i));
-                familyWrappers.add(familyWrapper);
-            }
-
-            ObservableList<FamilyWrapper> familyData = FXCollections.observableList(familyWrappers);
-            List<Cluster> clusters = ClusterDAO.getInstance().fetchAll();
-            List<ClusterWrapper> clusterXmlList = new ArrayList<>();
-
-            for (int i = 0; i < clusters.size(); i++) {
-                ClusterWrapper clusterXml = new ClusterWrapper(clusters.get(i), FamilyDAO.getInstance().fetchAll());
-                clusterXmlList.add(clusterXml);
-            }
-
-            ObservableList<ClusterWrapper> clusterData = FXCollections.observableList(clusterXmlList);
-            ObservableList<Configuration> configurationData = FXCollections.observableList(ConfigurationDAO.getInstance().fetchAll());
-
-            // DA GESTIRE ANCORA
-            //date le configurazioni, mostro solamente i cluster appartenenti alle configurazioni
-            //date le configurazioni, devo mostrare solamente i chip montati
-            //dati i chip, mostro solamente le famiglie appartenenti
-            
 
             sensichips.setSensingElements(sensingElementData);
             sensichips.setFamilies(familyData);
@@ -453,6 +460,78 @@ public class MainApp extends Application {
         launch(args);
     }
 
+    private List<Cluster> handleClusterData(List<Configuration> configurations, List<Cluster> clusters) {
+
+        List<Integer> indexInClusterList = new ArrayList<>();
+
+        for (int i = 0; i < configurations.size(); i++) {
+            for (int j = 0; j < clusters.size(); j++) {
+                if (configurations.get(i).getIdCluster().equals(clusters.get(j).getId())) {
+                    if (!indexInClusterList.contains(j)) {
+                        indexInClusterList.add(j);
+                    }
+                }
+            }
+        }
+
+        List<Cluster> clusters1 = new ArrayList<>();
+
+        for (int i = 0; i < indexInClusterList.size(); i++) {
+            clusters1.add(clusters.get(indexInClusterList.get(i)));
+        }
+
+        return clusters1;
+
+    }
+
+    private List<Family> handleFamilyData(List<Cluster> clusters, List<Family> families) {
+
+        List<Integer> indexInClusterList = new ArrayList<>();
+
+        for (int i = 0; i < clusters.size(); i++) {
+            for (int j = 0; j < families.size(); j++) {
+                if (clusters.get(i).getFamily().equals(families.get(j).getName())) {
+                    if (!indexInClusterList.contains(j)) {
+                        indexInClusterList.add(j);
+                    }
+                }
+            }
+        }
+
+        List<Family> families1 = new ArrayList<>();
+
+        for (int i = 0; i < indexInClusterList.size(); i++) {
+            families1.add(families.get(indexInClusterList.get(i)));
+        }
+
+        return families1;
+    }
+
+    private List<SensingElement> handleSensingElementData(List<Family> families, List<SensingElement> sensingElements) {
+
+        List<Integer> indexInClusterList = new ArrayList<>();
+
+        for (int i = 0; i < families.size(); i++) {
+            List<String> sensingElementIdForFamily = families.get(i).getSensingElementId();
+            for (int j = 0; j < sensingElementIdForFamily.size(); j++) {
+                for (int h = 0; h < sensingElements.size(); h++) {
+                    if (sensingElements.get(h).getId().equals(sensingElementIdForFamily.get(j))) {
+                        if (!indexInClusterList.contains(h)) {
+                            indexInClusterList.add(h);
+                        }
+                    }
+                }
+            }
+        }
+
+        List<SensingElement> sensingElements1 = new ArrayList<>();
+
+        for (int i = 0; i < indexInClusterList.size(); i++) {
+            sensingElements1.add(sensingElements.get(indexInClusterList.get(i)));
+        }
+
+        return sensingElements1;
+    }
 }
 
 

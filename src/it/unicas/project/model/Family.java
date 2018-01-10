@@ -173,4 +173,21 @@ public class Family {
             this.ports = new ArrayList<>();
         }
     }
+
+    public List<String> getSensingElementId() {
+
+        List<String> sensingElementsId = new ArrayList<>();
+
+        if (ports.size() == 0) {
+            return null;
+        }
+
+        for (int i = 0; i < ports.size(); i++) {
+            if (!sensingElementsId.contains(ports.get(i).getIdSensingElement()) && !ports.get(i).getIdSensingElement().isEmpty()) {
+                sensingElementsId.add(ports.get(i).getIdSensingElement());
+            }
+        }
+
+        return sensingElementsId;
+    }
 }

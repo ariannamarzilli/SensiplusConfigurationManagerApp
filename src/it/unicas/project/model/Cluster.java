@@ -66,4 +66,13 @@ public class Cluster {
         }
     }
 
+    public String getFamily() {
+
+        if (chipWithCalibrations.size() == 0) {
+            return null;
+        }
+
+        return chipWithCalibrations.get(0).getChip().getFamilyName();
+    }
+
 }
