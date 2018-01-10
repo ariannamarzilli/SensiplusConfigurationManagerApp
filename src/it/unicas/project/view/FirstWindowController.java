@@ -15,6 +15,9 @@ public class FirstWindowController {
     @FXML
     private ImageView imageViewReverse;
 
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     public void initialize() {
 
         ClassLoader loader = getClass().getClassLoader();
@@ -26,6 +29,9 @@ public class FirstWindowController {
         this.mainApp = mainApp;
     }
 
+    /**
+     * It's called when the user click the "Get started!" button
+     */
     @FXML
     public void handleGetStarted() {
         this.mainApp.showSecondWindow();

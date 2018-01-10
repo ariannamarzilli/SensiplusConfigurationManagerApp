@@ -32,7 +32,9 @@ public class ClusterDetailsController {
     private static boolean isAnUpdate;
 
 
-
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
 
@@ -51,6 +53,10 @@ public class ClusterDetailsController {
 
     }
 
+    /**
+     * Sets the cluster to be edited in the dialog.
+     * @param cluster to be edited
+     */
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
 
@@ -115,6 +121,9 @@ public class ClusterDetailsController {
         mainApp.setCancelPressed(true);
     }
 
+    /**
+     * It is executed when the "Next" button is clicked, showing another edit dialog.
+     */
     @FXML
     private void handleNext() {
         mainApp.setCancelPressed(false);
@@ -235,6 +244,10 @@ public class ClusterDetailsController {
 
     }
 
+    /**
+     * If it's an update, it prevents from changing id.
+     * @return
+     */
     public void setAnUpdate(boolean anUpdate) {
         isAnUpdate = anUpdate;
         idTextField.setDisable(anUpdate);

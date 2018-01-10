@@ -51,6 +51,9 @@ public class SensingElementOverviewController {
         this.mainApp = mainApp;
     }
 
+    /**
+     * Initialize the table in the view.
+     */
     @FXML
     private void initialize() {
         SensingElementDAO sensingElementDAO = new SensingElementDAO();
@@ -88,6 +91,9 @@ public class SensingElementOverviewController {
         this.sensingElementsData = sensingElementsData;
     }
 
+    /**
+     * It is executed when the "new" button is clicked. It shows the dialog box to create a sensing element.
+     */
     @FXML
     public void handleNew() {
         SensingElement tempSensingElement = new SensingElement();
@@ -102,6 +108,9 @@ public class SensingElementOverviewController {
         }
     }
 
+    /**
+     * Removes the selected sensing element from the database.
+     */
     @FXML
     public void handleDelete() {
         int selectedIndex = sensingElementTableView.getSelectionModel().getSelectedIndex();
@@ -138,6 +147,10 @@ public class SensingElementOverviewController {
         }
     }
 
+    /**
+     * If a sensing element is selected by double clicking, the dialog box is displayed to edit it.
+     * @param event A click or a double click on a chip.
+     */
     @FXML
     public void handleDoubleClick(MouseEvent event) {
         if (event.getClickCount() == 2 && (!sensingElementsData.isEmpty()) && sensingElementTableView.getSelectionModel().getSelectedItem() != null) {
@@ -153,7 +166,9 @@ public class SensingElementOverviewController {
         }
     }
 
-
+    /**
+     * When a sensing element is selected, it shows the dialog to edit it.
+     */
     @FXML
     public void handleUpdate() {
         if (sensingElementTableView.getSelectionModel().getSelectedItem() != null) {

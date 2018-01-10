@@ -55,6 +55,9 @@ public class FamilyOverviewController {
         this.familyData = familyData;
     }
 
+    /**
+     * Initializes the table in the view.
+     */
     @FXML
     public void initialize() {
         FamilyDAO familyDAO = new FamilyDAO();
@@ -76,9 +79,11 @@ public class FamilyOverviewController {
 
         familyTableView.setItems(familyObservableList);
 
-        //mainApp.setFamilyData(familyData);
     }
 
+    /**
+     * It is executed when the "new" button is clicked. It shows the dialog box to create a family.
+     */
     @FXML
     public void handleNew() {
         Family tempFamily = new Family();
@@ -91,6 +96,9 @@ public class FamilyOverviewController {
         }
     }
 
+    /**
+     * Removes the selected family from the database.
+     */
     @FXML
     public void handleDelete() {
         int selectedIndex = familyTableView.getSelectionModel().getSelectedIndex();
@@ -110,6 +118,11 @@ public class FamilyOverviewController {
         }
     }
 
+    /**
+     * If a family is selected by a click, it shows the details of the selected family.
+     * If a family is selected by double clicking, the dialog box is displayed to edit it.
+     * @param event A click or a double click on a chip.
+     */
     @FXML
     public void handleClick(MouseEvent event) {
 
@@ -147,6 +160,9 @@ public class FamilyOverviewController {
         }
     }
 
+    /**
+     * When a family is selected, it shows the dialog to edit it.
+     */
     @FXML
     private void handleUpdate() {
         if (familyTableView.getSelectionModel().getSelectedItem() != null) {

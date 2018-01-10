@@ -26,6 +26,9 @@ public class ClusterCalibrationsDetailsController {
     @FXML private TableColumn<CSMN, String> mColumn;
     @FXML private TableColumn<CSMN, String> nColumn;
 
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
 
@@ -61,6 +64,10 @@ public class ClusterCalibrationsDetailsController {
 
     }
 
+    /**
+     * Sets the cluster to be edited in the dialog.
+     * @param cluster to be edited
+     */
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
 
@@ -88,6 +95,9 @@ public class ClusterCalibrationsDetailsController {
         mainApp.setCancelPressed(true);
     }
 
+    /**
+     * Called when the user clicks Save Changes.
+     */
     @FXML
     private void handleSave() {
 

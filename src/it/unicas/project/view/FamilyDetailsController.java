@@ -123,6 +123,9 @@ public class FamilyDetailsController {
     private boolean isAnUpdate;
     Family family;
 
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
 
@@ -386,6 +389,11 @@ public class FamilyDetailsController {
 
     }
 
+    /**
+     * Sets the family to be edited in the dialog.
+     *
+     * @param family to be edited.
+     */
     public void setFamily(Family family) {
         this.family = family;
 
@@ -429,6 +437,9 @@ public class FamilyDetailsController {
         }
     }
 
+    /**
+     * Called when the user clicks Save Changes.
+     */
     @FXML
     private void handleSaveChanges() {
 
@@ -510,6 +521,10 @@ public class FamilyDetailsController {
         this.dialogStage = stage;
     }
 
+    /**
+     * Disable some of the widgets if bool it's true
+     * @param bool
+     */
     private void setDisableAllWidgetsInScrollPane(Boolean bool) {
         port1Label.setDisable(bool);
         port2Label.setDisable(bool);
@@ -570,6 +585,15 @@ public class FamilyDetailsController {
         analytePortExt3Box.setDisable(bool);
     }
 
+    /**
+     * Given the list of doors of a family, if a door is present then the relative widgets are enabled.
+     * It is called to set the family.
+     * @param ports list of ports of a family
+     * @param PORT
+     * @param label widget to enable
+     * @param sensingElementBox widget to enable
+     * @param analyteBox widget to enable
+     */
     private void handleWidgetsInScrollPane(List<Port> ports, String PORT, Label label, JFXComboBox sensingElementBox, CheckComboBox analyteBox) {
         //Questo metodo gestisce tutti i widgts contenuti nello scrollPane in FamilyDetails. I parametri passati in
         // ingresso sono la lista di porte specificate in una family, il nome della porta da controllare e i tre widgets
@@ -975,6 +999,10 @@ public class FamilyDetailsController {
         return true;
     }
 
+    /**
+     * If it's an update, it prevents from changing id.
+     * @return
+     */
     public void setAnUpdate(boolean isAnUpdate) {
         this.isAnUpdate = isAnUpdate;
         handleNameTextField(isAnUpdate);

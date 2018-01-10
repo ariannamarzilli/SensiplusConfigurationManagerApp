@@ -29,6 +29,9 @@ public class ConnectionController {
 
     @FXML private JFXPasswordField repeatPasswordField;
 
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     public void initialize() {
 
@@ -57,6 +60,9 @@ public class ConnectionController {
 
     }
 
+    /**
+     * Called when the user clicks Save.
+     */
     @FXML
     private void handleSave() {
 

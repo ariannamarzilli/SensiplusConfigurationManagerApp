@@ -105,8 +105,7 @@ public class SensingElementDetailsController {
 
 
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * This method is automatically called after the fxml file has been loaded.
      */
     @FXML
     private void initialize() {
@@ -125,12 +124,11 @@ public class SensingElementDetailsController {
         measureUnitComboBox.setItems(measureUniteList);
     }
 
-    // Funzione chiamata per mostrare o parametri di default sull'edit dialogue oppure per mostrare i valori che un sensing
-    // element su cui fare update ha
+
     /**
      * Sets the person to be edited in the dialog.
      *
-     * @param sensingElement
+     * @param sensingElement to be edited.
      */
     public void setSensingElement(SensingElement sensingElement) {
         this.sensingElement = sensingElement;
@@ -389,6 +387,9 @@ public class SensingElementDetailsController {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * If the sensor makes direct measurement, some widgets must be disabled.
+     */
     @FXML
     public void handleMeasureTechnique() {
         if (measureTechniqueComboBox.getSelectionModel().getSelectedItem().equals("DIRECT")) {
@@ -421,6 +422,10 @@ public class SensingElementDetailsController {
         }
     }
 
+    /**
+     * If it's an update, it prevents from changing id.
+     * @return
+     */
     public void setAnUpdate(boolean isAnUpdate) {
         this.isAnUpdate = isAnUpdate;
         handleIdTextField(isAnUpdate);

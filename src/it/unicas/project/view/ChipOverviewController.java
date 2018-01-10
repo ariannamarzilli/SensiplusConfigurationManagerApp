@@ -33,6 +33,9 @@ public class ChipOverviewController {
     private ObservableList<Chip> chipData;
     private MainApp mainApp;
 
+    /**
+     * Initialize the tables in the view.
+     */
     @FXML
     private void initialize() {
 
@@ -57,6 +60,9 @@ public class ChipOverviewController {
 
     }
 
+    /**
+     * It is executed when the "new" button is clicked. It shows the dialog box to create a chip.
+     */
     @FXML
     private void handleNew() {
         Chip tempChip = new Chip();
@@ -69,6 +75,9 @@ public class ChipOverviewController {
         }
     }
 
+    /**
+     * Removes the selected chip from the database.
+     */
     @FXML
     private void handleDelete() {
 
@@ -90,6 +99,11 @@ public class ChipOverviewController {
 
     }
 
+    /**
+     * If a chip is selected by a click, it shows ports and sensors of the selected chip.
+     * If a chip is selected by double clicking, the dialog box is displayed to edit it.
+     * @param event A click or a double click on a chip.
+     */
     @FXML
     private void handleClickOnChip(MouseEvent event) {
 
@@ -127,6 +141,9 @@ public class ChipOverviewController {
         }
     }
 
+    /**
+     * When a chip is selected, it shows the dialog to edit it.
+     */
     @FXML
     private void handleUpdate() {
         if (chipTableView.getSelectionModel().getSelectedItem() != null) {

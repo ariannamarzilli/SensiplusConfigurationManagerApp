@@ -37,6 +37,9 @@ public class ClusterOverviewController {
     private ObservableList<Cluster> clusterData;
     private MainApp mainApp;
 
+    /**
+     * Initialize the tables in the view.
+     */
     @FXML
     private void initialize() {
         List<Cluster> clusters = ClusterDAO.getInstance().fetchAll();
@@ -57,6 +60,9 @@ public class ClusterOverviewController {
         //mainApp.setClusterData(clusterData);
     }
 
+    /**
+     * It is executed when the "new" button is clicked. It shows the dialog box to create a cluster.
+     */
     @FXML
     private void handleNew() {
         Cluster clusterToModify = new Cluster();
@@ -71,6 +77,9 @@ public class ClusterOverviewController {
         }
     }
 
+    /**
+     * Removes the selected cluster from the database.
+     */
     @FXML
     private void handleDelete() {
         int selectedIndex = idClusterTableView.getSelectionModel().getSelectedIndex();
@@ -107,6 +116,11 @@ public class ClusterOverviewController {
         }
     }
 
+    /**
+     * If a cluster is selected by a click, it shows the chips of the selected cluster.
+     * If a cluster is selected by double clicking, the dialog box is displayed to edit it.
+     * @param event A click or a double click on a chip.
+     */
     @FXML
     private void handleClickOnIdCluster(MouseEvent event) {
 
@@ -147,6 +161,9 @@ public class ClusterOverviewController {
         }
     }
 
+    /**
+     * When a chip is selected, its details are shown.
+     */
     @FXML
     private void handleClickOnChip() {
 
@@ -170,6 +187,9 @@ public class ClusterOverviewController {
 
     }
 
+    /**
+     * When a cluster is selected, it shows the dialog to edit it.
+     */
     @FXML
     private void handleUpdate() {
         if (idClusterTableView.getSelectionModel().getSelectedItem() != null) {

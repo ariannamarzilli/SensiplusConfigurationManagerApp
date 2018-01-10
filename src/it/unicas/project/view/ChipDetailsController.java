@@ -24,6 +24,9 @@ public class ChipDetailsController {
     private Chip chip;
     private boolean isAnUpdate;
 
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
 
@@ -34,6 +37,10 @@ public class ChipDetailsController {
 
     }
 
+    /**
+     * Sets the chip to be edited in the dialog.
+     * @param chip to be edited
+     */
     public void setChip(Chip chip) {
         this.chip = chip;
 
@@ -41,6 +48,9 @@ public class ChipDetailsController {
         familyNameBox.setValue(chip.getFamilyName());
     }
 
+    /**
+     * Called when the user clicks Save Changes.
+     */
     @FXML
     private void handleSaveChanges() {
 
@@ -67,6 +77,11 @@ public class ChipDetailsController {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Validates the user input in the fields.
+     *
+     * @return true if the input is valid
+     */
     private boolean isInputCorrect() {
         if (!idChipTextField.getText().isEmpty() && !familyNameBox.getValue().isEmpty()) {
             return true;
@@ -74,6 +89,10 @@ public class ChipDetailsController {
         return false;
     }
 
+    /**
+     * If it's an update, it prevents from changing id.
+     * @return
+     */
     public void setAnUpdate(boolean isAnUpdate) {
         this.isAnUpdate = isAnUpdate;
         handleIdTextField(isAnUpdate);

@@ -36,6 +36,9 @@ public class ConfigurationDetailsController {
     private Configuration configuration;
     private Stage dialogStage;
 
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
 
@@ -49,6 +52,9 @@ public class ConfigurationDetailsController {
         clusterComboBox.setItems(allClusters);
     }
 
+    /**
+     * Called when the user clicks Save Changes.
+     */
     @FXML
     private void handleSaveChanges() {
 
@@ -96,6 +102,10 @@ public class ConfigurationDetailsController {
         this.dialogStage.close();
     }
 
+    /**
+     * Sets the configuration to be edited in the dialog.
+     * @param configuration to be edited
+     */
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
 
@@ -123,6 +133,9 @@ public class ConfigurationDetailsController {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * According to the addressing type selected, it is choosen what to show in protocolComboBox
+     */
     @FXML
     private void handleAddressingType() {
 

@@ -18,6 +18,9 @@ public class SecondWindowController {
     @FXML
     private ImageView xmlImageView;
 
+    /**
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     public void initialize() {
 
@@ -30,31 +33,52 @@ public class SecondWindowController {
         this.mainApp = mainApp;
     }
 
+    /**
+     * It's called when the "Sensing Element" button is clicked
+     */
     public void handleSensingElement() {
         this.mainApp.showSensingElementOverview();
     }
 
+    /**
+     * It's called when the "Family" button is clicked
+     */
     public void handleFamily() {
         this.mainApp.showFamilyOverview();
     }
 
+    /**
+     * It's called when the "Chip" button is clicked
+     */
     public void handleChip() {
         this.mainApp.showChipOverview();
     }
 
+    /**
+     * It's called when the "Cluster" button is clicked
+     */
     public void handleCluster() {
         this.mainApp.showClusterOverview();
     }
 
+    /**
+     * It's called when the "Configuration" button is clicked
+     */
     public void handleConfiguration() {
         this.mainApp.showConfigurationOverview();
     }
 
+    /**
+     * It's called when the "Settings" button is clicked
+     */
     @FXML
     public void handleSettings() {
         this.mainApp.showSettings();
     }
 
+    /**
+     * It's called when the "New xml file" button is clicked
+     */
     @FXML
     public void handleXml() {
         FileChooser fileChooser = new FileChooser();

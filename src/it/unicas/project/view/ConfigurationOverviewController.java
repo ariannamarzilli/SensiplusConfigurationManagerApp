@@ -35,6 +35,9 @@ public class ConfigurationOverviewController {
     ObservableList<Configuration> configurationData;
     private MainApp mainApp;
 
+    /**
+     * Initialize the table in the view.
+     */
     public void initialize() {
 
         List<Configuration> configurations = ConfigurationDAO.getInstance().fetchAll();
@@ -60,6 +63,9 @@ public class ConfigurationOverviewController {
         //mainApp.setConfigurationData(configurationData);
     }
 
+    /**
+     * It is executed when the "new" button is clicked. It shows the dialog box to create a configuration.
+     */
     @FXML
     private void handleNew() {
         Configuration configuration = new Configuration();
@@ -73,6 +79,9 @@ public class ConfigurationOverviewController {
         }
     }
 
+    /**
+     * Removes the selected configuration from the database.
+     */
     @FXML
     private void handleDelete() {
         int selectedIndex = configurationTableView.getSelectionModel().getSelectedIndex();
@@ -92,6 +101,10 @@ public class ConfigurationOverviewController {
         }
     }
 
+    /**
+     * If a configuration is selected by double clicking, the dialog box is displayed to edit it.
+     * @param event A click or a double click on a configuration.
+     */
     @FXML
     private void handleClick(MouseEvent event) {
 
@@ -112,6 +125,9 @@ public class ConfigurationOverviewController {
 
     }
 
+    /**
+     * When a configuration is selected, it shows the dialog to edit it.
+     */
     @FXML
     private void handleUpdate() {
 
